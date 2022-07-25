@@ -3288,16 +3288,18 @@
             <div class="topbar-item">
                 <div class="btn btn-icon w-auto btn-clean d-flex align-items-center btn-lg px-2"
                     id="kt_quick_user_toggle">
-                    <div class="d-flex flex-column text-right pr-3">
-                        <span
-                            class="text-muted font-weight-bold font-size-base d-none d-md-inline">User</span>
-                        <span
-                            class="text-dark-75 font-weight-bolder font-size-base d-none d-md-inline">UX
-                            Designer</span>
+                    <div class="d-flex flex-column text-right">
+                        <a type="submit" id="kt_login_signup_submit"
+                            class="btn btn-pill btn-primary font-weight-bold opacity-90 px-5 py-3 m-1">
+                            Login
+                        </a>
                     </div>
-                    <span class="symbol symbol-35 symbol-light-primary">
-                        <span class="symbol-label font-size-h5 font-weight-bold">U</span>
-                    </span>
+                    <div class="d-flex flex-column text-right pr-3">
+                        <a type="submit" id="kt_login_signup_submit"
+                            class="btn btn-pill btn-outline-primary font-weight-bold opacity-90  py-3 m-1">
+                            Sign Up
+                        </a>
+                    </div>
                 </div>
             </div>
             <!--end::User-->

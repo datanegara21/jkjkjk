@@ -95,13 +95,13 @@ License: You must have a valid license purchased only from themeforest(the above
         <!--begin::Page-->
         <div class="d-flex flex-row flex-column-fluid page">
             <!--begin::Aside-->
-            @include('layouts.user.aside')
+            @include('layouts.guest.aside')
             <!--end::Aside-->
 
             <!--begin::Wrapper-->
             <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
                 <!--begin::Header-->
-                @include('layouts.user.header')
+                @include('layouts.guest.header')
                 <!--end::Header-->
 
                 <!--begin::Content-->
@@ -109,7 +109,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 <!--end::Content-->
 
                 <!--begin::Footer-->
-                @include('layouts.user.footer')
+                @include('layouts.guest.footer')
                 <!--end::Footer-->
             </div>
             <!--end::Wrapper-->
@@ -392,7 +392,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
     <!-- begin::User Panel-->
-    @include('layouts.user.user-panel')
+    @include('layouts.guest.user-panel')
     <!-- end::User Panel-->
 
 

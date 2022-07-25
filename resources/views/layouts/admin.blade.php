@@ -1129,6 +1129,10 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="{{ asset('assets/js/scripts.bundle.js?v=7.0.6') }}"></script>
     <!--end::Global Theme Bundle-->
 
+    <!--begin:Global script include-->
+    @include('sweetalert::alert')
+    <!--end::Global script include-->
+
     <!--begin::Custom Theme script-->
     @stack('script')
     <!--end::Custom Theme script-->

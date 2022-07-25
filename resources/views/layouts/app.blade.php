@@ -79,5 +79,9 @@
             @yield('content')
         </main>
     </div>
+
+<!--begin:Global script include-->
+@include('sweetalert::alert')
+<!--end::Global script include-->
 </body>
 </html>

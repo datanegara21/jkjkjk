@@ -7,6 +7,8 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Alert;
+use App\Models\User;
 
 class LoginController extends Controller
 {
@@ -43,18 +45,18 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $this->validate($request, [
-            'email' => 'required|email',
+            'email' => 'required|email:dns',
             'password' => 'required',
         ]);
 
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
             if(Auth::user()->role == 0){
-                return redirect('admin');
+                return redirect('home')->withToastSuccess('Login berhasil');
             }else{
-                return redirect('user');
+                return redirect('home')->withToastSuccess('Login berhasil');
             }
         }else{
-            return redirect('login');
+            return redirect('login')->withToastError('Email atau password salah');
         }
 
     }
