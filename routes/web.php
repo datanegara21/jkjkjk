@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\{Route, Auth};
+use App\Http\Controllers\{HomeController, EventController};
 
 /*
 |--------------------------------------------------------------------------
@@ -13,9 +14,9 @@ use Illuminate\Support\Facades\{Route, Auth};
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/loginn', function() {
     return view('auth.login0');
@@ -24,8 +25,9 @@ Route::get('/loginn', function() {
 Auth::routes();
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/event/detail', [EventController::class, 'index']);
+Route::get('/event', [EventController::class, 'listEvent']);
 // Route::get('/user', function() {
 //     return view('user.test');
 // });

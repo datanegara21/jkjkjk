@@ -1,4 +1,3 @@
-@include('sweetalert::alert')
 <!DOCTYPE html>
 <!--
 Template Name: Metronic - Bootstrap 4 HTML, React, Angular 9 & VueJS Admin Dashboard Theme
@@ -261,7 +260,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
     <!--begin::Page Scripts(used by this page)-->
     <script src="{{ asset('assets/js/pages/custom/login/login-general.js?v=7.0.6') }}"></script>
-    <script src="https://cdns.cloudflare.com/ajax/libs/sweetalert/2.1.1/sweetalert.min.js"></script>
+    @include('sweetalert::alert')
     <!--end::Page Scripts-->
 </body>
 <!--end::Body-->

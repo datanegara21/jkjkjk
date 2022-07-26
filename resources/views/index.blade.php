@@ -4,10 +4,9 @@
 
 @extends('layouts.'.$layout)
 
-@section('title','home')
+@section('title','Home')
 
 @section('content')
-
 
 <!--begin::Content-->
 <div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
@@ -17,8 +16,8 @@
         <div class=" container  d-flex flex-column">
             <!--begin::Title-->
             <div class="d-flex align-items-sm-end flex-column flex-sm-row mb-5">
-                <h2 class="text-white mr-5 mb-0">Search Job</h2>
-                <span class="text-white opacity-60 font-weight-bold">Job Management System</span>
+                <h2 class="text-white mr-5 mb-0">Cari Event</h2>
+                <span class="text-white opacity-60 font-weight-bold">Cari event sesuka anda </span>
             </div>
             <!--end::Title-->
 
@@ -46,9 +45,10 @@
                                     </g>
                                 </svg>
                                 <!--end::Svg Icon-->
-                            </span> <input type="text"
+                            </span>
+                            <input type="text"
                                 class="form-control border-0 font-weight-bold pl-2"
-                                placeholder="Job Title" />
+                                placeholder="Judul Event" />
                         </div>
                         <!--end::Input-->
 
@@ -70,9 +70,10 @@
                                     </g>
                                 </svg>
                                 <!--end::Svg Icon-->
-                            </span> <input type="text"
+                            </span> 
+                            <input type="text"
                                 class="form-control border-0 font-weight-bold pl-2"
-                                placeholder="Category" data-toggle="dropdown" aria-haspopup="true"
+                                placeholder="Kategori" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false" data-target="kt_searchbar_7_category-options"
                                 data-offset="0,10" readonly />
                             <div id="kt_searchbar_7_category-options"
@@ -102,23 +103,18 @@
                                     </g>
                                 </svg>
                                 <!--end::Svg Icon-->
-                            </span> <input id="kt_subheader_7_location" type="text"
+                            </span> 
+                            <input id="kt_subheader_7_location" type="text"
                                 class="form-control border-0 font-weight-bold pl-2"
-                                placeholder="Location" data-toggle="modal" aria-haspopup="true"
+                                placeholder="Lokasi" data-toggle="modal" aria-haspopup="true"
                                 aria-expanded="false" data-target="#subheader7Modal" readonly />
                         </div>
                         <!--end::Input-->
                         <button type="submit"
-                            class="btn btn-dark font-weight-bold btn-hover-light-primary mt-3 mt-sm-0 px-7">Search</button>
+                            class="btn btn-dark font-weight-bold btn-hover-light-primary mt-3 mt-sm-0 px-7">Cari</button>
                     </form>
                     <!--end::Form-->
                 </div>
-                <!--begin::Advanced Search-->
-                <div class="mt-4 my-md-0 mx-md-10">
-                    <a href="#" class="text-white font-weight-bolder text-hover-primary">Advanced
-                        Search</a>
-                </div>
-                <!--end::Advanced Search-->
             </div>
             <!--end::Search Bar-->
         </div>

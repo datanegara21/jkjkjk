@@ -51,9 +51,9 @@ class LoginController extends Controller
 
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
             if(Auth::user()->role == 0){
-                return redirect('home')->withToastSuccess('Login berhasil');
+                return redirect('/')->withToastSuccess('Login berhasil');
             }else{
-                return redirect('home')->withToastSuccess('Login berhasil');
+                return redirect('/')->withToastSuccess('Login berhasil');
             }
         }else{
             return redirect('login')->withToastError('Email atau password salah');

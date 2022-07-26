@@ -215,6 +215,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
     <!--begin::Page Scripts(used by this page)-->
     <script src="{{ asset('assets/js/pages/custom/login/login-general.js?v=7.0.6') }}"></script>
+    @include('sweetalert::alert')
     <!--end::Page Scripts-->
 </body>
 <!--end::Body-->

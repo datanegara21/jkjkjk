@@ -5,7 +5,7 @@
         <div class="d-flex align-items-stretch mr-2">
             <!--begin::Page Title-->
             <h3 class="d-none text-dark d-lg-flex align-items-center mr-10 mb-0">
-                Dashboard </h3>
+                @yield('title')</h3>
             <!--end::Page Title-->
 
             <!--begin::Header Menu Wrapper-->
@@ -2487,7 +2487,7 @@
                     <form>
                         <!--begin::Header-->
                         <div class="d-flex flex-column pt-12 bgi-size-cover bgi-no-repeat rounded-top"
-                            style="background-image: url(assets/media/misc/bg-1.jpg)">
+                            style="background-image: url({{ asset('assets/media/misc/bg-1.jpg') }})">
                             <!--begin::Title-->
                             <h4 class="d-flex flex-center rounded-top">
                                 <span class="text-white">User Notifications</span>
@@ -3131,7 +3131,7 @@
                     class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up dropdown-menu-lg">
                     <!--begin:Header-->
                     <div class="d-flex flex-column flex-center py-10 bgi-size-cover bgi-no-repeat rounded-top"
-                        style="background-image: url(assets/media/misc/bg-1.jpg)">
+                        style="background-image: url({{ asset('assets/media/misc/bg-1.jpg') }})">
                         <h4 class="text-white font-weight-bold">
                             Quick Actions
                         </h4>
