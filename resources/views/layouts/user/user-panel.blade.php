@@ -21,7 +21,7 @@
                 </div>
                 <div class="d-flex flex-column">
                     <a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">
-                        James Jones
+                        {{ Auth::user()->name }}
                     </a>
                     <div class="text-muted mt-1">
                         Application Developer
@@ -45,7 +45,7 @@
                                         </svg>
                                         <!--end::Svg Icon-->
                                     </span> </span>
-                                <span class="navi-text text-muted text-hover-primary">jm@softplus.com</span>
+                                <span class="navi-text text-muted text-hover-primary">{{ Auth::user()->email }}</span>
                             </span>
                         </a>
 

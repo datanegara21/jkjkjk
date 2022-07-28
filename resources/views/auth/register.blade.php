@@ -72,22 +72,22 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="form-group">
                                 <input
                                     class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8"
-                                    type="text" placeholder="Fullname" name="name" />
+                                    type="text" placeholder="Your Name" name="name" value="{{ old('name') }}" required autofocus/>
                             </div>
                             <div class="form-group">
                                 <input
                                     class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8"
-                                    type="text" placeholder="Email" name="email" autocomplete="off" />
+                                    type="text" placeholder="Email" name="email" autocomplete="off" value="{{ old('email') }}" required/>
                             </div>
                             <div class="form-group">
                                 <input
                                     class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8"
-                                    type="password" placeholder="Password" name="password" />
+                                    type="password" placeholder="Password" name="password" required/>
                             </div>
                             <div class="form-group">
                                 <input
                                     class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8"
-                                    type="password" placeholder="Confirm Password" name="password_confirmation" />
+                                    type="password" placeholder="Confirm Password" name="password_confirmation" required/>
                             </div>
                             <div class="form-group">
                                 <button type="submit" id="kt_login_signup_submit"
@@ -141,8 +141,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <!--end::Main-->
 
     <script>
-        var HOST_URL =
-            "https://preview.keenthemes.com/metronic/theme/html/tools/preview";
+        var HOST_URL = {{ url('/') }};
     </script>
     <!--begin::Global Config(global config for global JS scripts)-->
     <script>

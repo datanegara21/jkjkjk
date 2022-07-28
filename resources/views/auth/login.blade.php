@@ -62,7 +62,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!--begin::Login Sign in form-->
                     <div class="login-signin">
                         <div class="mb-20">
-                            <h3>Sign In To Admin</h3>
+                            <h3>Sign In To GetEvent</h3>
                             <p class="opacity-60 font-weight-bold">
                                 Enter your details to login to your account:
                             </p>
@@ -72,12 +72,12 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="form-group">
                                 <input
                                     class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8 mb-5"
-                                    type="text" placeholder="Email" name="email" value="{{ old('email') }}" autocomplete="on" />
+                                    type="text" placeholder="Email" name="email" value="{{ old('email') }}" autocomplete="on" required autofocus/>
                             </div>
                             <div class="form-group">
                                 <input
                                     class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8 mb-5"
-                                    type="password" placeholder="Password" name="password" />
+                                    type="password" placeholder="Password" name="password" required/>
                             </div>
                             <div class="form-group d-flex flex-wrap justify-content-between align-items-center px-8">
                                 <div class="checkbox-inline">
@@ -119,7 +119,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="form-group">
                                 <input
                                     class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8"
-                                    type="text" placeholder="Fullname" name="name" />
+                                    type="text" placeholder="Your Name" name="name" />
                             </div>
                             <div class="form-group">
                                 <input
@@ -186,8 +186,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <!--end::Main-->
 
     <script>
-        var HOST_URL =
-            "https://preview.keenthemes.com/metronic/theme/html/tools/preview";
+        var HOST_URL = {{ url('/') }};
     </script>
     <!--begin::Global Config(global config for global JS scripts)-->
     <script>

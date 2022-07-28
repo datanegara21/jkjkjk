@@ -3286,8 +3286,7 @@
 
             <!--begin::User-->
             <div class="topbar-item">
-                <div class="btn btn-icon w-auto btn-clean d-flex align-items-center btn-lg px-2"
-                    id="kt_quick_user_toggle">
+                <div class="btn btn-icon w-auto btn-clean d-flex align-items-center btn-lg px-2">
                     <div class="d-flex flex-column text-right">
                         <a href="{{ url('/login') }}" class="btn btn-pill btn-primary font-weight-bold opacity-90 px-5 py-3 m-1">
                             Login

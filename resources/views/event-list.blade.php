@@ -207,11 +207,11 @@
                                 <!--eng::Container-->
 
                                 <!--begin::Footer-->
-                                <div class="d-flex flex-center" id="kt_sticky_toolbar_chat_toggler" data-toggle="tooltip" title="" data-placement="right" data-original-title="Chat Example">
-                                    <a class="btn btn-primary font-weight-bolder font-size-sm py-3 px-7 mr-2" data-toggle="modal" data-target="#kt_chat_modal">
+                                <div class="d-flex flex-center">
+                                    <a href="{{ url('/event/detail') }}" class="btn btn-primary font-weight-bolder font-size-sm py-3 px-7 mr-2">
                                         Lihat Event
                                     </a>
-                                    <a class="btn btn-outline-light bg-dark-50 font-weight-bolder font-size-sm p-3" data-toggle="modal" data-target="#kt_chat_modal">
+                                    <a class="btn btn-outline-light bg-dark-50 font-weight-bolder font-size-sm p-3">
                                         <i class="fas fa-heart text-danger"></i>
                                     </a>
                                 </div>
