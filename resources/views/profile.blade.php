@@ -72,7 +72,20 @@
             <!--end::Row-->
             <div class="row">
             <h3 class="text-left col-10">Event dari Hummasoft</h3>
-            <div class="btn btn-dark col-2">Tampilkan</div>
+            <div class="col-2">
+                
+                <div class="btn-group dropup">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Tampilan
+                    </button>
+                    <div class="dropdown-menu text-center">
+                        <a class="dropdown-item" href="#">Semua</a>
+                        <a class="dropdown-item" href="#">Event baru</a>
+                        <a class="dropdown-item" href="#">Terlewat</a>
+                    </div>
+                    
+                </div>
+            </div>
             </div>
             <!--begin::Row-->
             <div class="row">
