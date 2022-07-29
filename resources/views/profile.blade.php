@@ -23,9 +23,15 @@
                     <!--begin::Card-->
                     <div class="card card-custom">
                         <!--begin::Body-->
-                        <div class="card-body pt-15">
+                        <div class="card-body">
+                            <div class="text-right">
+                                <div class="btn btn-primary">
+                                    <i class="fas fa-edit"></i>Edit
+                                </div>
+                            </div>
                             <!--begin::User-->
                             <div class="text-center mb-10">
+                                
                                 <div class="symbol symbol-60 symbol-circle symbol-xl-90">
                                     <div class="symbol-label"
                                         style="background-image:url('{{ asset('assets/media/users/300_21.jpg') }}')">
@@ -75,8 +81,8 @@
             <div class="col-2">
                 
                 <div class="btn-group dropup">
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Tampilan
+                    <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Tampilkan
                     </button>
                     <div class="dropdown-menu text-center">
                         <a class="dropdown-item" href="#">Semua</a>
