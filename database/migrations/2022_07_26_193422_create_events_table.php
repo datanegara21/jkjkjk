@@ -15,6 +15,11 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('profile_id');
+            $table->string('image');
+            $table->string('title');
+            $table->text('description');
+            $table->integer('total');
             $table->timestamps();
         });
     }
