@@ -30,7 +30,8 @@ Route::get('/event/detail', [EventController::class, 'index']);
 Route::get('/event', [EventController::class, 'listEvent']);
 
 //profile
-Route::get('/profile', [Profilecontroller::class, 'index']);
+Route::get('/profile', [ProfileController::class, 'index']);
+Route::get('/profile/edit', [ProfileController::class, 'edit']);
 
 // Route::get('/user', function() {
 //     return view('user.test');

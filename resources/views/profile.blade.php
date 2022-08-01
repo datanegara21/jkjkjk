@@ -4,7 +4,7 @@
 
 @extends('layouts.'.$layout)
 
-@section('title','Detail Event')
+@section('title','Profile')
 
 @section('content')
 
@@ -24,11 +24,15 @@
                     <div class="card card-custom">
                         <!--begin::Body-->
                         <div class="card-body">
+                            @if(Auth::user())
                             <div class="text-right">
-                                <div class="btn btn-primary">
-                                    <i class="fas fa-edit"></i>Edit
-                                </div>
+                                <a href="{{ url('/profile/edit') }}">
+                                    <div class="btn btn-primary">
+                                        <i class="fas fa-edit"></i>Edit
+                                    </div>
+                                </a>
                             </div>
+                            @endif
                             <!--begin::User-->
                             <div class="text-center mb-10">
                                 
@@ -80,7 +84,7 @@
             <h3 class="text-left col-10">Event dari Hummasoft</h3>
             <div class="col-2">
                 
-                <div class="btn-group dropup">
+                <div class="btn-group dropdown">
                     <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Tampilkan
                     </button>

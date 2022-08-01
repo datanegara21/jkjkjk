@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Models\{User, Profile};
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -29,6 +29,27 @@ class UserSeeder extends Seeder
         ];
         foreach ($user as $u){
             User::create($u);
+        }
+    }
+}
+
+class ProfileSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $user = [
+            [
+                'name' => 'User',
+                'email' => 'user@get.id',
+            ]
+        ];
+        foreach ($user as $u){
+            Profile::create($u);
         }
     }
 }

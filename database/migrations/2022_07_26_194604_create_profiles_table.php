@@ -18,7 +18,7 @@ class CreateProfilesTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('image')->default('assets/media/profile/default.png');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

@@ -51,7 +51,7 @@ class LoginController extends Controller
 
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
             if(Auth::user()->role == 0){
-                return redirect('/')->withToastSuccess('Login berhasil');
+                return redirect('/admin')->withToastSuccess('Login berhasil');
             }else{
                 return redirect('/')->withToastSuccess('Login berhasil');
             }
