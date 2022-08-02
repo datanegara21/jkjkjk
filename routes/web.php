@@ -28,6 +28,8 @@ Auth::routes();
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/event/detail', [EventController::class, 'index']);
 Route::get('/event', [EventController::class, 'listEvent']);
+Route::get('/event/add', [EventController::class, 'addEvent']);
+Route::get('/event/select', [EventController::class, 'selectEvent']);
 
 //profile
 Route::get('/profile', [ProfileController::class, 'index']);

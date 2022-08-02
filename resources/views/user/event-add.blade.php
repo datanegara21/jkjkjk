@@ -43,108 +43,73 @@
                                     <!--end::Header-->
                                     <!--begin::Body-->
                                     <div class="card-body">
-                                        <div class="form-group row">
-                                            <label
-                                                class="col-xl-3 col-lg-3 col-form-label text-right">Foto</label>
+                                        <div class="row">
+                                            <label class="col-xl-3"></label>
                                             <div class="col-lg-9 col-xl-6">
-                                                <div class="image-input image-input-outline"
-                                                    id="kt_profile_avatar"
-                                                    style="background-image: url({{ asset('assets/media/users/blank.png') }})">
-                                                    <div class="image-input-wrapper"
-                                                        style="background-image: url({{ asset ('assets/media/users/300_21.jpg') }})">
-                                                    </div>
-
-                                                    <label
-                                                        class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
-                                                        data-action="change" data-toggle="tooltip" title=""
-                                                        data-original-title="Change avatar">
-                                                        <i class="fa fa-pen icon-sm text-muted"></i>
-                                                        <input type="file" name="profile_avatar"
-                                                            accept=".png, .jpg, .jpeg" />
-                                                        <input type="hidden" name="profile_avatar_remove" />
-                                                    </label>
-
-                                                    <span
-                                                        class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
-                                                        data-action="cancel" data-toggle="tooltip"
-                                                        title="Cancel avatar">
-                                                        <i class="ki ki-bold-close icon-xs text-muted"></i>
-                                                    </span>
-
-                                                    <span
-                                                        class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
-                                                        data-action="remove" data-toggle="tooltip"
-                                                        title="Remove avatar">
-                                                        <i class="ki ki-bold-close icon-xs text-muted"></i>
-                                                    </span>
-                                                </div>
-                                                <span class="form-text text-muted">Tipe file yang diperbolehkan: png, jpg,
-                                                    jpeg.</span>
+                                                <h5 class="font-weight-bold mt-10 mb-6">Info Pengirim</h5>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Nama</label>
+                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Nama Pengirim</label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <input class="form-control form-control-lg form-control-solid"
                                                     type="text" value="{{ Auth::user()->name }}" placeholder="{{ Auth::user()->name }}"/>
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Email</label>
-                                            <div class="col-lg-9 col-xl-6">
-                                                <input class="form-control form-control-lg form-control-solid"
-                                                    type="text" value="{{ Auth::user()->email }}" placeholder="{{ Auth::user()->email }}"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Deskripsi</label>
-                                            <div class="col-lg-9 col-xl-6">
-                                                <textarea class="form-control form-control-lg form-control-solid" placeholder="{{ $user->description != null ? $user->description : 'Deskripsikan tentang diri anda' }}">{{ $user->description != null ? $user->description : '' }}</textarea>
-                                            </div>
-                                        </div>
                                         <div class="row">
                                             <label class="col-xl-3"></label>
                                             <div class="col-lg-9 col-xl-6">
-                                                <h5 class="font-weight-bold mt-10 mb-6">Info Kontak (opsional)</h5>
+                                                <h5 class="font-weight-bold mt-10 mb-6">Data Acara</h5>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Contact
-                                                Phone</label>
+                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Acara</label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <div class="input-group input-group-lg input-group-solid">
                                                     <div class="input-group-prepend"><span
                                                             class="input-group-text"><i
-                                                                class="la la-phone"></i></span></div>
+                                                                class="far fa-clipboard"></i></span></div>
                                                     <input type="text"
-                                                        class="form-control form-control-lg form-control-solid"
-                                                        value="+62 812-3123-1231" placeholder="Phone" />
+                                                        class="form-control form-control-lg form-control-solid" placeholder="Acara yang akan diselenggarakan" />
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Website</label>
+                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Hari, Tanggal</label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <div class="input-group input-group-lg input-group-solid">
                                                     <div class="input-group-prepend"><span
                                                             class="input-group-text"><i
-                                                                class="la la-at"></i></span></div>
+                                                                class="far fa-calendar-alt"></i></span></div>
                                                     <input type="text"
                                                         class="form-control form-control-lg form-control-solid"
-                                                        value="Hummasoft.com" placeholder="Website" />
+                                                        placeholder="Senin, 1 Agustus 2022" />
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Company
-                                                Site</label>
+                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Waktu</label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <div class="input-group input-group-lg input-group-solid">
+                                                    <div class="input-group-prepend"><span
+                                                            class="input-group-text"><i
+                                                                class="fas fa-stopwatch"></i></span></div>
                                                     <input type="text"
                                                         class="form-control form-control-lg form-control-solid"
-                                                        placeholder="Username" value="loop" />
-                                                    <div class="input-group-append"><span
-                                                            class="input-group-text">.com</span></div>
+                                                        placeholder="Senin, 1 Agustus 2022" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Tempat</label>
+                                            <div class="col-lg-9 col-xl-6">
+                                                <div class="input-group input-group-lg input-group-solid">
+                                                    <div class="input-group-prepend"><span
+                                                            class="input-group-text">
+                                                            <i class="fas fa-map-marker-alt"></i></span></div>
+                                                    <input type="text"
+                                                        class="form-control form-control-lg form-control-solid"
+                                                        placeholder="Senin, 1 Agustus 2022" />
                                                 </div>
                                             </div>
                                         </div>
