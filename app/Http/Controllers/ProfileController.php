@@ -16,6 +16,6 @@ class ProfileController extends Controller
             return redirect('login')->withToast('warning','Login terlebih dahulu');
         }
         $user = Profile::where('email',Auth::user()->email)->first();
-        return view('profile-edit')->with(compact('user'));
+        return view('user.profile-edit')->with(compact('user'));
     }
 }
