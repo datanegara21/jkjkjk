@@ -73,24 +73,12 @@
                                                 </div>
                                             </div>
                                             <div class="container mt-5">
-                                                <div class="font-size-h5 font-weight-bold mb-3">bagikan:
-                                                    <!--begin::share-->
-                                                    <div class="">
-                                                        <a href="#" class="btn btn-icon btn-circle btn-light-facebook mr-2">
-                                                            <i class="socicon-facebook"></i>
-                                                        </a>
-                                                        <a href="#" class="btn btn-icon btn-circle btn-light-twitter mr-2">
-                                                            <i class="socicon-twitter"></i>
-                                                        </a>
-                                                        <a href="#" class="btn btn-icon btn-circle btn-light-google mr-2">
-                                                            <i class="socicon-google"></i>
-                                                        </a>
-                                                        <a href="#" class="btn btn-icon btn-circle btn-light-success">
-                                                            <i class="socicon-whatsapp"></i>
-                                                        </a>
-                                                    </div>
-                                                    <!--end::share-->
+                                                <div class="font-size-h5 font-weight-bold mb-3">tags</div>
+                                                @for($i=1;$i<6;$i++)
+                                                <div class="font-size-h6 btn btn-outline-dark mx-3">
+                                                    tags {{ $i }}
                                                 </div>
+                                                @endfor
                                             </div>
                                         </div>  
                                         {{-- end::Item --}}
@@ -105,9 +93,6 @@
                                             <div class="mx-5 my-5">
                                                 <div class="font-weight-bold "><i class="fas fa-map-marker-alt mr-1"></i>Lokasi:</div>
                                                 <div class="text-muted text-right">Perum Permata Regency, Ngijo, Karangploso, Kab. Malang, Jawa Timur</div>
-                                            </div>
-                                            <div class="mx-5 my-5">
-                                                <div class="btn btn-primary">Peta</div>
                                             </div>
                                         </div>
                                         {{-- end::Item --}}
@@ -173,9 +158,6 @@
                                     </a>
                                     <a href="#" class="btn btn-icon btn-circle btn-light-google">
                                         <i class="socicon-google"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-icon btn-circle btn-light-success">
-                                        <i class="socicon-whatsapp"></i>
                                     </a>
                                 </div>
                                 <!--end::Contact-->

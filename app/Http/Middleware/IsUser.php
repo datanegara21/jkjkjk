@@ -16,7 +16,7 @@ class IsUser
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth()->user()->role == 0){
+        if(Auth()->user()->role == 1){
             return $next($request);
         }
         return redirect('login')->with('error', "Anda tidak dapat mengakses halaman ini !!!");;

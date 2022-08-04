@@ -4,7 +4,7 @@
 
 @extends('layouts.'.$layout)
 
-@section('title','Edit Profile')
+@section('title','Ubah Profil')
 
 @section('content')
 

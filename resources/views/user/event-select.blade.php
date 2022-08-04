@@ -4,7 +4,7 @@
 
 @extends('layouts.'.$layout)
 
-@section('title','Edit Profile')
+@section('title','Tambah Event')
 
 @section('content')
 
@@ -22,13 +22,26 @@
                 <div class="col-12">
                     <!--begin::Card-->
                     <div class="card card-custom">
+                        <!--begin::Header-->
+                        <div class="card-header py-3">
+                            <div class="card-title align-items-start flex-column">
+                                <h3 class="card-label font-weight-bolder text-dark">Tambah Event
+                                </h3>
+                                <span class="text-muted font-weight-bold font-size-sm mt-1">Pilih tipe dan template event</span>
+                            </div>
+                            <div class="card-toolbar">
+                                <a href="{{ url('event/add') }}" class="btn btn-success mr-2">Lanjut</a>
+                                <button type="reset" class="btn btn-secondary batal">Batal</button>
+                            </div>
+                        </div>
+                        <!--end::Header-->
                         <!--begin::Content-->
                         <div class="flex-row-fluid ml-lg-8">
                             <!--begin::Form-->
                             <form class="form">
                                 <div class="card-body">
                                     <div class="form-group m-0">
-                                        <label>Choose Delivery Type:</label>
+                                        <label>Pilih tipe event:</label>
                                         <div class="row">
                                             <div class="col-3">
                                                 <label class="option">
@@ -116,7 +129,7 @@
                                     <div id="input-detail">
                                         <div class="separator separator-dashed my-8"></div>
                                         <div class="form-group m-0" id="detail-1">
-                                            <label>Choose Delivery Type:</label>
+                                            <label>Pilih Template:</label>
                                             <div class="row">
                                                 <div class="col-3">
                                                     <label class="option">
@@ -141,7 +154,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group m-0" id="detail-2">
-                                            <label>Choose Delivery Type:</label>
+                                            <label>Pilih Template:</label>
                                             <div class="row">
                                                 <div class="col-3">
                                                     <label class="option">
@@ -166,7 +179,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group m-0" id="detail-3">
-                                            <label>Choose Delivery Type:</label>
+                                            <label>Pilih Template:</label>
                                             <div class="row">
                                                 <div class="col-3">
                                                     <label class="option">
@@ -191,7 +204,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group m-0" id="detail-4">
-                                            <label>Choose Delivery Type:</label>
+                                            <label>Pilih Template:</label>
                                             <div class="row">
                                                 <div class="col-3">
                                                     <label class="option">
@@ -218,10 +231,7 @@
                                     </div>
 
                                 </div>
-                                <div class="card-footer">
-                                    <button type="reset" class="btn btn-primary mr-2">Submit</button>
-                                    <button type="reset" class="btn btn-secondary">Cancel</button>
-                                </div>
+                                
                             </form>
                             <!--end::Form-->
                         </div>
@@ -251,34 +261,38 @@
         $(document).ready(function(){
             $("#input-detail").css("display","none"); //Menghilangkan form-input ketika pertama kali dijalankan
             $(".tipe").click(function(){ //Memberikan even ketika class detail di klik (class detail ialah class radio button)
-            if ($("input[name='tipe']:checked").val() == "1" ) { //Jika radio button "berbeda" dipilih maka tampilkan form-inputan
-                $("#input-detail").slideDown("fast"); //Efek Slide Down (Menampilkan Form Input)
-                $("#detail-1").css("display","block");
-                $("#detail-2").css("display","none");
-                $("#detail-3").css("display","none");
-                $("#detail-4").css("display","none");
-            }else if ($("input[name='tipe']:checked").val() == "2" ) { //Jika radio button "berbeda" dipilih maka tampilkan form-inputan
-                $("#input-detail").slideDown("fast"); //Efek Slide Down (Menampilkan Form Input)
-                $("#detail-1").css("display","none");
-                $("#detail-2").css("display","block");
-                $("#detail-3").css("display","none");
-                $("#detail-4").css("display","none");
-            }else if ($("input[name='tipe']:checked").val() == "3" ) { //Jika radio button "berbeda" dipilih maka tampilkan form-inputan
-                $("#input-detail").slideDown("fast"); //Efek Slide Down (Menampilkan Form Input)
-                $("#detail-1").css("display","none");
-                $("#detail-2").css("display","none");
-                $("#detail-3").css("display","block");
-                $("#detail-4").css("display","none");
-            }else if ($("input[name='tipe']:checked").val() == "4" ) { //Jika radio button "berbeda" dipilih maka tampilkan form-inputan
-                $("#input-detail").slideDown("fast"); //Efek Slide Down (Menampilkan Form Input)
-                $("#detail-1").css("display","none");
-                $("#detail-2").css("display","none");
-                $("#detail-3").css("display","none");
-                $("#detail-4").css("display","block");
-            } else {
-                $("#input-detail").slideUp("fast"); //Efek Slide Up (Menghilangkan Form Input)
-            }
-            });
+                if ($("input[name='tipe']:checked").val() == "1" ) { //Jika radio button "berbeda" dipilih maka tampilkan form-inputan
+                    $("#input-detail").slideDown("fast"); //Efek Slide Down (Menampilkan Form Input)
+                    $("#detail-1").css("display","block");
+                    $("#detail-2").css("display","none");
+                    $("#detail-3").css("display","none");
+                    $("#detail-4").css("display","none");
+                }else if ($("input[name='tipe']:checked").val() == "2" ) { //Jika radio button "berbeda" dipilih maka tampilkan form-inputan
+                    $("#input-detail").slideDown("fast"); //Efek Slide Down (Menampilkan Form Input)
+                    $("#detail-1").css("display","none");
+                    $("#detail-2").css("display","block");
+                    $("#detail-3").css("display","none");
+                    $("#detail-4").css("display","none");
+                }else if ($("input[name='tipe']:checked").val() == "3" ) { //Jika radio button "berbeda" dipilih maka tampilkan form-inputan
+                    $("#input-detail").slideDown("fast"); //Efek Slide Down (Menampilkan Form Input)
+                    $("#detail-1").css("display","none");
+                    $("#detail-2").css("display","none");
+                    $("#detail-3").css("display","block");
+                    $("#detail-4").css("display","none");
+                }else if ($("input[name='tipe']:checked").val() == "4" ) { //Jika radio button "berbeda" dipilih maka tampilkan form-inputan
+                    $("#input-detail").slideDown("fast"); //Efek Slide Down (Menampilkan Form Input)
+                    $("#detail-1").css("display","none");
+                    $("#detail-2").css("display","none");
+                    $("#detail-3").css("display","none");
+                    $("#detail-4").css("display","block");
+                } else {
+                    $("#input-detail").slideUp("fast"); //Efek Slide Up (Menghilangkan Form Input)
+                }
+            })
+            $(".batal").click(function(){
+                $("#input-detail").slideUp("fast");
+                
+            })
         });
         </script>
 @endpush

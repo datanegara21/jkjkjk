@@ -208,7 +208,7 @@
 
                                 <!--begin::Footer-->
                                 <div class="d-flex flex-center">
-                                    <a class="btn btn-primary font-weight-bolder font-size-sm py-3 px-7 mr-2">
+                                    <a href="{{ url('/event/detail') }}" class="btn btn-primary font-weight-bolder font-size-sm py-3 px-7 mr-2">
                                         Lihat Event
                                     </a>
                                     <a class="btn btn-outline-light bg-dark-50 font-weight-bolder font-size-sm p-3">

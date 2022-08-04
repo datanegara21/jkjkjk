@@ -4,7 +4,7 @@
 
 @extends('layouts.'.$layout)
 
-@section('title','Edit Profile')
+@section('title','Tambah Event')
 
 @section('content')
 
@@ -102,6 +102,19 @@
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-xl-3 col-lg-3 col-form-label text-right">Tempat</label>
+                                            <div class="col-lg-9 col-xl-6">
+                                                <div class="input-group input-group-lg input-group-solid">
+                                                    <div class="input-group-prepend"><span
+                                                            class="input-group-text">
+                                                            <i class="fas fa-map-marker-alt"></i></span></div>
+                                                    <input type="text"
+                                                        class="form-control form-control-lg form-control-solid"
+                                                        placeholder="Senin, 1 Agustus 2022" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Maps</label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <div class="input-group input-group-lg input-group-solid">
                                                     <div class="input-group-prepend"><span
