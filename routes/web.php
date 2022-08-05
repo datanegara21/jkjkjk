@@ -35,6 +35,8 @@ Route::get('/event/select', [EventController::class, 'selectEvent']);
 Route::get('/profile', [ProfileController::class, 'index']);
 Route::get('/profile/edit', [ProfileController::class, 'edit']);
 
+//undangan
+Route::get('/event/undangan', [EventController::class, 'undangan']);
 // Route::get('/user', function() {
 //     return view('user.test');
 // });

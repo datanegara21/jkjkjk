@@ -140,14 +140,7 @@
                                                             </span>
                                                         </span>
                                                         <span class="option-label">
-                                                            <span class="option-head">
-                                                                <span class="option-title">
-                                                                    Tahlil
-                                                                </span>
-                                                            </span>
-                                                            <span class="option-body">
-                                                                Tahlil atau doa bersama
-                                                            </span>
+                                                            <img src="{{ asset('assets/media/template/tahlil00.jpg') }}" width="150px">
                                                         </span>
                                                     </label>
                                                 </div>
@@ -165,14 +158,20 @@
                                                             </span>
                                                         </span>
                                                         <span class="option-label">
-                                                            <span class="option-head">
-                                                                <span class="option-title">
-                                                                    Pernikahan
-                                                                </span>
+                                                            <img src="{{ asset('assets/media/template/nikah00.jpg') }}" width="150px">
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-3">
+                                                    <label class="option">
+                                                        <span class="option-control">
+                                                            <span class="radio">
+                                                                <input type="radio" name="m_option_1" value="1" class="detail"/>
+                                                                <span></span>
                                                             </span>
-                                                            <span class="option-body">
-                                                                Pernikahan, akad nikah, anniversary, atau lainnya
-                                                            </span>
+                                                        </span>
+                                                        <span class="option-label">
+                                                            <img src="{{ asset('assets/media/template/nikah01.jpg') }}" width="150px">
                                                         </span>
                                                     </label>
                                                 </div>
@@ -190,14 +189,7 @@
                                                             </span>
                                                         </span>
                                                         <span class="option-label">
-                                                            <span class="option-head">
-                                                                <span class="option-title">
-                                                                    Hajatan
-                                                                </span>
-                                                            </span>
-                                                            <span class="option-body">
-                                                                Hajatan khitan, atau lainnya
-                                                            </span>
+                                                            <img src="{{ asset('assets/media/template/hajatan00.jpg') }}" width="150px">
                                                         </span>
                                                     </label>
                                                 </div>
@@ -215,14 +207,7 @@
                                                             </span>
                                                         </span>
                                                         <span class="option-label">
-                                                            <span class="option-head">
-                                                                <span class="option-title">
-                                                                    Lainnya
-                                                                </span>
-                                                            </span>
-                                                            <span class="option-body">
-                                                                Jenis acara lainnya
-                                                            </span>
+                                                            <img src="{{ asset('assets/media/template/tahlil00.jpg') }}" width="150px">
                                                         </span>
                                                     </label>
                                                 </div>

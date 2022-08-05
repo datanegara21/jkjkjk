@@ -107,7 +107,7 @@
                                                 <div class="text-muted text-right">Perum Permata Regency, Ngijo, Karangploso, Kab. Malang, Jawa Timur</div>
                                             </div>
                                             <div class="mx-5 my-5">
-                                                <div class="btn btn-primary">Peta</div>
+                                                <div class="btn btn-primary">Lihat Undangan</div>
                                             </div>
                                         </div>
                                         {{-- end::Item --}}
@@ -129,9 +129,32 @@
                 </div>
                 
             </div>
-
-            <hr>
             <!--end::Row-->
+            <!--begin::Row-->
+            <div class="row">
+
+                <div class="col-12">
+                    <!--begin::Nav Panel Widget 4-->
+                    <div class="card card-custom gutter-b">
+                        <!--begin::Body-->
+                        <div class="card-body">
+                            <!--begin::Wrapper-->
+                            <div class="">
+                                <div class="header mb-1">
+                                    <h3 class="my-1">Peta</h3>
+                                </div>
+                                <div id="map" style="height:300px"></div>
+                            </div>
+                            <!--end::Wrapper-->
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                    <!--end::Nav Panel Widget 4-->
+                </div>
+                
+            </div>
+            <!--end::Row-->
+            <hr>
             <h3 class="text-left mt-7 mb-5">Tentang Pembuat Event</h3>
             <!--begin::Row-->
             <div class="row">
@@ -334,7 +357,17 @@
 @endsection
 
 @push('style')
-
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
 @push('script')
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
+    <script>
+        var map = L.map('map').setView([11, -12], 16);
+        var marker = L.marker([11, -12]).addTo(map);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
 
+        
+    </script>
 @endpush

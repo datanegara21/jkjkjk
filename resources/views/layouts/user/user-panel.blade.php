@@ -98,7 +98,7 @@
                 <!--end:Item-->
 
                 <!--begin::Item-->
-                <a href="{{ url('event/add') }}" class="navi-item">
+                <a href="{{ url('event/select') }}" class="navi-item">
                     <div class="navi-link">
                         <div class="symbol symbol-40 bg-light mr-3">
                             <div class="symbol-label">
@@ -133,7 +133,7 @@
                 </a>
                 <!--end:Item-->
 
-                <!--begin::Item-->
+                {{-- <!--begin::Item-->
                 <a href="{{ url('event/select') }}" class="navi-item">
                     <div class="navi-link">
                         <div class="symbol symbol-40 bg-light mr-3">
@@ -202,7 +202,7 @@
                         </div>
                     </div>
                 </a>
-                <!--end:Item-->
+                <!--end:Item--> --}}
             </div>
             <!--end::Nav-->
 

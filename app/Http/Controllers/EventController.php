@@ -30,4 +30,7 @@ class EventController extends Controller
     public function deleteEvent(){
 
     }
+    public function undangan(){
+        return view ('undangan');
+    }
 }
