@@ -107,7 +107,7 @@
                                                 <div class="text-muted text-right">Perum Permata Regency, Ngijo, Karangploso, Kab. Malang, Jawa Timur</div>
                                             </div>
                                             <div class="mx-5 my-5">
-                                                <div class="btn btn-primary">Lihat Undangan</div>
+                                                <a href="{{ url('event/undangan') }}" class="btn btn-primary">Lihat Undangan</a>
                                             </div>
                                         </div>
                                         {{-- end::Item --}}
