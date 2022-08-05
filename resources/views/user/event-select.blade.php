@@ -94,11 +94,11 @@
                                                     <span class="option-label">
                                                         <span class="option-head">
                                                             <span class="option-title">
-                                                                Hajatan
+                                                                Walimahan
                                                             </span>
                                                         </span>
                                                         <span class="option-body">
-                                                            Hajatan khitan, atau lainnya
+                                                            Walimatul khitan, atau lainnya
                                                         </span>
                                                     </span>
                                                 </label>
