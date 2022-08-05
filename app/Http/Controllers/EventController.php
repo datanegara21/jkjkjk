@@ -33,4 +33,10 @@ class EventController extends Controller
     public function undangan(){
         return view ('undangan');
     }
+    public function joinedEvent(){
+        return view ('event-join');
+    }
+    public function organizerList(){
+        return view ('organizer');
+    }
 }

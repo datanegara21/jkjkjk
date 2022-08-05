@@ -30,6 +30,8 @@ Route::get('/event/detail', [EventController::class, 'index']);
 Route::get('/event', [EventController::class, 'listEvent']);
 Route::get('/event/add', [EventController::class, 'addEvent']);
 Route::get('/event/select', [EventController::class, 'selectEvent']);
+Route::get('/event/join', [EventController::class, 'joinedEvent']);
+Route::get('/organizer', [EventController::class, 'organizerList']);
 
 //profile
 Route::get('/profile', [ProfileController::class, 'index']);
