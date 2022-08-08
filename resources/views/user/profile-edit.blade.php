@@ -25,7 +25,7 @@
                         <!--begin::Content-->
                         <div class="flex-row-fluid ml-lg-8">
                             <!--begin::Form-->
-                            <form class="form">
+                            <form class="form" action="{{ url('/profile/edit') }}" method="POST" enctype="multipart/form-data">
                                 <!--begin::Card-->
                                 <div class="card card-custom card-stretch">
                                     <!--begin::Header-->
@@ -51,7 +51,7 @@
                                                     id="kt_profile_avatar"
                                                     style="background-image: url({{ asset('assets/media/users/blank.png') }})">
                                                     <div class="image-input-wrapper"
-                                                        style="background-image: url({{ asset ('assets/media/users/300_21.jpg') }})">
+                                                        style="background-image: url({{ asset ($user->image) }})">
                                                     </div>
 
                                                     <label
@@ -109,26 +109,23 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Contact
-                                                Phone</label>
+                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Whatsapp</label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <div class="input-group input-group-lg input-group-solid">
                                                     <div class="input-group-prepend"><span
-                                                            class="input-group-text"><i
-                                                                class="la la-phone"></i></span></div>
+                                                            class="input-group-text"></span></div>
                                                     <input type="text"
                                                         class="form-control form-control-lg form-control-solid"
-                                                        value="+62 812-3123-1231" placeholder="Phone" />
+                                                        value="{{ $user->whatsapp != null ? $user->whatsapp : '' }}" placeholder="{{ $user->whatsapp != null ? $user->whatsapp : '+62 812-3456-7890' }}" />
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Website</label>
+                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Facebook</label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <div class="input-group input-group-lg input-group-solid">
                                                     <div class="input-group-prepend"><span
-                                                            class="input-group-text"><i
-                                                                class="la la-at"></i></span></div>
+                                                            class="input-group-text"></span></div>
                                                     <input type="text"
                                                         class="form-control form-control-lg form-control-solid"
                                                         value="Hummasoft.com" placeholder="Website" />
@@ -136,8 +133,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Company
-                                                Site</label>
+                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Twitter</label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <div class="input-group input-group-lg input-group-solid">
                                                     <input type="text"

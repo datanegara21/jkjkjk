@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class IsAdmin
 {
@@ -16,9 +17,13 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth()->user()->role == 0){
-            return $next($request);
+        if(Auth::check()){
+            if(Auth()->user()->role == 2){
+                return $next($request);
+            }
+            return redirect('/')->withToastWarning("Anda tidak dapat mengakses halaman ini !!!");
+        }else{
+            return redirect('login')->withToastWarning("Anda harus login terlebih dahulu");
         }
-        return redirect('login')->with('error', "Anda tidak dapat mengakses halaman ini !!!");
     }
 }

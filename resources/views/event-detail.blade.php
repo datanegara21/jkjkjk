@@ -17,7 +17,6 @@
             <!--begin::Dashboard-->
             <!--begin::Row-->
             <div class="row">
-
                 <div class="col-12">
                     <!--begin::Nav Panel Widget 4-->
                     <div class="card card-custom gutter-b">
@@ -106,9 +105,7 @@
                                                 <div class="font-weight-bold "><i class="fas fa-map-marker-alt mr-1"></i>Lokasi:</div>
                                                 <div class="text-muted text-right">Perum Permata Regency, Ngijo, Karangploso, Kab. Malang, Jawa Timur</div>
                                             </div>
-                                            <div class="mx-5 my-5">
-                                                <a href="{{ url('event/undangan') }}" class="btn btn-primary">Lihat Undangan</a>
-                                            </div>
+                                            
                                         </div>
                                         {{-- end::Item --}}
                                         
@@ -127,23 +124,21 @@
                     </div>
                     <!--end::Nav Panel Widget 4-->
                 </div>
-                
             </div>
             <!--end::Row-->
             <!--begin::Row-->
             <div class="row">
-
-                <div class="col-12">
+                <div class="col-4">
                     <!--begin::Nav Panel Widget 4-->
                     <div class="card card-custom gutter-b">
                         <!--begin::Body-->
                         <div class="card-body">
                             <!--begin::Wrapper-->
                             <div class="">
-                                <div class="header mb-1">
-                                    <h3 class="my-1">Peta</h3>
+                                <div class="">
+                                    <h3 class="">Peta</h3>
                                 </div>
-                                <div id="map" style="height:300px"></div>
+                                <div id="map" style="height:500px"></div>
                             </div>
                             <!--end::Wrapper-->
                         </div>
@@ -151,13 +146,26 @@
                     </div>
                     <!--end::Nav Panel Widget 4-->
                 </div>
-                
+                <div class="col-8">
+                    <!--begin::Nav Panel Widget 4-->
+                    <div class="card card-custom gutter-b">
+                        <!--begin::Body-->
+                        <div class="card-body">
+                            <!--begin::Wrapper-->
+                            <h3>Undangan</h3>
+                            <iframe class="d-block w-100" style="height: 500px" src="{{ asset('assets/media/undangan/00.pdf') }}#toolbar=0&view=fitH" frameborder="0"></iframe>
+                            <!--end::Wrapper-->
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                    <!--end::Nav Panel Widget 4-->
+                </div>     
             </div>
             <!--end::Row-->
-            <hr>
-            <h3 class="text-left mt-7 mb-5">Tentang Pembuat Event</h3>
+            
             <!--begin::Row-->
             <div class="row">
+                <h3 class="text-left mt-7 mb-5">Tentang Pembuat Event</h3>
                 <div class="col-12 row bg-white rounded">
                     <!--begin::Item-->
                     <div class="col-4 border-right border-secondary">
@@ -361,8 +369,8 @@
 @push('script')
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
     <script>
-        var map = L.map('map').setView([11, -12], 16);
-        var marker = L.marker([11, -12]).addTo(map);
+        var map = L.map('map').setView([-7.900074,112.606886], 16);
+        var marker = L.marker([-7.900074,112.606886]).addTo(map);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '© OpenStreetMap'

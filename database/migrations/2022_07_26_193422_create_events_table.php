@@ -20,7 +20,8 @@ class CreateEventsTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->integer('total');
-            $table->timestamps();
+            $table->dateTime('start');
+            $table->dateTime('end');
         });
     }
 
