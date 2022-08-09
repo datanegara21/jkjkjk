@@ -30,11 +30,11 @@ Route::get('/event/detail', [EventController::class, 'index']);
 Route::get('/event', [EventController::class, 'listEvent']);
 Route::get('/event/add', [EventController::class, 'addEvent'])->middleware('user');
 Route::get('/event/select', [EventController::class, 'selectEvent'])->middleware('user');
-Route::get('/event/join', [EventController::class, 'joinedEvent']);
+Route::get('/event/join', [EventController::class, 'joinedEvent'])->middleware('user');
 Route::get('/organizer', [EventController::class, 'organizerList']);
 
 //profile
-Route::get('/profile', [ProfileController::class, 'index']);
+Route::get('/profile', [ProfileController::class, 'index'])->middleware('user');
 Route::get('/profile/edit', [ProfileController::class, 'edit'])->middleware('user');
 Route::post('/profile/edit', [ProfileController::class, 'updateProfile'])->middleware('user');
 Route::get('/profile/{email}', [ProfileController::class, 'view']);
