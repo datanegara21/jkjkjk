@@ -36,6 +36,7 @@ Route::get('/organizer', [EventController::class, 'organizerList']);
 //profile
 Route::get('/profile', [ProfileController::class, 'index']);
 Route::get('/profile/edit', [ProfileController::class, 'edit'])->middleware('user');
+Route::post('/profile/edit', [ProfileController::class, 'updateProfile'])->middleware('user');
 Route::get('/profile/{email}', [ProfileController::class, 'view']);
 
 //undangan

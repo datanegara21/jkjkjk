@@ -113,10 +113,10 @@
                                             <div class="col-lg-9 col-xl-6">
                                                 <div class="input-group input-group-lg input-group-solid">
                                                     <div class="input-group-prepend"><span
-                                                            class="input-group-text"></span></div>
+                                                            class="input-group-text">wa.me/+62</span></div>
                                                     <input type="text"
                                                         class="form-control form-control-lg form-control-solid"
-                                                        value="{{ $user->whatsapp != null ? $user->whatsapp : '' }}" placeholder="{{ $user->whatsapp != null ? $user->whatsapp : '+62 812-3456-7890' }}" />
+                                                        value="{{ $user->whatsapp != null ? $user->whatsapp : '' }}" placeholder="{{ $user->whatsapp != null ? $user->whatsapp : '81234567890' }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -128,7 +128,19 @@
                                                             class="input-group-text"></span></div>
                                                     <input type="text"
                                                         class="form-control form-control-lg form-control-solid"
-                                                        value="Hummasoft.com" placeholder="Website" />
+                                                        value="{{ $user->facebook != null ? $user->facebook : '' }}" placeholder="{{ $user->facebook != null ? $user->facebook : 'facebook.com/your.url' }}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Instagram</label>
+                                            <div class="col-lg-9 col-xl-6">
+                                                <div class="input-group input-group-lg input-group-solid">
+                                                    <div class="input-group-prepend"><span
+                                                            class="input-group-text">@</span></div>
+                                                    <input type="text"
+                                                        class="form-control form-control-lg form-control-solid"
+                                                        value="{{ $user->instagram != null ? $user->instagram : '' }}" placeholder="{{ $user->instagram != null ? $user->instagram : 'your.name' }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -136,11 +148,23 @@
                                             <label class="col-xl-3 col-lg-3 col-form-label text-right">Twitter</label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <div class="input-group input-group-lg input-group-solid">
+                                                    <div class="input-group-prepend"><span
+                                                            class="input-group-text">@</span></div>
                                                     <input type="text"
                                                         class="form-control form-control-lg form-control-solid"
-                                                        placeholder="Username" value="loop" />
-                                                    <div class="input-group-append"><span
-                                                            class="input-group-text">.com</span></div>
+                                                        value="{{ $user->twitter != null ? $user->twitter : '' }}" placeholder="{{ $user->twitter != null ? $user->twitter : 'your.name' }}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Email</label>
+                                            <div class="col-lg-9 col-xl-6">
+                                                <div class="input-group input-group-lg input-group-solid">
+                                                    <div class="input-group-prepend"><span
+                                                            class="input-group-text"></span></div>
+                                                    <input type="text"
+                                                        class="form-control form-control-lg form-control-solid"
+                                                        value="{{ $user->email }}" placeholder="{{ $user->email }}" required/>
                                                 </div>
                                             </div>
                                         </div>
