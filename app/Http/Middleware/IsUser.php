@@ -21,7 +21,7 @@ class IsUser
             if(Auth()->user()->role == 1){
                 return $next($request);
             }
-            return redirect('/')->withToastWarning("Anda harus login sebagai user terlebih dahulu!!");
+            return redirect('/')->withToastWarning("Anda harus login sebagai user terlebih dahulu!!!");
         }else{
             return redirect('login')->withToastWarning("Anda harus login terlebih dahulu");
         }

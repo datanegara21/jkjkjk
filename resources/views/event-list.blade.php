@@ -4,7 +4,7 @@
 
 @extends('layouts.'.$layout)
 
-@section('title','List Event')
+@section('title','Daftar Event')
 
 @section('content')
 

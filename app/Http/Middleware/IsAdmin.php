@@ -18,7 +18,7 @@ class IsAdmin
     public function handle(Request $request, Closure $next)
     {
         if(Auth::check()){
-            if(Auth()->user()->role == 2){
+            if(Auth()->user()->role == 0){
                 return $next($request);
             }
             return redirect('/')->withToastWarning("Anda tidak dapat mengakses halaman ini !!!");

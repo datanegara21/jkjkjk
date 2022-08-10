@@ -12,9 +12,9 @@
         <!--begin::Nav-->
         <div class="nav nav-dark order-1 order-md-2">
             <a href="https://hummasoft.com/about-us" target="_blank"
-                class="nav-link pr-3 pl-0">About</a>
+                class="nav-link pr-3 pl-0">Tentang</a>
             <a href="https://hummasoft.com/contact-us" target="_blank"
-                class="nav-link pl-3 pr-0">Contact</a>
+                class="nav-link pl-3 pr-0">Kontak</a>
         </div>
         <!--end::Nav-->
     </div>

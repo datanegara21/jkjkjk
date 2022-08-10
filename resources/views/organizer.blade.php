@@ -150,7 +150,7 @@
         <!--begin::Container-->
         <div class=" container ">
             <!--begin::Dashboard-->
-            <h3 class="text-left mt-7">Event Organizer</h3>
+            <h3 class="text-left">Pembuat Event</h3>
             <!--begin::Row-->
             <div class="row">
                 @for($i=0;$i<9;$i++)

@@ -230,7 +230,7 @@
             </center>
             <hr>
             <!--end::Row-->
-            <h3 class="text-left mt-7">Event Organizer</h3>
+            <h3 class="text-left mt-7">Pembuat Event</h3>
             <!--begin::Row-->
             <div class="row">
                 @for($i=0;$i<3;$i++)

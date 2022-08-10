@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\{Route, Auth};
 
+use App\Http\Controllers\Admin\{TemplateController};
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,8 +21,15 @@ use Illuminate\Support\Facades\{Route, Auth};
 
 // Auth::routes();
 
-Route::get('/admin', function() {
-    return view('admin.test');
-})->middleware('admin');
+Route::middleware('admin')->prefix('admin')->group(function () {
+    //Home
+    Route::get('/', [TemplateController::class, 'index']);
+
+    //Event
+    Route::controller(TemplateController::class)->group(function (){
+        Route::get('template', 'index');
+    });
+});
+
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

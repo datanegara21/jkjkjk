@@ -34,17 +34,8 @@
             <!--begin::Item-->
             <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body"
                 data-boundary="window" title="Daftar Pembuat Event">
-                <a href="{{ url('user') }}" class="nav-link btn btn-icon btn-icon-white btn-lg">
+                <a href="{{ url('/organizer') }}" class="nav-link btn btn-icon btn-icon-white btn-lg">
                     <i class="flaticon2-calendar-3 icon-lg"></i>
-                </a>
-            </li>
-            <!--end::Item-->
-
-            <!--begin::Item-->
-            <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body"
-                data-boundary="window" title="Event Diikuti">
-                <a href="{{ url('/event/join') }}" class="nav-link btn btn-icon btn-icon-white btn-lg">
-                    <i class="flaticon2-notepad icon-lg"></i>
                 </a>
             </li>
             <!--end::Item-->
