@@ -19,8 +19,12 @@ class CreateEventsTable extends Migration
             $table->foreignId('event_template_id');
             $table->string('image');
             $table->string('title');
+            $table->string('name');
+            $table->string('time');
+            $table->string('location');
             $table->text('description');
             $table->integer('total');
+            $table->integer('price');
             $table->dateTime('start');
             $table->dateTime('end');
         });

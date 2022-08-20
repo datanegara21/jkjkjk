@@ -18,7 +18,6 @@ class CreateEventTemplatesTable extends Migration
             $table->foreignId('event_category_id');
             $table->string('preview');
             $table->string('template');
-            $table->string('fill');
             $table->timestamps();
         });
     }

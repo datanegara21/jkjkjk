@@ -14,6 +14,9 @@ class EventCategory extends Model
         'description',
         'layout',
         'image',
-        'fill'
     ];
+
+    public function event_template() {
+        return $this->hasMany(EventTemplate::class);
+    }
 }

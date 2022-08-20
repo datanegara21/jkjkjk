@@ -15,9 +15,19 @@ class Profile extends Model
         'email',
         'image',
         'description',
+        'whatsapp',
+        'facebook',
+        'instagram',
+        'twitter',
+        'website',
     ];
 
     protected $nullable = [
         'description',
+        'whatsapp',
+        'facebook',
+        'instagram',
+        'twitter',
+        'website',
     ];
 }

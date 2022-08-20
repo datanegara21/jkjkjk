@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\{Route, Auth};
 
-use App\Http\Controllers\Admin\{TemplateController, AdminController};
+use App\Http\Controllers\Admin\{TemplateController, AdminController, UserController};
 
 /*
 |--------------------------------------------------------------------------
@@ -21,12 +21,16 @@ use App\Http\Controllers\Admin\{TemplateController, AdminController};
 
 // Auth::routes();
 
-Route::middleware('admin')->prefix('admin')->group(function () {
+Route::middleware('admin')
+->prefix('admin')
+->group(function () {
     //Home
-    Route::get('/', [AdminController::class, 'index']);
+    Route::get('/', [AdminController::class, 'index'])->name('home');
 
     //Event Template
-    Route::controller(TemplateController::class)->group(function (){
+    Route::controller(TemplateController::class)
+    ->name('template')
+    ->group(function (){
         Route::get('template', 'index');
         //type
         Route::post('template/add', 'addType');
@@ -37,6 +41,13 @@ Route::middleware('admin')->prefix('admin')->group(function () {
         Route::post('template/{id_type}/add', 'addTemplate');
         Route::post('template/template/edit/{id_template}', 'editTemplate');
         Route::get('template/template/delete/{id_template}', 'deleteTemplate');
+    });
+
+    //User
+    Route::controller(UserController::class)
+    ->name('user')
+    ->group(function() {
+        Route::get('user', 'index');
     });
 });
 
