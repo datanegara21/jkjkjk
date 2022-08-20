@@ -24,14 +24,19 @@ Route::get('/loginn', function() {
 
 Auth::routes();
 
-//event
+//dashboard
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/event/detail', [EventController::class, 'index']);
-Route::get('/event', [EventController::class, 'listEvent']);
-Route::get('/event/add', [EventController::class, 'addEvent'])->middleware('user');
-Route::get('/event/select', [EventController::class, 'selectEvent'])->middleware('user');
-Route::get('/event/join', [EventController::class, 'joinedEvent'])->middleware('user');
-Route::get('/organizer', [EventController::class, 'organizerList']);
+
+//event
+Route::name('event')->group(function() {
+    Route::get('/event', [EventController::class, 'listEvent']);
+    Route::get('/event/detail', [EventController::class, 'index']);
+    Route::get('/event/add', [EventController::class, 'addEvent'])->middleware('user');
+    Route::get('/event/select', [EventController::class, 'selectEvent'])->middleware('user');
+    Route::get('/event/liked', [EventController::class, 'likedEvent'])->middleware('user');
+});
+Route::get('/event/joined', [EventController::class, 'joinedEvent'])->name('joined')->middleware('user');
+Route::get('/organizer', [EventController::class, 'organizerList'])->name('organizer');
 
 //profile
 Route::get('/profile', [ProfileController::class, 'index'])->middleware('user');

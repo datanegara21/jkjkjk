@@ -15,8 +15,8 @@
         <ul class="nav flex-column">
             <!--begin::Item-->
             <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body"
-                data-boundary="window" title="Latest Projects">
-                <a href="#" class="nav-link btn btn-icon btn-clean btn-icon-white btn-lg active">
+                data-boundary="window" title="Dashboard">
+                <a href="{{ url('admin') }}" class="nav-link btn btn-icon btn-clean btn-icon-white btn-lg active">
                     <i class="flaticon2-protection icon-lg"></i>
                 </a>
             </li>
@@ -24,9 +24,8 @@
 
             <!--begin::Item-->
             <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body"
-                data-boundary="window" title="Metronic Features">
-                <a href="#" class="nav-link btn btn-icon btn-icon-white btn-lg" data-toggle="tab"
-                    data-target="#kt_aside_tab_2" role="tab">
+                data-boundary="window" title="Template">
+                <a href="{{ url('admin/template') }}" class="nav-link btn btn-icon btn-icon-white btn-lg">
                     <i class="flaticon2-list-3 icon-lg"></i>
                 </a>
             </li>
@@ -35,8 +34,7 @@
             <!--begin::Item-->
             <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body"
                 data-boundary="window" title="Latest Reports">
-                <a href="#" class="nav-link btn btn-icon btn-icon-white btn-lg" data-toggle="tab"
-                    data-target="#kt_aside_tab_3" role="tab">
+                <a href="#" class="nav-link btn btn-icon btn-icon-white btn-lg">
                     <i class="flaticon2-calendar-6 icon-lg"></i>
                 </a>
             </li>
@@ -45,8 +43,7 @@
             <!--begin::Item-->
             <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body"
                 data-boundary="window" title="Project Management">
-                <a href="#" class="nav-link btn btn-icon btn-icon-white btn-lg" data-toggle="tab"
-                    data-target="#kt_aside_tab_4" role="tab">
+                <a href="#" class="nav-link btn btn-icon btn-icon-white btn-lg">
                     <i class="flaticon2-hourglass-1 icon-lg"></i>
                 </a>
             </li>
@@ -55,8 +52,7 @@
             <!--begin::Item-->
             <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body"
                 data-boundary="window" title="User Management">
-                <a href="#" class="nnav-link btn btn-icon btn-icon-white btn-lg" data-toggle="tab"
-                    data-target="#kt_aside_tab_5" role="tab">
+                <a href="#" class="nnav-link btn btn-icon btn-icon-white btn-lg">
                     <i class="flaticon2-analytics-2 icon-lg"></i>
                 </a>
             </li>
@@ -75,8 +71,7 @@
             <!--begin::Item-->
             <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body"
                 data-boundary="window" title="User Management">
-                <a href="#" class="nav-link btn btn-icon btn-icon-white btn-lg" data-toggle="tab"
-                    data-target="#kt_aside_tab_5" role="tab">
+                <a href="#" class="nav-link btn btn-icon btn-icon-white btn-lg">
                     <i class="flaticon2-gear icon-lg"></i>
                 </a>
             </li>
@@ -85,8 +80,7 @@
             <!--begin::Item-->
             <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body"
                 data-boundary="window" title="Finance & Accounting">
-                <a href="#" class="nav-link btn btn-icon btn-icon-white btn-lg" data-toggle="tab"
-                    data-target="#kt_aside_tab_6" role="tab">
+                <a href="#" class="nav-link btn btn-icon btn-icon-white btn-lg">
                     <i class="flaticon2-warning icon-lg"></i>
                 </a>
             </li>

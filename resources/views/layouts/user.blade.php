@@ -41,6 +41,10 @@ License: You must have a valid license purchased only from themeforest(the above
 </head>
 <!--end::Head-->
 
+@php
+    $profile = App\Models\Profile::where('email',Auth::user()->email)->first();
+@endphp
+
 <!--begin::Body-->
 
 <body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled page-loading">

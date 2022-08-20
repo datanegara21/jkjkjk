@@ -17,6 +17,9 @@ class CreateEventCategoriesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
+            $table->string('layout');
+            $table->string('image');
+            $table->string('fill');
             $table->timestamps();
         });
     }

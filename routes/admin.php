@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\{Route, Auth};
 
-use App\Http\Controllers\Admin\{TemplateController};
+use App\Http\Controllers\Admin\{TemplateController, AdminController};
 
 /*
 |--------------------------------------------------------------------------
@@ -23,11 +23,20 @@ use App\Http\Controllers\Admin\{TemplateController};
 
 Route::middleware('admin')->prefix('admin')->group(function () {
     //Home
-    Route::get('/', [TemplateController::class, 'index']);
+    Route::get('/', [AdminController::class, 'index']);
 
-    //Event
+    //Event Template
     Route::controller(TemplateController::class)->group(function (){
         Route::get('template', 'index');
+        //type
+        Route::post('template/add', 'addType');
+        Route::post('template/edit/{id_template}', 'editType');
+        Route::get('template/delete/{id_template}', 'deleteType');
+        Route::post('template/template', 'varTemplate');
+        //template
+        Route::post('template/{id_type}/add', 'addTemplate');
+        Route::post('template/template/edit/{id_template}', 'editTemplate');
+        Route::get('template/template/delete/{id_template}', 'deleteTemplate');
     });
 });
 

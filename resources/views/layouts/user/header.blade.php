@@ -17,7 +17,7 @@
             <!--begin::Wishlist-->
             <div class="dropdown">
                 <!--begin::Toggle-->
-                <a href="/whistlist" class="topbar-item mr-3">
+                <a href="{{ url('event/liked') }}" class="topbar-item mr-3">
                     <div class="btn btn-icon btn-clean btn-dropdown btn-lg pulse pulse-primary">
                         <span class="svg-icon svg-icon-primary svg-icon-2x">
                             <!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo4\dist/../src/media/svg/icons\General\Heart.svg-->

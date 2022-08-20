@@ -62,9 +62,9 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!--begin::Login Sign up form-->
                     <div class="login">
                         <div class="mb-20">
-                            <h3>Sign Up</h3>
+                            <h3>Daftar</h3>
                             <p class="opacity-60">
-                                Enter your details to create your account
+                                Masukkan detailmu untuk membuat akun baru!
                             </p>
                         </div>
                         <form method="POST" action="{{ route('register') }}" class="form text-center">
@@ -72,7 +72,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="form-group">
                                 <input
                                     class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8"
-                                    type="text" placeholder="Your Name" name="name" value="{{ old('name') }}" required autofocus/>
+                                    type="text" placeholder="Nama mu" name="name" value="{{ old('name') }}" required autofocus/>
                             </div>
                             <div class="form-group">
                                 <input
@@ -82,25 +82,25 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="form-group">
                                 <input
                                     class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8"
-                                    type="password" placeholder="Password" name="password" required/>
+                                    type="password" placeholder="Kata Sandi" name="password" required/>
                             </div>
                             <div class="form-group">
                                 <input
                                     class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8"
-                                    type="password" placeholder="Confirm Password" name="password_confirmation" required/>
+                                    type="password" placeholder="Konfirmasi Kata Sandi" name="password_confirmation" required/>
                             </div>
                             <div class="form-group">
                                 <button type="submit" id="kt_login_signup_submit"
                                     class="btn btn-pill btn-outline-white font-weight-bold opacity-90 px-15 py-3 m-2">
-                                    Sign Up
+                                    Daftar
                                 </button>
                             </div>
                         </form>
                         <div class="mt-10">
                             <span class="opacity-70 mr-4">
-                                Don't have an account yet?
+                                Sudah Punya Akun?
                             </span>
-                            <a href="{{ url('login') }}" id="kt_login_signup" class="text-white font-weight-bold">Sign In</a>
+                            <a href="{{ url('login') }}" id="kt_login_signup" class="text-white font-weight-bold">Masuk</a>
                         </div>
                     </div>
                     <!--end::Login Sign up form-->

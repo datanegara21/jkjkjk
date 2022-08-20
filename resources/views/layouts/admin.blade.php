@@ -186,7 +186,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <!--begin::Item-->
                             <div class="d-flex align-items-center flex-grow-1 mb-2">
                                 <div class="symbol symbol-30 bg-transparent flex-shrink-0">
-                                    <img src="assets/media/svg/files/doc.svg" alt="" />
+                                    <img src="{{ asset('assets/media/svg/files/doc.svg') }}" alt="" />
                                 </div>
                                 <div class="d-flex flex-column ml-3 mt-2 mb-2">
                                     <a href="#" class="font-weight-bold text-dark text-hover-primary">
@@ -202,7 +202,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <!--begin::Item-->
                             <div class="d-flex align-items-center flex-grow-1 mb-2">
                                 <div class="symbol symbol-30 bg-transparent flex-shrink-0">
-                                    <img src="assets/media/svg/files/pdf.svg" alt="" />
+                                    <img src="{{ asset('assets/media/svg/files/pdf.svg') }}" alt="" />
                                 </div>
                                 <div class="d-flex flex-column ml-3 mt-2 mb-2">
                                     <a href="#" class="font-weight-bold text-dark text-hover-primary">
@@ -218,7 +218,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <!--begin::Item-->
                             <div class="d-flex align-items-center flex-grow-1 mb-2">
                                 <div class="symbol symbol-30 bg-transparent flex-shrink-0">
-                                    <img src="assets/media/svg/files/xml.svg" alt="" />
+                                    <img src="{{ asset('assets/media/svg/files/xml.svg') }}" alt="" />
                                 </div>
                                 <div class="d-flex flex-column ml-3 mt-2 mb-2">
                                     <a href="#" class="font-weight-bold text-dark text-hover-primary">
@@ -234,7 +234,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <!--begin::Item-->
                             <div class="d-flex align-items-center flex-grow-1 mb-2">
                                 <div class="symbol symbol-30 bg-transparent flex-shrink-0">
-                                    <img src="assets/media/svg/files/csv.svg" alt="" />
+                                    <img src="{{ asset('assets/media/svg/files/csv.svg') }}" alt="" />
                                 </div>
                                 <div class="d-flex flex-column ml-3 mt-2 mb-2">
                                     <a href="#" class="font-weight-bold text-dark text-hover-primary">
@@ -257,7 +257,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="d-flex align-items-center flex-grow-1 mb-2">
                                 <div class="symbol symbol-30 flex-shrink-0">
                                     <div class="symbol-label"
-                                        style="background-image:url('assets/media/users/300_20.jpg')"></div>
+                                        style="background-image:url('{{ asset('assets/media/users/300_20.jpg') }}')"></div>
                                 </div>
                                 <div class="d-flex flex-column ml-3 mt-2 mb-2">
                                     <a href="#" class="font-weight-bold text-dark text-hover-primary">
@@ -271,7 +271,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="d-flex align-items-center flex-grow-1 mb-2">
                                 <div class="symbol symbol-30 flex-shrink-0">
                                     <div class="symbol-label"
-                                        style="background-image:url('assets/media/users/300_15.jpg')"></div>
+                                        style="background-image:url('{{ asset('assets/media/users/300_15.jpg') }}')"></div>
                                 </div>
                                 <div class="d-flex flex-column ml-3 mt-2 mb-2">
                                     <a href="#" class="font-weight-bold text-dark text-hover-primary">
@@ -285,7 +285,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="d-flex align-items-center flex-grow-1 mb-2">
                                 <div class="symbol symbol-30 flex-shrink-0">
                                     <div class="symbol-label"
-                                        style="background-image:url('assets/media/users/300_12.jpg')"></div>
+                                        style="background-image:url('{{ asset('assets/media/users/300_12.jpg') }}')"></div>
                                 </div>
                                 <div class="d-flex flex-column ml-3 mt-2 mb-2">
                                     <a href="#" class="font-weight-bold text-dark text-hover-primary">
@@ -299,7 +299,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="d-flex align-items-center flex-grow-1 mb-2">
                                 <div class="symbol symbol-30 flex-shrink-0">
                                     <div class="symbol-label"
-                                        style="background-image:url('assets/media/users/300_16.jpg')"></div>
+                                        style="background-image:url('{{ asset('assets/media/users/300_16.jpg') }}')"></div>
                                 </div>
                                 <div class="d-flex flex-column ml-3 mt-2 mb-2">
                                     <a href="#" class="font-weight-bold text-dark text-hover-primary">
@@ -434,7 +434,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="d-flex align-items-center flex-wrap mb-5">
                             <div class="symbol symbol-50 symbol-light mr-5">
                                 <span class="symbol-label">
-                                    <img src="assets/media/svg/misc/006-plurk.svg" class="h-50 align-self-center"
+                                    <img src="{{ asset('assets/media/svg/misc/006-plurk.svg') }}" class="h-50 align-self-center"
                                         alt="" />
                                 </span>
                             </div>
@@ -453,7 +453,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="d-flex align-items-center flex-wrap mb-5">
                             <div class="symbol symbol-50 symbol-light mr-5">
                                 <span class="symbol-label">
-                                    <img src="assets/media/svg/misc/015-telegram.svg" class="h-50 align-self-center"
+                                    <img src="{{ asset('assets/media/svg/misc/015-telegram.svg') }}" class="h-50 align-self-center"
                                         alt="" />
                                 </span>
                             </div>
@@ -472,7 +472,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="d-flex align-items-center flex-wrap mb-5">
                             <div class="symbol symbol-50 symbol-light mr-5">
                                 <span class="symbol-label">
-                                    <img src="assets/media/svg/misc/003-puzzle.svg" class="h-50 align-self-center"
+                                    <img src="{{ asset('assets/media/svg/misc/003-puzzle.svg') }}" class="h-50 align-self-center"
                                         alt="" />
                                 </span>
                             </div>
@@ -491,7 +491,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="d-flex align-items-center flex-wrap mb-5">
                             <div class="symbol symbol-50 symbol-light mr-5">
                                 <span class="symbol-label">
-                                    <img src="assets/media/svg/misc/005-bebo.svg" class="h-50 align-self-center"
+                                    <img src="{{ asset('assets/media/svg/misc/005-bebo.svg') }}" class="h-50 align-self-center"
                                         alt="" />
                                 </span>
                             </div>
@@ -510,7 +510,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="d-flex align-items-center flex-wrap">
                             <div class="symbol symbol-50 symbol-light mr-5">
                                 <span class="symbol-label">
-                                    <img src="assets/media/svg/misc/014-kickstarter.svg" class="h-50 align-self-center"
+                                    <img src="{{ asset('assets/media/svg/misc/014-kickstarter.svg') }}" class="h-50 align-self-center"
                                         alt="" />
                                 </span>
                             </div>
@@ -1127,6 +1127,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="{{ asset('assets/plugins/global/plugins.bundle.js?v=7.0.6') }}"></script>
     <script src="{{ asset('assets/plugins/custom/prismjs/prismjs.bundle.js?v=7.0.6') }}"></script>
     <script src="{{ asset('assets/js/scripts.bundle.js?v=7.0.6') }}"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
     <!--end::Global Theme Bundle-->
 
     <!--begin:Global script include-->
