@@ -12,11 +12,19 @@ class UserController extends Controller
         $users = Profile::count();
         return view('admin.user-list')->with(compact('users'));
     }public function data_user() {
-        $users = Profile::orderBy('id', 'DESC')
+        $users = Profile::join('users', 'profiles.email','=','users.email')
+            ->orderBy('users.id','desc')
             ->get();
 
         return response()->json([
             'data' => $users
         ]);
+    }public function delete_user($id_user){
+        $user = User::where('id',$id_user)->first();
+
+        Profile::where('email', $user->email)->delete();
+        $user->delete();
+
+        return redirect('admin/user');
     }
 }

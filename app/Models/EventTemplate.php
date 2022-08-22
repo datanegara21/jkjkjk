@@ -10,6 +10,7 @@ class EventTemplate extends Model
     use HasFactory;
 
     protected $fillable = [
+        'event_category_id',
         'preview',
         'template',
     ];

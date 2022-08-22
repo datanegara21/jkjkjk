@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Test')
+@section('title', 'Template Event')
 
 @section('content')
     <div class="mt-10 content  d-flex flex-column flex-column-fluid" id="kt_content">
@@ -18,8 +18,8 @@
                             <!--begin::Header-->
                             <div class="card-header align-items-center border-0 mt-4">
                                 <h3 class="card-title align-items-start flex-column">
-                                    <span class="font-weight-bolder text-dark">Tipe Event</span>
-                                    <span class="text-muted mt-3 font-weight-bold font-size-sm">{{ $categories->count() }} Tipe</span>
+                                    <span class="font-weight-bolder text-dark">Kategori Event</span>
+                                    <span class="text-muted mt-3 font-weight-bold font-size-sm">{{ $categories->count() }} Kategori</span>
                                 </h3>
                                 <div class="card-toolbar">
                                     <div class="dropdown dropdown-inline">
@@ -30,11 +30,11 @@
                                         <!-- begin::Modal tipe-->
                                         <div class="modal fade" id="addType" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
-                                                <form action="{{ url('admin/template/add') }}" method="POST">
+                                                <form action="{{ url('admin/template/add') }}" method="POST" enctype="multipart/form-data">
                                                     @csrf
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Tambah Tipe Event</h5>
+                                                            <h5 class="modal-title" id="exampleModalLabel">Tambah Kategori Event</h5>
                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                 <i aria-hidden="true" class="ki ki-close"></i>
                                                             </button>
@@ -42,23 +42,23 @@
                                                         <div class="modal-body px-10">
                                                             <div class="form-group">
                                                                 <label for="tipeName">Nama</label>
-                                                                <input type="text" class="form-control" placeholder="Nama Tipe Event" id="tipeName" name="name" required>
+                                                                <input type="text" class="form-control" placeholder="Nama Kategori Event" id="tipeName" name="name" required>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="tipeDescription">Deskripsi</label>
-                                                                <input type="text" class="form-control" placeholder="Deskripsi Tipe Event" id="tipeDescription" name="description" required>
+                                                                <input type="text" class="form-control" placeholder="Deskripsi Kategori Event" id="tipeDescription" name="description" required>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="tipeLayout">Tata letak teks</label>
                                                                 <div class="custom-file">
-                                                                    <input type="file" class="custom-file-input" id="tipeLayout" name="layout">
+                                                                    <input type="file" class="custom-file-input" id="tipeLayout" name="layout" accept=".css" required>
                                                                     <label class="custom-file-label" for="tipeLayout">Pilih file (css)</label>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="tipeHeader">Foto Header</label>
                                                                 <div class="custom-file">
-                                                                    <input type="file" class="custom-file-input" id="tipeHeader" name="layout">
+                                                                    <input type="file" class="custom-file-input" id="tipeHeader" name="image" accept=".jpg, .jpeg, .png" required>
                                                                     <label class="custom-file-label" for="tipeHeader">Pilih file (gambar)</label>
                                                                 </div>
                                                             </div>
@@ -81,17 +81,17 @@
                             <div class="card-body pt-4">
                                 <div class="row">
                                     @if($categories->isEmpty())
-                                        <div class="col-12 text-center font-weight-bold text-muted"> --- belum ada tipe --- </div>
+                                        <div class="col-12 text-center font-weight-bold text-muted"> --- belum ada kategori --- </div>
                                     @else
                                         @foreach($categories as $category)
                                         <!-- begin::Modal tipe-->
                                         <div class="modal fade" id="typeEdit{{ $category->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
-                                                <form action="{{ url('admin/template/edit/'.$category->id) }}" method="POST">
+                                                <form action="{{ url('admin/template/edit/'.$category->id) }}" method="POST" enctype="multipart/form-data">
                                                     @csrf
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Edit Tipe Kategori</h5>
+                                                            <h5 class="modal-title" id="exampleModalLabel">Edit Kategori Kategori</h5>
                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                 <i aria-hidden="true" class="ki ki-close"></i>
                                                             </button>
@@ -99,11 +99,25 @@
                                                         <div class="modal-body px-10">
                                                             <div class="form-group">
                                                                 <label for="tipeName">Nama</label>
-                                                                <input type="text" class="form-control" value="{{ $category->name }}" placeholder="{{ $category->name }}" id="tipeName" name="name" required>
+                                                                <input type="text" class="form-control" placeholder="{{ $category->name }}" value="{{ $category->name }}" id="tipeName" name="name" required>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="tipeDescription">Deskripsi</label>
-                                                                <input type="text" class="form-control" value="{{ $category->description }}" placeholder="{{ $category->description }}" id="tipeDescription" name="description" required>
+                                                                <input type="text" class="form-control" placeholder="{{ $category->description }}" value="{{ $category->description }}" id="tipeDescription" name="description" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="tipeLayout">Tata letak teks</label>
+                                                                <div class="custom-file">
+                                                                    <input type="file" class="custom-file-input" id="tipeLayout" name="layout" accept=".css">
+                                                                    <label class="custom-file-label" for="tipeLayout">Pilih file (css)</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="tipeHeader">Foto Header</label>
+                                                                <div class="custom-file">
+                                                                    <input type="file" class="custom-file-input" id="tipeHeader" name="image" accept=".jpg, .jpeg, .png">
+                                                                    <label class="custom-file-label" for="tipeHeader">Pilih file (gambar)</label>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
@@ -176,25 +190,6 @@
 @push('style')
 
 @push('script')
-<script>
-    $('.delete-confirm').on('click', function (event) {
-        event.preventDefault();
-        const url = $(this).attr('href');
-        swal.fire({
-            title: 'Apakah anda yakin?',
-            text: 'Tipe event ini akan dihapus secara permanen!',
-            icon: 'warning',
-            showConfirmButton: true,
-            confirmButtonText: "Yakin!",
-            showCancelButton: true,
-            cancelButtonText: "Batal!",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = url;
-            }
-        });
-    });
-</script>
 <script type="text/javascript">
     $.ajaxSetup({
         headers: {
@@ -203,7 +198,6 @@
     });
     $('input[name="tipe"]').click(function(){
         var tipe = $(this).val();
-        console.log(tipe)
         if(tipe == null){
             $('#result').show();
         }else{
@@ -218,34 +212,77 @@
                     total = data.total;
                     template.push(data.template);
                     template = data.template;
-
+                    
                     var list = '';
-                    template.forEach(function(t) {
-                        list +=`<div class="col-3">
-                                    <label class="option">
-                                        <span class="option-label">
-                                            <img src="{{ asset('assets/media/template/tahlil00.jpg') }}" width="150px">
-                                        </span>
-                                        <div class="card-toolbar">
-                                            <div class="dropdown dropdown-inline m-0 p-0">
-                                                <button type="button" class="text-primary border-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="ki ki-bold-more-hor"></i>
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    <button class="dropdown-item" data-toggle="modal" data-target="#typeEdit{{ $category->id }}">Edit</button>
-                                                    <a href="{{ url('admin/template/delete/'.$category->id) }}" class="dropdown-item delete-confirm">Hapus</a>
+                    if(template.length != 0) {
+                        template.forEach(function(t) {
+                            list +=`
+                                    <!-- begin::Modal template-->
+                                    <div class="modal fade" id="templateEdit`+t.id+`" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <form action="{{ url('admin/template/template/edit/`+tipe+`') }}" method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Edit Template Event</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <i aria-hidden="true" class="ki ki-close"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body px-10">
+                                                        <div class="form-group">
+                                                            <label for="templatePreview">Foto Preview</label>
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input" id="templatePreview" name="preview" accept=".jpg,.jpeg,.png">
+                                                                <label class="custom-file-label" for="tipeHeader">Pilih file (gambar)</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="template">File Template (Background)</label>
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input" id="template" name="template" accept=".jpg,.jpeg,.png">
+                                                                <label class="custom-file-label" for="template">Pilih file (gambar)</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="reset" class="btn btn-light-primary font-weight-bold">Hapus</button>
+                                                        <button type="submit" class="btn btn-primary font-weight-bold">Edit</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <!-- end::Modal template-->
+
+                                    <div class="col-3">
+                                        <label class="option">
+                                            <span class="option-label">
+                                                <img src="/`+t.preview+`" width="150px">
+                                            </span>
+                                            <div class="card-toolbar">
+                                                <div class="dropdown dropdown-inline m-0 p-0">
+                                                    <button type="button" class="text-primary border-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="ki ki-bold-more-hor"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        <button class="dropdown-item" data-toggle="modal" data-target="#templateEdit`+t.id+`">Edit</button>
+                                                        <a href="{{ url('admin/template/template/delete/`+t.id+`') }}" class="dropdown-item delete-confirm">Hapus</a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </label>
-                                </div>`;
-                    });
+                                        </label>
+                                    </div>`;
+                        });
+                    } else {
+                        list+='<div class="col-12 text-center font-weight-bold text-muted"> --- belum ada template --- </div>'
+                    }
 
                     var resultAjax = `
-                                <!-- begin::Modal tipe-->
+                                <!-- begin::Modal template-->
                                 <div class="modal fade" id="addTemplate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
-                                        <form action="{{ url('admin/template/`+tipe+`/add') }}" method="POST">
+                                        <form action="{{ url('admin/template/`+tipe+`/add') }}" method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -258,14 +295,14 @@
                                                     <div class="form-group">
                                                         <label for="templatePreview">Foto Preview</label>
                                                         <div class="custom-file">
-                                                            <input type="file" class="custom-file-input" id="templatePreview" name="preview">
+                                                            <input type="file" class="custom-file-input" id="templatePreview" name="preview" accept=".jpg,.jpeg,.png" required>
                                                             <label class="custom-file-label" for="tipeHeader">Pilih file (gambar)</label>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="template">File Template</label>
+                                                        <label for="template">File Template (Background)</label>
                                                         <div class="custom-file">
-                                                            <input type="file" class="custom-file-input" id="template" name="template">
+                                                            <input type="file" class="custom-file-input" id="template" name="template" accept=".jpg,.jpeg,.png" required>
                                                             <label class="custom-file-label" for="template">Pilih file (gambar)</label>
                                                         </div>
                                                     </div>
@@ -278,7 +315,7 @@
                                         </form>
                                     </div>
                                 </div>
-                                <!-- end::Modal tipe-->
+                                <!-- end::Modal template-->
 
                                 <!--begin::Header-->
                                 <div class="card-header align-items-center border-0 mt-4">
@@ -303,9 +340,45 @@
                                 <!--end::List-->`;
 
                     $('#result').html(resultAjax);
+                    $('.delete-confirm').on('click', function (event) {
+                        event.preventDefault();
+                        const url = $(this).attr('href');
+                        swal.fire({
+                            title: 'Apakah anda yakin?',
+                            text: 'Template event ini akan dihapus secara permanen!',
+                            icon: 'warning',
+                            showConfirmButton: true,
+                            confirmButtonText: "Yakin!",
+                            showCancelButton: true,
+                            cancelButtonText: "Batal!",
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = url;
+                            }
+                        });
+                    });
                 }
             });
         }
+    });
+</script>
+<script>
+    $('.delete-confirm').on('click', function (event) {
+        event.preventDefault();
+        const url = $(this).attr('href');
+        swal.fire({
+            title: 'Apakah anda yakin?',
+            text: 'Kategori event ini akan dihapus secara permanen!',
+            icon: 'warning',
+            showConfirmButton: true,
+            confirmButtonText: "Yakin!",
+            showCancelButton: true,
+            cancelButtonText: "Batal!",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = url;
+            }
+        });
     });
 </script>
 @endpush

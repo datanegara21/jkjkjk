@@ -38,7 +38,7 @@ Route::middleware('admin')
         Route::get('template/delete/{id_template}', 'deleteType');
         Route::post('template/template', 'varTemplate');
         //template
-        Route::post('template/{id_type}/add', 'addTemplate');
+        Route::post('template/{id_category}/add', 'addTemplate');
         Route::post('template/template/edit/{id_template}', 'editTemplate');
         Route::get('template/template/delete/{id_template}', 'deleteTemplate');
     });
@@ -48,6 +48,7 @@ Route::middleware('admin')
     ->name('user')
     ->group(function() {
         Route::get('user', 'index');
+        Route::get('user/delete/{id_user}', 'delete_user');
     });
 });
 

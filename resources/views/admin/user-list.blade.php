@@ -173,5 +173,22 @@
 @push('style')
 
     @push('script')
+        <script>$('.delete-confirm').on('click', function (event) {
+            event.preventDefault();
+            const url = $(this).attr('href');
+            swal.fire({
+                title: 'Apakah anda yakin?',
+                text: 'Kategori event ini akan dihapus secara permanen!',
+                icon: 'warning',
+                showConfirmButton: true,
+                confirmButtonText: "Yakin!",
+                showCancelButton: true,
+                cancelButtonText: "Batal!",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = url;
+                }
+            });
+        });</script>
         <script src="{{ asset('assets/js/datatables/admin/list-user.js?v=7.0.6') }}"></script>
     @endpush

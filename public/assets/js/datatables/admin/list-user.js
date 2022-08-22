@@ -74,41 +74,25 @@ var KTDatatableJsonRemoteDemo = function() {
                     }
                 }
             }, {
-                field: 'Status',
+                field: 'status',
                 title: 'Status',
                 // callback function support for column rendering
-                template: function(row) {
+                template: function(data) {
                     var status = {
-                        1: {
-                            'title': 'Pending',
-                            'class': ' label-light-success'
+                        'active': {
+                            'class': ' label-light-success',
+                            'title': 'aktif'
                         },
-                        2: {
-                            'title': 'Delivered',
-                            'class': ' label-light-primary'
+                        'banned': {
+                            'class': ' label-light-danger',
+                            'title': 'diblokir'
                         },
-                        3: {
-                            'title': 'Canceled',
-                            'class': ' label-light-primary'
-                        },
-                        4: {
-                            'title': 'Success',
-                            'class': ' label-light-success'
-                        },
-                        5: {
-                            'title': 'Info',
-                            'class': ' label-light-info'
-                        },
-                        6: {
-                            'title': 'Danger',
-                            'class': ' label-light-danger'
-                        },
-                        7: {
-                            'title': 'Warning',
-                            'class': ' label-light-warning'
+                        'warning': {
+                            'class': ' label-light-warning',
+                            'title': 'dilaporkan'
                         },
                     };
-                    return '<span class="label font-weight-bold label-lg label-inline"> ya </span>';
+                    return '<span class="label font-weight-bold label-lg label-inline'+status[data.status].class+'">'+status[data.status].title+'</span>';
                 },
             }, {
                 field: 'Actions',
@@ -117,8 +101,32 @@ var KTDatatableJsonRemoteDemo = function() {
                 width: 125,
                 autoHide: false,
                 overflow: 'visible',
-                template: function() {
+                template: function(data) {
+                    
                     return `
+                        <!-- begin::Modal-->
+                        <div class="modal fade" id="userDelete`+data.id+`" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Hapus User</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <i aria-hidden="true" class="ki ki-close"></i>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body px-10">
+                                        <div>Apakah anda yakin ingin menghapus user `+data.name+`</div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-light-primary font-weight-bold" data-dismiss="modal" aria-label="Close">Batal</button>
+                                        <a href="/admin/user/delete/`+data.id+`" class="btn btn-primary font-weight-bold">Hapus</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end::Modal-->
+
                         <a href="javascript:;" class="btn btn-sm btn-clean btn-icon mr-2" title="Ubah ">
                             <span class="svg-icon svg-icon-md">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -129,7 +137,7 @@ var KTDatatableJsonRemoteDemo = function() {
                             </svg>
                             </span>
                         </a>
-                        <a href="javascript:;" class="btn btn-sm btn-clean btn-icon" title="Hapus Akun">
+                        <button class="btn btn-sm btn-clean btn-icon" title="Hapus Akun" data-toggle="modal" data-target="#userDelete`+data.id+`">
                             <span class="svg-icon svg-icon-md">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -139,12 +147,15 @@ var KTDatatableJsonRemoteDemo = function() {
                                     </g>
                                 </svg>
                             </span>
-                        </a>
+                        </button>
                     `;
+                    
                 },
             }],
 
         });
+
+        
 
         $('#kt_datatable_search_status').on('change', function() {
             datatable.search($(this).val().toLowerCase(), 'Status');
