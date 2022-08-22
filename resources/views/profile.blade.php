@@ -1,5 +1,5 @@
 @php 
-    $layout = Auth::check() ? 'user' : 'guest';
+    $layout = Auth::check() ? Auth::user()->role == 1 ? 'user' : 'admin' : 'guest';
 @endphp
 
 @extends('layouts.'.$layout)
