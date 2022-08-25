@@ -9,6 +9,8 @@ class Event extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'id',
         'profile_id',
@@ -17,8 +19,10 @@ class Event extends Model
         'image',
         'description',
         'name',
+        'date',
         'time',
         'location',
+        'map',
         'total',
         'price',
         'start',

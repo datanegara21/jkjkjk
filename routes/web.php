@@ -31,9 +31,12 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::name('event')->group(function() {
     Route::get('/event', [EventController::class, 'listEvent']);
     Route::get('/event/detail', [EventController::class, 'index']);
-    Route::get('/event/add', [EventController::class, 'addEvent'])->middleware('user');
     Route::get('/event/select', [EventController::class, 'selectEvent'])->middleware('user');
+    Route::post('/event/select', [EventController::class, 'requestEvent'])->middleware('user');
+    Route::get('/event/add', [EventController::class, 'addEvent'])->middleware('user');
+    Route::post('/event/add', [EventController::class, 'storeEvent'])->middleware('user');
     Route::get('/event/liked', [EventController::class, 'likedEvent'])->middleware('user');
+    Route::post('/event/template', [EventController::class, 'varTemplate'])->middleware('user');
 });
 Route::get('/event/joined', [EventController::class, 'joinedEvent'])->name('joined')->middleware('user');
 Route::get('/organizer', [EventController::class, 'organizerList'])->name('organizer');

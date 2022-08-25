@@ -17,12 +17,13 @@ class CreateEventsTable extends Migration
             $table->id();
             $table->foreignId('profile_id');
             $table->foreignId('event_template_id');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->string('title');
             $table->string('name');
+            $table->string('date');
             $table->string('time');
             $table->string('location');
-            $table->string('map');
+            $table->string('map')->default('-7.900074,112.606886');
             $table->text('description');
             $table->integer('total');
             $table->integer('price');

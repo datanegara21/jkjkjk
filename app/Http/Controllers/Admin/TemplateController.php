@@ -22,15 +22,15 @@ class TemplateController extends Controller
             'description.min'=> 'Deskripsi tidak boleh kurang dari 3 karakter',
             'description.max'=> 'Deskripsi tidak boleh lebih dari 50 karakter',
             'layout.mimes'=> 'File tata letak hanya berupa file .css',
-            'layout.max'=> 'File tata letak tidak bisa lebih dari 512 KB',
+            'layout.max'=> 'File tata letak tidak bisa lebih dari 2MB',
             'image.mimes'=> 'File untuk header hanya berupa foto',
-            'image.max' => 'File untuk header tidak boleh lebih dari 2MB'
+            'image.max' => 'File untuk header tidak boleh lebih dari 5MB'
         ];
         $request->validate([
             'name' => 'bail|required|min:3|max:20',
             'description' => 'bail|required|min:3|max:50',
-            'layout' => 'bail|required|mimes:css,txt|max:512',
-            'image' => 'bail|required|mimes:jpg,jpeg,png|max:2048*'
+            'layout' => 'bail|required|mimes:css,txt|max:2048',
+            'image' => 'bail|required|mimes:jpg,jpeg,png|max:5120*'
         ],$messages);
 
         //simpan file layout

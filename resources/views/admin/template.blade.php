@@ -18,7 +18,7 @@
                             <!--begin::Header-->
                             <div class="card-header align-items-center border-0 mt-4">
                                 <h3 class="card-title align-items-start flex-column">
-                                    <span class="font-weight-bolder text-dark">Kategori Event</span>
+                                    <span class="font-weight-bolder text-dark">Kategori Template</span>
                                     <span class="text-muted mt-3 font-weight-bold font-size-sm">{{ $categories->count() }} Kategori</span>
                                 </h3>
                                 <div class="card-toolbar">
@@ -34,7 +34,7 @@
                                                     @csrf
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Tambah Kategori Event</h5>
+                                                            <h5 class="modal-title" id="exampleModalLabel">Tambah Kategori Template</h5>
                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                 <i aria-hidden="true" class="ki ki-close"></i>
                                                             </button>
@@ -91,7 +91,7 @@
                                                     @csrf
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Edit Kategori Kategori</h5>
+                                                            <h5 class="modal-title" id="exampleModalLabel">Edit Kategori Template</h5>
                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                 <i aria-hidden="true" class="ki ki-close"></i>
                                                             </button>
@@ -368,7 +368,7 @@
         const url = $(this).attr('href');
         swal.fire({
             title: 'Apakah anda yakin?',
-            text: 'Kategori event ini akan dihapus secara permanen!',
+            text: 'Kategori template ini akan dihapus secara permanen!',
             icon: 'warning',
             showConfirmButton: true,
             confirmButtonText: "Yakin!",

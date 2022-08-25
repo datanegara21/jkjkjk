@@ -26,6 +26,7 @@
                         <div class="flex-row-fluid ml-lg-8">
                             <!--begin::Form-->
                             <form class="form" action="{{ url('/profile/edit') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
                                 <!--begin::Card-->
                                 <div class="card card-custom card-stretch">
                                     <!--begin::Header-->
@@ -36,7 +37,7 @@
                                             <span class="text-muted font-weight-bold font-size-sm mt-1">Ubah profil mu</span>
                                         </div>
                                         <div class="card-toolbar">
-                                            <button type="reset" class="btn btn-success mr-2">Simpan</button>
+                                            <button type="submit" class="btn btn-success mr-2">Simpan</button>
                                             <button type="reset" class="btn btn-secondary">Batal</button>
                                         </div>
                                     </div>
@@ -86,20 +87,20 @@
                                             <label class="col-xl-3 col-lg-3 col-form-label text-right">Nama</label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <input class="form-control form-control-lg form-control-solid"
-                                                    type="text" value="{{ Auth::user()->name }}" placeholder="{{ Auth::user()->name }}"/>
+                                                    type="text" value="{{ Auth::user()->name }}" placeholder="{{ Auth::user()->name }}" name="name" required/>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-xl-3 col-lg-3 col-form-label text-right">Email</label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <input class="form-control form-control-lg form-control-solid"
-                                                    type="text" value="{{ Auth::user()->email }}" placeholder="{{ Auth::user()->email }}"/>
+                                                    type="text" value="{{ Auth::user()->email }}" placeholder="{{ Auth::user()->email }}" name="email" required/>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-xl-3 col-lg-3 col-form-label text-right">Deskripsi</label>
                                             <div class="col-lg-9 col-xl-6">
-                                                <textarea class="form-control form-control-lg form-control-solid" placeholder="{{ $user->description != null ? $user->description : 'Deskripsikan tentang diri anda' }}">{{ $user->description != null ? $user->description : '' }}</textarea>
+                                                <textarea name="description" class="form-control form-control-lg form-control-solid" placeholder="{{ $user->description != null ? $user->description : 'Deskripsikan tentang diri anda' }}">{{ $user->description != null ? $user->description : '' }}</textarea>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -113,8 +114,8 @@
                                             <div class="col-lg-9 col-xl-6">
                                                 <div class="input-group input-group-lg input-group-solid">
                                                     <div class="input-group-prepend"><span
-                                                            class="input-group-text">wa.me/+62</span></div>
-                                                    <input type="text"
+                                                            class="input-group-text">wa.me/62</span></div>
+                                                    <input type="text" name="whatsapp"
                                                         class="form-control form-control-lg form-control-solid"
                                                         value="{{ $user->whatsapp != null ? $user->whatsapp : '' }}" placeholder="{{ $user->whatsapp != null ? $user->whatsapp : '81234567890' }}" />
                                                 </div>
@@ -126,7 +127,7 @@
                                                 <div class="input-group input-group-lg input-group-solid">
                                                     <div class="input-group-prepend"><span
                                                             class="input-group-text"></span></div>
-                                                    <input type="text"
+                                                    <input type="text" name="facebook"
                                                         class="form-control form-control-lg form-control-solid"
                                                         value="{{ $user->facebook != null ? $user->facebook : '' }}" placeholder="{{ $user->facebook != null ? $user->facebook : 'facebook.com/your.url' }}" />
                                                 </div>
@@ -138,7 +139,7 @@
                                                 <div class="input-group input-group-lg input-group-solid">
                                                     <div class="input-group-prepend"><span
                                                             class="input-group-text">@</span></div>
-                                                    <input type="text"
+                                                    <input type="text" name="instagram"
                                                         class="form-control form-control-lg form-control-solid"
                                                         value="{{ $user->instagram != null ? $user->instagram : '' }}" placeholder="{{ $user->instagram != null ? $user->instagram : 'your.name' }}" />
                                                 </div>
@@ -150,21 +151,21 @@
                                                 <div class="input-group input-group-lg input-group-solid">
                                                     <div class="input-group-prepend"><span
                                                             class="input-group-text">@</span></div>
-                                                    <input type="text"
+                                                    <input type="text" name="twitter"
                                                         class="form-control form-control-lg form-control-solid"
                                                         value="{{ $user->twitter != null ? $user->twitter : '' }}" placeholder="{{ $user->twitter != null ? $user->twitter : 'your.name' }}" />
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Email</label>
+                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Website</label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <div class="input-group input-group-lg input-group-solid">
                                                     <div class="input-group-prepend"><span
                                                             class="input-group-text"></span></div>
-                                                    <input type="text"
+                                                    <input type="text" name="website"
                                                         class="form-control form-control-lg form-control-solid"
-                                                        value="{{ $user->email }}" placeholder="{{ $user->email }}" required/>
+                                                        value="{{ $user->website != null ? $user->website : '' }}" placeholder="{{ $user->website != null ? $user->website : 'yourweb.com' }}"/>
                                                 </div>
                                             </div>
                                         </div>

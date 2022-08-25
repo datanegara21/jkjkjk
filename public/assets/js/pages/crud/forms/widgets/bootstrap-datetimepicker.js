@@ -3,12 +3,27 @@
 var KTBootstrapDatetimepicker = function () {
     // Private functions
     var baseDemos = function () {
+        //custom
+        $('#kt_datetimepicker_custom_1').datetimepicker({
+            locale: 'id',
+            format: 'YYYY-MM-DD HH:mm'
+        });
+        $('#kt_datetimepicker_custom_2').datetimepicker({
+            locale: 'id',
+            format: 'YYYY-MM-DD HH:mm'
+        });
+        $('#kt_datetimepicker_custom_3').datetimepicker({
+            locale: 'id',
+            format: 'YYYY-MM-DD HH:mm'
+        });
+
         // Demo 1
         $('#kt_datetimepicker_1').datetimepicker();
 
         // Demo 2
         $('#kt_datetimepicker_2').datetimepicker({
-            locale: 'de'
+            locale: 'id',
+            format: 'YYYY-MM-DD HH:mm'
         });
 
         // Demo 3

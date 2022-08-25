@@ -25,18 +25,21 @@
                         <!--begin::Content-->
                         <div class="flex-row-fluid ml-lg-8">
                             <!--begin::Form-->
-                            <form class="form">
+                            <form class="form" action="{{ url('event/add') }}" method="post">
+                                @csrf
+                                <input type="hidden" name="tipe" value="{{ session()->get('tipe') }}">
+                                <input type="hidden" name="template" value="{{ session()->get('template') }}">
                                 <!--begin::Card-->
                                 <div class="card card-custom card-stretch">
                                     <!--begin::Header-->
                                     <div class="card-header py-3">
                                         <div class="card-title align-items-start flex-column">
-                                            <h3 class="card-label font-weight-bolder text-dark">Profil
+                                            <h3 class="card-label font-weight-bolder text-dark">Buat Event
                                             </h3>
-                                            <span class="text-muted font-weight-bold font-size-sm mt-1">Ubah profil mu</span>
+                                            <span class="text-muted font-weight-bold font-size-sm mt-1">Buat Event untuk Segala Kegiatan Bersama</span>
                                         </div>
                                         <div class="card-toolbar">
-                                            <button type="reset" class="btn btn-success mr-2">Simpan</button>
+                                            <button type="submit" class="btn btn-success mr-2">Simpan</button>
                                             <button type="reset" class="btn btn-secondary">Batal</button>
                                         </div>
                                     </div>
@@ -53,7 +56,7 @@
                                             <label class="col-xl-3 col-lg-3 col-form-label text-right">Nama Pengirim</label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <input class="form-control form-control-lg form-control-solid"
-                                                    type="text" value="{{ Auth::user()->name }}" placeholder="{{ Auth::user()->name }}"/>
+                                                    type="text" name="name" value="{{ Auth::user()->name }}" placeholder="{{ Auth::user()->name }}"/>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -63,14 +66,28 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Acara</label>
+                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Event</label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <div class="input-group input-group-lg input-group-solid">
                                                     <div class="input-group-prepend"><span
                                                             class="input-group-text"><i
                                                                 class="far fa-clipboard"></i></span></div>
-                                                    <input type="text"
-                                                        class="form-control form-control-lg form-control-solid" placeholder="Acara yang akan diselenggarakan" />
+                                                    <input type="text" name="title"
+                                                        class="form-control form-control-lg form-control-solid" name="title" placeholder="Event yang akan diselenggarakan" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Deskripsi Event</label>
+                                            <div class="col-lg-9 col-xl-6">
+                                                <div class="input-group input-group-lg input-group-solid">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="far fa-clipboard"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea name="description" class="form-control form-control-lg form-control-solid" placeholder="Deskripsi tentang event yang akan diselenggarakan" cols="30" rows="2"></textarea>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -81,7 +98,7 @@
                                                     <div class="input-group-prepend"><span
                                                             class="input-group-text"><i
                                                                 class="far fa-calendar-alt"></i></span></div>
-                                                    <input type="text"
+                                                    <input type="text" name="date"
                                                         class="form-control form-control-lg form-control-solid"
                                                         placeholder="Senin, 1 Agustus 2022" />
                                                 </div>
@@ -94,9 +111,9 @@
                                                     <div class="input-group-prepend"><span
                                                             class="input-group-text"><i
                                                                 class="fas fa-stopwatch"></i></span></div>
-                                                    <input type="text"
+                                                    <input type="text" name="time"
                                                         class="form-control form-control-lg form-control-solid"
-                                                        placeholder="Senin, 1 Agustus 2022" />
+                                                        placeholder="08:00 WIB" />
                                                 </div>
                                             </div>
                                         </div>
@@ -107,9 +124,9 @@
                                                     <div class="input-group-prepend"><span
                                                             class="input-group-text">
                                                             <i class="fas fa-map-marker-alt"></i></span></div>
-                                                    <input type="text"
+                                                    <input type="text" name="location"
                                                         class="form-control form-control-lg form-control-solid"
-                                                        placeholder="Senin, 1 Agustus 2022" />
+                                                        placeholder="Jl. Mawar, Ds. Melati" />
                                                 </div>
                                             </div>
                                         </div>
@@ -120,9 +137,59 @@
                                                     <div class="input-group-prepend"><span
                                                             class="input-group-text">
                                                             <i class="fas fa-map-marker-alt"></i></span></div>
-                                                    <input type="text"
+                                                    <input type="text" name="maps"
                                                         class="form-control form-control-lg form-control-solid"
-                                                        placeholder="Senin, 1 Agustus 2022" />
+                                                        placeholder="map" readonly/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label class="col-xl-3"></label>
+                                            <div class="col-lg-9 col-xl-6">
+                                                <h5 class="font-weight-bold mt-10 mb-6">Data Pendaftaran Event</h5>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Maks. Pendaftar</label>
+                                            <div class="col-lg-9 col-xl-6">
+                                                <div class="input-group input-group-lg input-group-solid">
+                                                    <input type="number" name="total" min="1" max="30"
+                                                        class="form-control form-control-lg form-control-solid" name="title" placeholder="30" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Biaya Pendaftaran</label>
+                                            <div class="col-lg-9 col-xl-6">
+                                                <div class="input-group input-group-lg input-group-solid">
+                                                    <div class="input-group-prepend"><span class="input-group-text">Rp</span></div>
+                                                    <input type="text" name="price" class="form-control" placeholder="10000">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Waktu Mulai Pendaftaran</label>
+                                            <div class="col-lg-9 col-xl-6">
+                                                <div class="input-group input-group-lg input-group-solid date" id="kt_datetimepicker_custom_1" data-target-input="nearest">
+                                                    <input type="text" name="start" class="form-control datetimepicker-input" placeholder="Pilih tanggal dan waktu" data-target="#kt_datetimepicker_custom_1"/>
+                                                    <div class="input-group-append" data-target="#kt_datetimepicker_custom_1" data-toggle="datetimepicker">
+                                                        <span class="input-group-text">
+                                                            <i class="ki ki-calendar"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Waktu Selesai Pendaftaran</label>
+                                            <div class="col-lg-9 col-xl-6">
+                                                <div class="input-group input-group-lg input-group-solid date" id="kt_datetimepicker_custom_2" data-target-input="nearest">
+                                                    <input type="text" name="end" class="form-control datetimepicker-input" placeholder="Pilih tanggal dan waktu" data-target="#kt_datetimepicker_custom_2"/>
+                                                    <div class="input-group-append" data-target="#kt_datetimepicker_custom_2" data-toggle="datetimepicker">
+                                                        <span class="input-group-text">
+                                                            <i class="ki ki-calendar"></i>
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -155,4 +222,5 @@
 
 @push('script')
     <script src="{{ asset('assets/js/pages/custom/profile/profile.js?v=7.0.6') }}"></script>
+    <script src="{{ asset('assets/js/pages/crud/forms/widgets/bootstrap-datetimepicker.js?v=7.0.6') }}"></script>
 @endpush

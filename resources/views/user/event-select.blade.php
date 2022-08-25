@@ -15,219 +15,84 @@
         <!--begin::Container-->
         <div class=" container ">
             <!--begin::Dashboard-->
+
             <!--begin::Row-->
             <div class="row">
-
                 <!--begin::Item-->
                 <div class="col-12">
-                    <!--begin::Card-->
-                    <div class="card card-custom">
-                        <!--begin::Header-->
-                        <div class="card-header py-3">
-                            <div class="card-title align-items-start flex-column">
-                                <h3 class="card-label font-weight-bolder text-dark">Tambah Event
-                                </h3>
-                                <span class="text-muted font-weight-bold font-size-sm mt-1">Pilih tipe dan template event</span>
+                    <!--begin::Form-->
+                    <form class="form" action="{{ url('event/select') }}" method="post">
+                        @csrf
+                        <!--begin::Card-->
+                        <div class="card card-custom">
+                            <!--begin::Header-->
+                            <div class="card-header py-3">
+                                <div class="card-title align-items-start flex-column">
+                                    <h3 class="card-label font-weight-bolder text-dark">Tambah Event
+                                    </h3>
+                                    <span class="text-muted font-weight-bold font-size-sm mt-1">Pilih kategori dan template event</span>
+                                </div>
+                                <div class="card-toolbar">
+                                    <button type="submit" class="btn btn-success mr-2">Lanjut</button>
+                                    <button type="reset" name="reset" class="btn btn-secondary batal">Batal</button>
+                                </div>
                             </div>
-                            <div class="card-toolbar">
-                                <a href="{{ url('event/add') }}" class="btn btn-success mr-2">Lanjut</a>
-                                <button type="reset" class="btn btn-secondary batal">Batal</button>
-                            </div>
-                        </div>
-                        <!--end::Header-->
-                        <!--begin::Content-->
-                        <div class="flex-row-fluid ml-lg-8">
-                            <!--begin::Form-->
-                            <form class="form">
+                            <!--end::Header-->
+                            <!--begin::Content-->
+                            <div class="flex-row-fluid ml-lg-8">
                                 <div class="card-body">
                                     <div class="form-group m-0">
-                                        <label>Pilih tipe event:</label>
-                                        <div class="row">
-                                            <div class="col-3">
-                                                <label class="option">
-                                                    <span class="option-control">
-                                                        <span class="radio">
-                                                            <input type="radio" name="tipe" value="1" class="tipe"/>
-                                                            <span></span>
-                                                        </span>
-                                                    </span>
-                                                    <span class="option-label">
-                                                        <span class="option-head">
-                                                            <span class="option-title">
-                                                                Tahlil
+                                        <label>Pilih kategori event:</label>
+                                        <!--begin::Body-->
+                                        <div class="card-body pt-4">
+                                            <div class="row">
+                                                @if($categories->isEmpty())
+                                                    <div class="col-12 text-center font-weight-bold text-muted"> --- belum ada kategori --- </div>
+                                                @else
+                                                    @foreach($categories as $category)
+                                                    
+                                                    <div class="col-3">
+                                                        <label class="option">
+                                                            <span class="option-control">
+                                                                <span class="radio">
+                                                                    <input type="radio" name="tipe" value="{{ $category->id }}" class="tipe"/>
+                                                                    <span></span>
+                                                                </span>
                                                             </span>
-                                                        </span>
-                                                        <span class="option-body">
-                                                            Tahlil atau doa bersama
-                                                        </span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                            <div class="col-3">
-                                                <label class="option">
-                                                    <span class="option-control">
-                                                        <span class="radio">
-                                                            <input type="radio" name="tipe" value="2" class="tipe"/>
-                                                            <span></span>
-                                                        </span>
-                                                    </span>
-                                                    <span class="option-label">
-                                                        <span class="option-head">
-                                                            <span class="option-title">
-                                                                Pernikahan
+                                                            <span class="option-label">
+                                                                <span class="option-head">
+                                                                    <span class="option-title">
+                                                                        {{ $category->name }}
+                                                                    </span>
+                                                                
+                                                                </span>
+                                                                <span class="option-body">
+                                                                    {{ $category->description }}
+                                                                </span>
                                                             </span>
-                                                        </span>
-                                                        <span class="option-body">
-                                                            Pernikahan, akad nikah, anniversary, atau lainnya
-                                                        </span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                            <div class="col-3">
-                                                <label class="option">
-                                                    <span class="option-control">
-                                                        <span class="radio">
-                                                            <input type="radio" name="tipe" value="3" class="tipe"/>
-                                                            <span></span>
-                                                        </span>
-                                                    </span>
-                                                    <span class="option-label">
-                                                        <span class="option-head">
-                                                            <span class="option-title">
-                                                                Walimahan
-                                                            </span>
-                                                        </span>
-                                                        <span class="option-body">
-                                                            Walimatul khitan, atau lainnya
-                                                        </span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                            <div class="col-3">
-                                                <label class="option">
-                                                    <span class="option-control">
-                                                        <span class="radio">
-                                                            <input type="radio" name="tipe" value="4" class="tipe"/>
-                                                            <span></span>
-                                                        </span>
-                                                    </span>
-                                                    <span class="option-label">
-                                                        <span class="option-head">
-                                                            <span class="option-title">
-                                                                Lainnya
-                                                            </span>
-                                                        </span>
-                                                        <span class="option-body">
-                                                            Jenis acara lainnya
-                                                        </span>
-                                                    </span>
-                                                </label>
+                                                        </label>
+                                                    </div>
+                                                    @endforeach
+                                                @endif
                                             </div>
                                         </div>
+                                        <!--end: Card Body-->
                                     </div>
 
-                                    <div id="input-detail">
-                                        <div class="separator separator-dashed my-8"></div>
-                                        <div class="form-group m-0" id="detail-1">
-                                            <label>Pilih Template:</label>
-                                            <div class="row">
-                                                <div class="col-3">
-                                                    <label class="option">
-                                                        <span class="option-control">
-                                                            <span class="radio">
-                                                                <input type="radio" name="m_option_1" value="1" class="detail"/>
-                                                                <span></span>
-                                                            </span>
-                                                        </span>
-                                                        <span class="option-label">
-                                                            <img src="{{ asset('assets/media/template/tahlil00.jpg') }}" width="150px">
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group m-0" id="detail-2">
-                                            <label>Pilih Template:</label>
-                                            <div class="row">
-                                                <div class="col-3">
-                                                    <label class="option">
-                                                        <span class="option-control">
-                                                            <span class="radio">
-                                                                <input type="radio" name="m_option_1" value="1" class="detail"/>
-                                                                <span></span>
-                                                            </span>
-                                                        </span>
-                                                        <span class="option-label">
-                                                            <img src="{{ asset('assets/media/template/nikah00.jpg') }}" width="150px">
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                                <div class="col-3">
-                                                    <label class="option">
-                                                        <span class="option-control">
-                                                            <span class="radio">
-                                                                <input type="radio" name="m_option_1" value="1" class="detail"/>
-                                                                <span></span>
-                                                            </span>
-                                                        </span>
-                                                        <span class="option-label">
-                                                            <img src="{{ asset('assets/media/template/nikah01.jpg') }}" width="150px">
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group m-0" id="detail-3">
-                                            <label>Pilih Template:</label>
-                                            <div class="row">
-                                                <div class="col-3">
-                                                    <label class="option">
-                                                        <span class="option-control">
-                                                            <span class="radio">
-                                                                <input type="radio" name="m_option_1" value="1" class="detail"/>
-                                                                <span></span>
-                                                            </span>
-                                                        </span>
-                                                        <span class="option-label">
-                                                            <img src="{{ asset('assets/media/template/hajatan00.jpg') }}" width="150px">
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group m-0" id="detail-4">
-                                            <label>Pilih Template:</label>
-                                            <div class="row">
-                                                <div class="col-3">
-                                                    <label class="option">
-                                                        <span class="option-control">
-                                                            <span class="radio">
-                                                                <input type="radio" name="m_option_1" value="1" class="detail"/>
-                                                                <span></span>
-                                                            </span>
-                                                        </span>
-                                                        <span class="option-label">
-                                                            <img src="{{ asset('assets/media/template/tahlil00.jpg') }}" width="150px">
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div id="result">
                                     </div>
 
                                 </div>
-                                
-                            </form>
-                            <!--end::Form-->
+                            </div>
+                            <!--end::Content-->
                         </div>
-                        <!--end::Content-->
-                    </div>
-                    <!--end::Card-->
+                        <!--end::Card-->
+                    </form>
+                    <!--end::Form-->
                 </div>
                 <!--end::Item-->  
             </div>
             <!--end::Row-->
-
             <!--end::Dashboard-->
         </div>
         <!--end::Container-->
@@ -242,42 +107,69 @@
 
 @push('script')
     <script src="{{ asset('assets/js/pages/custom/profile/profile.js?v=7.0.6') }}"></script>
-    <script>
-        $(document).ready(function(){
-            $("#input-detail").css("display","none"); //Menghilangkan form-input ketika pertama kali dijalankan
-            $(".tipe").click(function(){ //Memberikan even ketika class detail di klik (class detail ialah class radio button)
-                if ($("input[name='tipe']:checked").val() == "1" ) { //Jika radio button "berbeda" dipilih maka tampilkan form-inputan
-                    $("#input-detail").slideDown("fast"); //Efek Slide Down (Menampilkan Form Input)
-                    $("#detail-1").css("display","block");
-                    $("#detail-2").css("display","none");
-                    $("#detail-3").css("display","none");
-                    $("#detail-4").css("display","none");
-                }else if ($("input[name='tipe']:checked").val() == "2" ) { //Jika radio button "berbeda" dipilih maka tampilkan form-inputan
-                    $("#input-detail").slideDown("fast"); //Efek Slide Down (Menampilkan Form Input)
-                    $("#detail-1").css("display","none");
-                    $("#detail-2").css("display","block");
-                    $("#detail-3").css("display","none");
-                    $("#detail-4").css("display","none");
-                }else if ($("input[name='tipe']:checked").val() == "3" ) { //Jika radio button "berbeda" dipilih maka tampilkan form-inputan
-                    $("#input-detail").slideDown("fast"); //Efek Slide Down (Menampilkan Form Input)
-                    $("#detail-1").css("display","none");
-                    $("#detail-2").css("display","none");
-                    $("#detail-3").css("display","block");
-                    $("#detail-4").css("display","none");
-                }else if ($("input[name='tipe']:checked").val() == "4" ) { //Jika radio button "berbeda" dipilih maka tampilkan form-inputan
-                    $("#input-detail").slideDown("fast"); //Efek Slide Down (Menampilkan Form Input)
-                    $("#detail-1").css("display","none");
-                    $("#detail-2").css("display","none");
-                    $("#detail-3").css("display","none");
-                    $("#detail-4").css("display","block");
-                } else {
-                    $("#input-detail").slideUp("fast"); //Efek Slide Up (Menghilangkan Form Input)
-                }
-            })
-            $(".batal").click(function(){
-                $("#input-detail").slideUp("fast");
-                
-            })
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
         });
-        </script>
+        $('input[name="tipe"]').click(function(){
+            var tipe = $(this).val();
+            if(tipe == null){
+                $('#result').show();
+            }else{
+                var total;
+                var template = new Array();
+                $.ajax({
+                    url:"/event/template",
+                    method:"POST",
+                    data:{tipe:tipe},
+                    success:function(data){
+                        $('result').show();
+                        total = data.total;
+                        template.push(data.template);
+                        template = data.template;
+                        
+                        var list = '';
+                        if(template.length != 0) {
+                            template.forEach(function(t) {
+                                list +=` <div class="col-3">
+                                                <label class="option">
+                                                    <span class="option-control">
+                                                        <span class="radio">
+                                                            <input type="radio" name="template" value="`+t.id+`" class="detail"/>
+                                                            <span></span>
+                                                        </span>
+                                                    </span>
+                                                    <span class="option-label">
+                                                        <img src="/`+t.preview+`" width="150px">
+                                                    </span>
+                                                </label>
+                                            </div>`;
+                            });
+                        } else {
+                            list+='<div class="col-12 text-center font-weight-bold text-muted"> --- belum ada template --- </div>'
+                        }
+    
+                        var resultAjax = `
+                                    <!--begin::List-->
+                                    <div class="separator separator-dashed my-8"></div>
+                                    <div class="form-group m-0" id="detail-1">
+                                        <label>Pilih Template:</label>
+                                        <div class="row">
+                                            `+list+`
+                                        </div>
+                                    </div>
+                                    <!--end::List-->`;
+
+                        $('#result').html(resultAjax);
+                    }
+                });
+            }
+        });
+        $('button[name="reset"]').click(function(){
+            $('#result').html(``);
+        });
+    </script>
+    
 @endpush
