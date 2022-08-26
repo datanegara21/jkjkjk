@@ -100,7 +100,7 @@
                                         <div class="form-group row">
                                             <label class="col-xl-3 col-lg-3 col-form-label text-right">Deskripsi</label>
                                             <div class="col-lg-9 col-xl-6">
-                                                <textarea name="description" class="form-control form-control-lg form-control-solid" placeholder="{{ $user->description != null ? $user->description : 'Deskripsikan tentang diri anda' }}">{{ $user->description != null ? $user->description : '' }}</textarea>
+                                                <textarea name="description" class="form-control form-control-lg form-control-solid" placeholder="{{ $user->description != null ? $user->description : 'Deskripsikan tentang diri anda' }}">{{ $user->description != null ? $user->description : old('description') }}</textarea>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -117,7 +117,7 @@
                                                             class="input-group-text">wa.me/62</span></div>
                                                     <input type="text" name="whatsapp"
                                                         class="form-control form-control-lg form-control-solid"
-                                                        value="{{ $user->whatsapp != null ? $user->whatsapp : '' }}" placeholder="{{ $user->whatsapp != null ? $user->whatsapp : '81234567890' }}" />
+                                                        value="{{ $user->whatsapp != null ? $user->whatsapp : old('whatsapp') }}" placeholder="{{ $user->whatsapp != null ? $user->whatsapp : '81234567890' }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -129,7 +129,7 @@
                                                             class="input-group-text"></span></div>
                                                     <input type="text" name="facebook"
                                                         class="form-control form-control-lg form-control-solid"
-                                                        value="{{ $user->facebook != null ? $user->facebook : '' }}" placeholder="{{ $user->facebook != null ? $user->facebook : 'facebook.com/your.url' }}" />
+                                                        value="{{ $user->facebook != null ? $user->facebook : old('facebook') }}" placeholder="{{ $user->facebook != null ? $user->facebook : 'facebook.com/your.url' }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -141,7 +141,7 @@
                                                             class="input-group-text">@</span></div>
                                                     <input type="text" name="instagram"
                                                         class="form-control form-control-lg form-control-solid"
-                                                        value="{{ $user->instagram != null ? $user->instagram : '' }}" placeholder="{{ $user->instagram != null ? $user->instagram : 'your.name' }}" />
+                                                        value="{{ $user->instagram != null ? $user->instagram : old('instagram') }}" placeholder="{{ $user->instagram != null ? $user->instagram : 'your.name' }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -153,7 +153,7 @@
                                                             class="input-group-text">@</span></div>
                                                     <input type="text" name="twitter"
                                                         class="form-control form-control-lg form-control-solid"
-                                                        value="{{ $user->twitter != null ? $user->twitter : '' }}" placeholder="{{ $user->twitter != null ? $user->twitter : 'your.name' }}" />
+                                                        value="{{ $user->twitter != null ? $user->twitter : old('twitter') }}" placeholder="{{ $user->twitter != null ? $user->twitter : 'your.name' }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -165,7 +165,7 @@
                                                             class="input-group-text"></span></div>
                                                     <input type="text" name="website"
                                                         class="form-control form-control-lg form-control-solid"
-                                                        value="{{ $user->website != null ? $user->website : '' }}" placeholder="{{ $user->website != null ? $user->website : 'yourweb.com' }}"/>
+                                                        value="{{ $user->website != null ? $user->website : old('website') }}" placeholder="{{ $user->website != null ? $user->website : 'yourweb.com' }}"/>
                                                 </div>
                                             </div>
                                         </div>

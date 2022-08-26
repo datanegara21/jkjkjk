@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{User, Profile};
+use App\Models\{User, Profile, Event};
 
 class UserController extends Controller
 {
@@ -21,10 +21,14 @@ class UserController extends Controller
         ]);
     }public function delete_user($id_user){
         $user = User::where('id',$id_user)->first();
-
-        Profile::where('email', $user->email)->delete();
+        $name = $user->name;
+        $profile = Profile::where('email',$user->email)->first();
+        $event = Event::where('profile_id',$profile->id);
+        
+        $event->delete();
+        $profile->delete();
         $user->delete();
 
-        return redirect('admin/user');
+        return redirect('admin/user')->withToastSuccess('Data dari '.$name.' telah berhasil dihapus');
     }
 }

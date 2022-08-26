@@ -19,7 +19,7 @@ class CreateProfilesTable extends Migration
             $table->string('email')->unique();
             $table->string('image')->default('assets/media/profile/default.png');
             $table->text('description')->nullable();
-            $table->string('whatsapp')->nullable();
+            $table->bigInteger('whatsapp')->nullable();
             $table->string('facebook')->nullable();
             $table->string('instagram')->nullable();
             $table->string('twitter')->nullable();

@@ -43,7 +43,6 @@ class ProfileController extends Controller
             'whatsapp.integer' => 'Whatsapp tidak bisa diisi selain angka',
             'whatsapp.min' => 'Whatsapp tidak boleh kurang dari 8 angka',
             'whatsapp.max' => 'Whatsapp tidak boleh lebih dari 15 angka',
-            'facebook.url' => 'Facebook haruslah berbentuk url',
             'facebook.min' => 'Facebook tidak boleh kurang dari 5 karakter',
             'facebook.max' => 'Facebook tidak boleh lebih dari 255 karakter',
             'instagram.min' => 'Instagram tidak boleh kurang dari 3 karakter',
@@ -59,21 +58,21 @@ class ProfileController extends Controller
             'email' => 'bail|nullable|email:dns|max:255|unique:users,email,'.$user->id,
             'name' => 'bail|nullable|min:3|max:255',
             'description' => 'bail|nullable|min:3|max:500',
-            'whatsapp' => 'bail|nullable|integer|min:8|max:15',
-            'facebook' => 'bail|nullable|url|min:5|max:255',
+            'whatsapp' => 'bail|nullable|integer|min:10000000|max:999999999999999',
+            'facebook' => 'bail|nullable|min:5|max:255',
             'instagram' => 'bail|nullable|min:3|max:255',
             'twitter' => 'bail|nullable|min:3|max:255',
-            'website' => 'bail|nullable|url|min:3|max:255',
+            'website' => 'bail|nullable|min:3|max:255',
         ], $messages);
         
         if($request->profile_avatar){
-            $profile = $request->file('profile_avatar');
-            $profileName = time().".".$profile->extension();
-            $profileLoc = 'assets/media/profile';
-            $profileNames = $profileLoc.'/'.$profileName;
-            $profile->move(public_path($profileLoc),$profileName);
+            $avatar = $request->file('profile_avatar');
+            $avatarName = time().".".$avatar->extension();
+            $avatarLoc = 'assets/media/avatar';
+            $avatarNames = $avatarLoc.'/'.$avatarName;
+            $avatar->move(public_path($avatarLoc),$avatarName);
 
-            $profile->update(['image' => $profileNames]);
+            $profile->update(['image' => $avatarNames]);
         }
         if($request->name){
             $profile->update(['name' => $request->name]);

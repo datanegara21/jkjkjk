@@ -278,28 +278,30 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @php $i=0 @endphp
                                             @foreach($acaras as $acara)
+                                            @php $i++ @endphp
                                             <tr>
                                                 <td class="pl-0 py-4">
                                                     <div class="symbol symbol-50 symbol-light-primary mr-1">
                                                         <span class="symbol-label">
-                                                            {{ $i+1 }}    
+                                                              {{ $i }}  
                                                         </span>
                                                     </div>
                                                 </td>
                                                 <td class="pl-0">
                                                     <a href="#" class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">
-                                                        Contoh event yang dibuat oleh event organizer
+                                                        {{ $acara->title }}
                                                     </a>
                                                 </td>
                                                 <td class="text-center">
                                                     <span class="text-muted font-weight-bolder d-block font-size-lg">
-                                                        23/08/2022
+                                                        {{ $carbon::parse( $acara->created_at )->isoFormat('DD MMMM Y') }}
                                                     </span>
                                                 </td>
                                                 <td class="text-center">
                                                     <span class="text-muted font-weight-bolder">
-                                                        08:40
+                                                        {{ $carbon::parse( $acara->created_at )->isoFormat('HH:mm') }}
                                                     </span>
                                                 </td>
                                             </tr>

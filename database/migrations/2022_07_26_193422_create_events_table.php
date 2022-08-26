@@ -29,6 +29,7 @@ class CreateEventsTable extends Migration
             $table->integer('price');
             $table->dateTime('start');
             $table->dateTime('end');
+            $table->timestamps();
         });
     }
 

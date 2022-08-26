@@ -9,8 +9,6 @@ class Event extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
-
     protected $fillable = [
         'id',
         'profile_id',
