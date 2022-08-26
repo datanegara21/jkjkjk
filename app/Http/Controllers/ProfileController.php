@@ -68,7 +68,7 @@ class ProfileController extends Controller
         if($request->profile_avatar){
             $avatar = $request->file('profile_avatar');
             $avatarName = time().".".$avatar->extension();
-            $avatarLoc = 'assets/media/avatar';
+            $avatarLoc = 'assets/media/profile';
             $avatarNames = $avatarLoc.'/'.$avatarName;
             $avatar->move(public_path($avatarLoc),$avatarName);
 
