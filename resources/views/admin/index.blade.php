@@ -213,7 +213,7 @@
                                                                 <div class="symbol symbol-50 symbol-light mr-4">
                                                                     <span class="symbol-label">
                                                                         <img src="{{ asset($pengguna->image) }}"
-                                                                            class="h-75 align-self-end" alt="">
+                                                                            class="h-100 align-self-end" alt="">
                                                                     </span>
                                                                 </div>
                                                             </div>
