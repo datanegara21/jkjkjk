@@ -30,7 +30,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 //event
 Route::name('event')->group(function() {
     Route::get('/event', [EventController::class, 'listEvent']);
-    Route::get('/event/detail', [EventController::class, 'index']);
+    Route::get('/event/{id}', [EventController::class, 'index']);
     Route::get('/event/select', [EventController::class, 'selectEvent'])->middleware('user');
     Route::post('/event/select', [EventController::class, 'requestEvent'])->middleware('user');
     Route::get('/event/add', [EventController::class, 'addEvent'])->middleware('user');

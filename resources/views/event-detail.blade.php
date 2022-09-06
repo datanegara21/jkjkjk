@@ -13,7 +13,7 @@
     <!--begin::Entry-->
     <div class="d-flex flex-column-fluid">
         <!--begin::Container-->
-        <div class=" container ">
+        <div class=" container-fluid ">
             <!--begin::Dashboard-->
             <!--begin::Row-->
             <div class="row">
@@ -30,20 +30,20 @@
                                     <div class="d-flex flex-column flex-center">
                                         <!--begin::Image-->
                                         <div class="bgi-no-repeat bgi-size-cover rounded min-h-350px w-100"
-                                            style="background-image: url({{ asset('assets/media/stock-600x400/img-72.jpg') }})">
+                                            style="background-image: url({{ asset($event->event_template->event_category->image) }})">
                                         </div>
                                         <!--end::Image-->
                                         <div class="row mt-10 container mx-0 px-0">
                                             <div class="col-8 px-0 text-center">
                                                 <!--begin::Title-->
-                                                <a href="#" class="card-title font-weight-bolder text-center text-dark-75 text-hover-primary font-size-h4 m-0 pt-7 pb-1">
-                                                    Pelatihan Guru Kelas Industri Hummasoft
-                                                </a>
+                                                <div class="card-title font-weight-bolder text-center text-dark-75 font-size-h4 m-0 pt-7 pb-1">
+                                                    {{ $event->title }}
+                                                </div>
                                                 <!--end::Title-->
                                                 <!--begin::Text-->
-                                                <div class="font-weight-bold text-dark-50 font-size-sm pb-7">
-                                                    Hummasoft Technology
-                                                </div>
+                                                <a href="{{ url('profile/'.$event->profile->id) }}" class="d-block font-weight-bold text-dark-50 font-size-sm pb-7">
+                                                    {{ $event->profile->name }}
+                                                </a>
                                                 <!--end::Text-->
                                             </div>
                                             <div class="col-2"></div>
@@ -68,7 +68,7 @@
                                             <div class="container">
                                                 <div class="font-size-h4 font-weight-bold mb-3">Tentang event dan informasi tambahan</div>
                                                 <div class="font-size-h6">
-                                                    Event ini diselenggarakan oleh PT. Hummasoft Technology, yang berlokasi di Ngijo, Karangploso, Kab. Malang. Acara ini bertujuan untuk melatih guru-guru yang akan menjadi bagian dari pengajar di kelas industri Hummasoft. Para guru tidak perlu memikirkan tentang penginapan karena akan disediakan penginapan untuk beberapa hari secara gratis.
+                                                    {{ $event->description }}
                                                 </div>
                                             </div>
                                             <div class="container mt-5">
@@ -96,14 +96,17 @@
                                         {{-- begin::Item --}}
                                         <div class=" col-4">
                                             <div class="mx-5 my-5">
-                                                
+                                                <div class="font-weight-bold "><i class="fas fa-user mr-1"></i>Pemilik Event:</div>
+                                                <div class="text-muted text-right">{{ $event->name }}</div>
+                                            </div>
+                                            <div class="mx-5 my-5">
                                                 <div class="font-weight-bold mr-1"><i class="far fa-calendar-alt mr-1"></i>Waktu:</div>
-                                                <div class="text-muted text-right">Min, 24 Jul 22 10:00 WIB -</div>
-                                                <div class="text-muted text-right">Min, 24 Jul 22 10:00 WIB</div>
+                                                <div class="text-muted text-right">{{ $time[0] }}-</div>
+                                                <div class="text-muted text-right">{{ $time[1] }}</div>
                                             </div>
                                             <div class="mx-5 my-5">
                                                 <div class="font-weight-bold "><i class="fas fa-map-marker-alt mr-1"></i>Lokasi:</div>
-                                                <div class="text-muted text-right">Perum Permata Regency, Ngijo, Karangploso, Kab. Malang, Jawa Timur</div>
+                                                <div class="text-muted text-right">{{ $event->location }}</div>
                                             </div>
                                             
                                         </div>
@@ -128,7 +131,7 @@
             <!--end::Row-->
             <!--begin::Row-->
             <div class="row">
-                <div class="col-4">
+                <div class="col-lg-12 col-xl-4">
                     <!--begin::Nav Panel Widget 4-->
                     <div class="card card-custom gutter-b">
                         <!--begin::Body-->
@@ -146,7 +149,7 @@
                     </div>
                     <!--end::Nav Panel Widget 4-->
                 </div>
-                <div class="col-8">
+                <div class="col-lg-12 col-xl-8">
                     <!--begin::Nav Panel Widget 4-->
                     <div class="card card-custom gutter-b">
                         <!--begin::Body-->
@@ -177,19 +180,20 @@
                                 <div class="text-center mb-10">
                                     <div class="symbol symbol-60 symbol-circle symbol-xl-90">
                                         <div class="symbol-label"
-                                            style="background-image:url('{{ asset('assets/media/users/300_21.jpg') }}')">
+                                            style="background-image:url('{{ asset($event->profile->image) }}')">
                                         </div>
-                                        <i class="symbol-badge symbol-badge-bottom bg-success"></i>
                                     </div>
 
                                     <h4 class="font-weight-bold my-2">
-                                        Hummasoft
+                                        <a href="{{ url('profile/'.$event->profile->id) }}" class="text-dark">
+                                        {{ $event->profile->name }}
+                                        </a>
                                     </h4>
                                     <span class="label label-light-warning label-inline font-weight-bold label-lg">
-                                        23 Event Dibuat
+                                        {{ $event->profile->event->count() }} Event Dibuat
                                     </span>
                                     <div class="text-muted mb-2">
-                                        Perusahaan di bidang IT yang berlokasi di Perum Permata Regency, Ngijo, Karangploso, Malang
+                                        {{ $event->profile->description ? $event->profile->description : '-' }}
                                     </div>
                                 </div>
                                 <!--end::User-->
@@ -225,7 +229,7 @@
                             <div class="card-header border-0 pt-5">
                                 <h3 class="card-title align-items-start flex-column">
                                     <span class="card-label font-weight-bolder text-dark">Event lain dari Hummasoft</span>
-                                    <span class="text-muted mt-3 font-weight-bold font-size-sm">3 akan diselenggarakan</span>
+                                    <span class="text-muted mt-3 font-weight-bold font-size-sm">{{ $events->count() }} akan diselenggarakan</span>
                                 </h3>
                             </div>
                             <!--end::Header-->
@@ -234,12 +238,13 @@
                             <div class="card-body pt-4">
                                 <!--begin::Container-->
                                 <div>
+                                    @foreach($events->take(3) as $e)
                                     <!--begin::Item-->
                                     <div class="d-flex align-items-center mb-8">
                                         <!--begin::Symbol-->
                                         <div class="symbol mr-5 pt-1">
                                             <div class="symbol-label min-w-120px min-h-75px"
-                                                style="background-image: url('{{ asset('assets/media/books/4.png') }}')">
+                                                style="background-image: url('{{ asset($e->event_template->event_category->image) }}')">
                                             </div>
                                         </div>
                                         <!--end::Symbol-->
@@ -247,20 +252,20 @@
                                         <!--begin::Info-->
                                         <div class="d-flex flex-column">
                                             <!--begin::Title-->
-                                            <a href="{{ url('/event/detail') }}" class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg">
-                                                Perjalanan ke Barat Demi Mencari Kitab Suci
+                                            <a href="{{ url('event/'.$e->id) }}" class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg">
+                                            {{ $e->title }}
                                             </a>
                                             <!--end::Title-->
 
                                             <!--begin::Text-->
                                             <span class="text-muted font-weight-bold font-size-sm">
-                                                Min, 21 Agu 22 - 10:00 | Malang
+                                                {{ $e->date }}
                                             </span>
                                             <!--end::Text-->
 
                                             <!--begin::Action-->
                                             <div>
-                                                <a href="{{ url('/event/detail') }}" class="btn btn-primary font-weight-bolder font-size-sm py-2">
+                                                <a href="{{ url('event/'.$e->id) }}" class="btn btn-primary font-weight-bolder font-size-sm py-2">
                                                     Lihat Event
                                                 </a>
                                             </div>
@@ -269,78 +274,8 @@
                                         <!--end::Info-->
                                     </div>
                                     <!--end::Item-->
+                                    @endforeach
 
-                                    <!--begin::Item-->
-                                    <div class="d-flex align-items-center mb-8">
-                                        <!--begin::Symbol-->
-                                        <div class="symbol mr-5 pt-1">
-                                            <div class="symbol-label min-w-120px min-h-75px"
-                                                style="background-image: url('{{ asset('assets/media/books/12.png') }}')">
-                                            </div>
-                                        </div>
-                                        <!--end::Symbol-->
-
-                                        <!--begin::Info-->
-                                        <div class="d-flex flex-column">
-                                            <!--begin::Title-->
-                                            <a href="{{ url('/event/detail') }}" class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg">
-                                                Tahlil Memperingati Setahun Berdirinya "Tok Dalang Homestay"
-                                            </a>
-                                            <!--end::Title-->
-
-                                            <!--begin::Text-->
-                                            <span class="text-muted font-weight-bold font-size-sm">
-                                                Min, 21 Agu 22 - 10:00 | Malang
-                                            </span>
-                                            <!--end::Text-->
-
-                                            <!--begin::Action-->
-                                            <div>
-                                                <a href="{{ url('/event/detail') }}" class="btn btn-primary font-weight-bolder font-size-sm py-2">
-                                                    Lihat Event
-                                                </a>
-                                            </div>
-                                            <!--end::Action-->
-                                        </div>
-                                        <!--end::Info-->
-                                    </div>
-                                    <!--end::Item-->
-
-                                    <!--begin::Item-->
-                                    <div class="d-flex align-items-center">
-                                        <!--begin::Symbol-->
-                                        <div class="symbol mr-5 pt-1">
-                                            <div class="symbol-label min-w-120px min-h-75px"
-                                                style="background-image: url('{{ asset('assets/media/books/1.png') }}')">
-                                            </div>
-                                        </div>
-                                        <!--end::Symbol-->
-
-                                        <!--begin::Info-->
-                                        <div class="d-flex flex-column">
-                                            <!--begin::Title-->
-                                            <a href="{{ url('/event/detail') }}" class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg">
-                                                Debat dengan Tema "Siapakah Dalang dari Hilangnya Munir?"
-                                            </a>
-                                            <!--end::Title-->
-
-                                            <!--begin::Text-->
-                                            <span class="text-muted font-weight-bold font-size-sm">
-                                                Min, 21 Agu 22 - 10:00 | Malang
-                                            </span>
-                                            <!--end::Text-->
-
-                                            <!--begin::Action-->
-                                            <div>
-                                                <a href="{{ url('/event/detail') }}" class="btn btn-primary font-weight-bolder font-size-sm py-2">
-                                                    Lihat Event
-                                                </a>
-                                            </div>
-                                            <!--end::Action-->
-                                        </div>
-                                        <!--end::Info-->
-                                    </div>
-                                    <!--end::Item-->
                                 </div>
                                 <!--end::Container-->
                             </div>
@@ -365,12 +300,25 @@
 @endsection
 
 @push('style')
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
+    {{-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" /> --}}
+    <link href="{{ asset('assets/plugins/custom/leaflet/leaflet.bundle.css?v=7.0.6') }}" rel="stylesheet" type="text/css">
 @push('script')
-    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
+    {{-- <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script> --}}
+    <script src="{{ asset('assets/plugins/custom/leaflet/leaflet.bundle.js?v=7.0.6') }}"></script>
+    <script src="{{ asset('assets/js/pages/features/maps/leaflet.js?v=7.0.6') }}"></script>
     <script>
-        var map = L.map('map').setView([-7.900074,112.606886], 16);
-        var marker = L.marker([-7.900074,112.606886]).addTo(map);
+        // var latlng = {!! json_encode($event->toArray()) !!};
+
+        var map = L.map('map').setView([{{ $event->map }}], 16);
+        var leafletIcon = L.divIcon({
+			html: `<span class="svg-icon svg-icon-danger svg-icon-3x"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="24" width="24" height="0"/><path d="M5,10.5 C5,6 8,3 12.5,3 C17,3 20,6.75 20,10.5 C20,12.8325623 17.8236613,16.03566 13.470984,20.1092932 C12.9154018,20.6292577 12.0585054,20.6508331 11.4774555,20.1594925 C7.15915182,16.5078313 5,13.2880005 5,10.5 Z M12.5,12 C13.8807119,12 15,10.8807119 15,9.5 C15,8.11928813 13.8807119,7 12.5,7 C11.1192881,7 10,8.11928813 10,9.5 C10,10.8807119 11.1192881,12 12.5,12 Z" fill="#000000" fill-rule="nonzero"/></g></svg></span>`,
+			bgPos: [10, 10],
+			iconAnchor: [20, 37],
+			popupAnchor: [0, -37],
+			className: 'leaflet-marker'
+		});
+        var marker = L.marker([{{ $event->map }}], { icon: leafletIcon }).addTo(map);
+        
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '© OpenStreetMap'

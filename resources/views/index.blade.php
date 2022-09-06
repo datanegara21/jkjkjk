@@ -4,7 +4,7 @@
 
 @extends('layouts.'.$layout)
 
-@section('title','Home')
+@section('title','Beranda')
 
 @section('content')
 
@@ -153,8 +153,23 @@
             <h3 class="text-left">Event Disekitarmu</h3>
             <!--begin::Row-->
             <div class="row">
-                @for($i=0;$i<6;$i++)
-                <div class="col-xl-4">
+                @if($events->isEmpty())
+                <div class="col-12">
+                    <!--begin::Nav Panel Widget 4-->
+                    <div class="card card-custom gutter-b">
+                        <!--begin::Body-->
+                        <div class="card-body text-center">
+                            <!--begin::Wrapper-->
+                            --- Belum Ada Event yang Sedang Berjalan ---
+                            <!--end::Wrapper-->
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                    <!--end::Nav Panel Widget 4-->
+                </div>
+                @endif
+                @foreach($events as $event)
+                <div class="col-sm-12 col-md-6 col-xl-4">
                     <!--begin::Nav Panel Widget 4-->
                     <div class="card card-custom gutter-b">
                         <!--begin::Body-->
@@ -167,20 +182,20 @@
                                     <div class="d-flex flex-column flex-center">
                                         <!--begin::Image-->
                                         <div class="bgi-no-repeat bgi-size-cover rounded min-h-180px w-100"
-                                            style="background-image: url({{ asset('assets/media/stock-600x400/img-72.jpg') }})">
+                                            style="background-image: url({{ asset($event->event_template->event_category->image) }})">
                                         </div>
                                         <!--end::Image-->
 
                                         <!--begin::Title-->
-                                        <a href="{{ url('/event/detail') }}" class="card-title font-weight-bolder text-center text-dark-75 text-hover-primary font-size-h4 m-0 pt-7 pb-1">
-                                            Pelatihan Guru Kelas Industri Hummasoft
+                                        <a href="{{ url('event/'.$event->id) }}" class="card-title font-weight-bolder text-center text-dark-75 text-hover-primary font-size-h4 m-0 pt-7 pb-1">
+                                            {{ $event->title }}
                                         </a>
                                         <!--end::Title-->
 
                                         <!--begin::Text-->
-                                        <div class="font-weight-bold text-dark-50 font-size-sm pb-7">
-                                            PT. Hummasoft Technology
-                                        </div>
+                                        <a href="{{ url('profile/'.$event->profile_id) }}" class="font-weight-bold text-dark-50 font-size-sm pb-7">
+                                            {{ $event->profile->name }}
+                                        </a>
                                         <!--end::Text-->
                                     </div>
                                     <!--end::Header-->
@@ -192,11 +207,11 @@
                                             <div class="d-flex align-items-center justify-content-between mb-2">
                                                 
                                                 <span class="font-weight-bold mr-1"><i class="far fa-calendar-alt mr-1"></i>Waktu:</span>
-                                                <span class="text-muted text-right">Min, 24 Jul 22 10:00 WIB</span>
+                                                <span class="text-muted text-right">{{ $event->date }}</span>
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between mb-2">
                                                 <span class="font-weight-bold "><i class="fas fa-map-marker-alt mr-1"></i>Lokasi:</span>
-                                                <span class="text-muted text-right">Perum Permata Regency, Ngijo</span>
+                                                <span class="text-muted text-right">{{ $event->location }}</span>
                                             </div>
                                         </div>
                                         {{-- end::Item --}}
@@ -212,7 +227,7 @@
                                         Lihat Event
                                     </a>
                                     <a class="btn btn-outline-light bg-dark-50 font-weight-bolder font-size-sm p-3">
-                                        <i class="fas fa-heart {{ $i%4 == 1 ? 'text-danger' : '' }}"></i>
+                                        <i class="fas fa-heart text-danger"></i>
                                     </a>
                                 </div>
                                 <!--end::Footer-->
@@ -223,7 +238,7 @@
                     </div>
                     <!--end::Nav Panel Widget 4-->
                 </div>
-                @endfor
+                @endforeach
             </div>
             <center>
                 <a href="{{ url('/event') }}" class="btn btn-dark">Lihat selengkapnya <i class="fas fa-arrow-right"></i></a>
@@ -233,7 +248,22 @@
             <h3 class="text-left mt-7">Pembuat Event</h3>
             <!--begin::Row-->
             <div class="row">
-                @for($i=0;$i<3;$i++)
+                @if($penggunas->isEmpty())
+                <div class="col-12">
+                    <!--begin::Nav Panel Widget 4-->
+                    <div class="card card-custom gutter-b">
+                        <!--begin::Body-->
+                        <div class="card-body text-center">
+                            <!--begin::Wrapper-->
+                            --- Belum Ada Event yang Sedang Berjalan ---
+                            <!--end::Wrapper-->
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                    <!--end::Nav Panel Widget 4-->
+                </div>
+                @endif
+                @foreach($penggunas as $pengguna)
                 <!--begin::Item-->
                 <div class="col-4">
                     <!--begin::Card-->
@@ -250,13 +280,13 @@
                                 </div>
 
                                 <h4 class="font-weight-bold my-2">
-                                    Hummasoft
+                                    {{ $pengguna->name }}
                                 </h4>
                                 <span class="label label-light-warning label-inline font-weight-bold label-lg">
-                                    23 Event Dibuat
+                                    {{ $pengguna->event->count() }} Event Dibuat
                                 </span>
                                 <div class="text-muted mb-2">
-                                    Perusahaan di bidang IT yang berlokasi di Perum Permata Regency, Ngijo, Karangploso, Malang
+                                    {{ $pengguna->description ? $pengguna->description : '--- tidak ada deskripsi ---' }}
                                 </div>
                             </div>
                             <!--end::User-->
@@ -281,7 +311,7 @@
                     <!--end::Card-->
                 </div>
                 <!--end::Item-->
-                @endfor
+                @endforeach
                 
             </div>
             <!--end::Row-->

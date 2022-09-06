@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\{Event, Profile};
+
 class HomeController extends Controller
 {
     /**
@@ -20,6 +22,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('index');
+        $events = Event::where('end','>',now())->limit(6)->get();
+        $penggunas = Profile::limit(3)->get();
+
+        return view('index')->with(compact('events', 'penggunas'));
     }
 }

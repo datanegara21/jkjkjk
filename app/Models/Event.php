@@ -30,4 +30,7 @@ class Event extends Model
     public function event_template() {
         return $this->belongsTo(EventTemplate::class);
     }
+    public function profile() {
+        return $this->belongsTo(Profile::class);
+    }
 }

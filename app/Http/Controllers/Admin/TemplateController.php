@@ -129,7 +129,7 @@ class TemplateController extends Controller
         ];
         $request->validate([
             'preview' => 'bail|required|mimes:jpg,jpeg,png|max:2048',
-            'template' => 'bail|required|mimes:jpg,jpeg,png|max:2048*'
+            'template' => 'bail|required|mimes:jpg,jpeg,png|max:2048'
         ],$messages);
 
         //simpan file preview

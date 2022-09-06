@@ -21,12 +21,12 @@ class CreateEventsTable extends Migration
             $table->string('title');
             $table->string('name');
             $table->string('date');
-            $table->string('time');
+            $table->string('time')->nullable();
             $table->string('location');
             $table->string('map')->default('-7.900074,112.606886');
             $table->text('description');
             $table->integer('total');
-            $table->integer('price');
+            $table->integer('price')->nullable();
             $table->dateTime('start');
             $table->dateTime('end');
             $table->timestamps();

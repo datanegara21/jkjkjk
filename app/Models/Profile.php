@@ -30,4 +30,8 @@ class Profile extends Model
         'twitter',
         'website',
     ];
+
+    public function event() {
+        return $this->hasMany(Event::class);
+    }
 }

@@ -4,6 +4,15 @@ var KTBootstrapTimepicker = function () {
     
     // Private functions
     var demos = function () {
+        //custom
+        $('#kt_timepicker_custom_1, #kt_timepicker_custom_2, #kt_timepicker_custom_3').timepicker({
+            minuteStep: 5,
+            defaultTime: '',
+            showSeconds: false,
+            showMeridian: false,
+            snapToStep: true
+        });
+
         // minimum setup
         $('#kt_timepicker_1, #kt_timepicker_1_modal').timepicker();
 

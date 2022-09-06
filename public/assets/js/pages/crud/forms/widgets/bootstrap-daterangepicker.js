@@ -4,6 +4,24 @@ var KTBootstrapDaterangepicker = function () {
 
     // Private functions
     var demos = function () {
+        //custom
+        $('#kt_datetimerangepicker_1').daterangepicker({
+            buttonClasses: ' btn',
+            applyClass: 'btn-primary',
+            cancelClass: 'btn-secondary',
+
+            autoApply: true,
+            autoUpdateInput: true,
+            timePicker24Hour: true,
+            timePicker: true,
+            timePickerIncrement: 5,
+            locale: {
+                format: 'DD/MM/YYYY HH:mm',
+            }
+        }, function(start, end, label) {
+            $('#kt_datetimerangepicker_1 .form-control').val( start.format('DD/MM/YYYY HH:mm') + ' - ' + end.format('DD/MM/YYYY HH:mm'));
+        });
+
         // minimum setup
         $('#kt_daterangepicker_1, #kt_daterangepicker_1_modal').daterangepicker({
             buttonClasses: ' btn',
