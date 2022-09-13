@@ -52,8 +52,8 @@
                                                     <a class="btn btn-primary font-weight-bolder font-size-sm py-3 px-7 mr-2">
                                                         Daftar
                                                     </a>
-                                                    <a class="btn btn-outline-light bg-dark-50 font-weight-bolder font-size-sm">
-                                                        <i class="fas fa-heart text-danger"></i>
+                                                    <a href="{{ url('event/like/'.$event->id) }}" class="btn btn-outline-light bg-dark-50 font-weight-bolder font-size-sm">
+                                                        <i class="fas fa-heart {{ \App\Http\Controllers\EventController::checkLiked($event->id) ? 'text-danger' : '' }}"></i>
                                                     </a>
                                                 </div>
                                             </div>
@@ -94,20 +94,26 @@
                                         </div>  
                                         {{-- end::Item --}}
                                         {{-- begin::Item --}}
-                                        <div class=" col-4">
-                                            <div class="mx-5 my-5">
-                                                <div class="font-weight-bold "><i class="fas fa-user mr-1"></i>Pemilik Event:</div>
-                                                <div class="text-muted text-right">{{ $event->name }}</div>
-                                            </div>
-                                            <div class="mx-5 my-5">
-                                                <div class="font-weight-bold mr-1"><i class="far fa-calendar-alt mr-1"></i>Waktu:</div>
-                                                <div class="text-muted text-right">{{ $time[0] }}-</div>
-                                                <div class="text-muted text-right">{{ $time[1] }}</div>
-                                            </div>
-                                            <div class="mx-5 my-5">
-                                                <div class="font-weight-bold "><i class="fas fa-map-marker-alt mr-1"></i>Lokasi:</div>
-                                                <div class="text-muted text-right">{{ $event->location }}</div>
-                                            </div>
+                                        <div class=" col-4 row">
+                                            {{-- <div class="mx-5 my-5"> --}}
+                                                <div class="font-weight-bold col-6 "><i class="fas fa-user mr-1"></i>Pemilik Event:</div>
+                                                <div class="text-muted text-right col-6">{{ $event->name }}</div>
+                                            {{-- </div> --}}
+                                            {{-- <div class="mx-5 my-5"> --}}
+                                                <div class="font-weight-bold col-5 mr-1"><i class="far fa-calendar-alt mr-1"></i>Waktu:</div>
+                                                <div class="col-6">
+                                                    <div class="text-muted text-right">{{ $time[0] }} -</div>
+                                                    <div class="text-muted text-right">{{ $time[1] }}</div>
+                                                </div>
+                                            {{-- </div> --}}
+                                            {{-- <div class="mx-5 my-5"> --}}
+                                                <div class="font-weight-bold col-6 "><i class="fas fa-map-marker-alt mr-1"></i>Lokasi:</div>
+                                                <div class="text-muted text-right col-6">{{ $event->location }}</div>
+                                            {{-- </div> --}}
+                                            {{-- <div class="mx-5 my-5"> --}}
+                                                <div class="font-weight-bold col-6 "><i class="fas fa-map-marker-alt mr-1"></i>Biaya:</div>
+                                                <div class="text-muted text-right col-6">{{ $event->price ? 'Rp '.$event->price : 'gratis' }}</div>
+                                            {{-- </div> --}}
                                             
                                         </div>
                                         {{-- end::Item --}}
@@ -156,7 +162,8 @@
                         <div class="card-body">
                             <!--begin::Wrapper-->
                             <h3>Undangan</h3>
-                            <iframe class="d-block w-100" style="height: 500px" src="{{ asset('assets/media/undangan/00.pdf') }}#toolbar=0&view=fitH" frameborder="0"></iframe>
+                            {{-- <iframe class="d-block w-100" style="height: 500px" src="{{ asset('assets/media/undangan/00.pdf') }}#toolbar=0&view=fitH" frameborder="0"></iframe> --}}
+                            <iframe class="d-block w-100" style="height: 500px" src="{{ asset('event/tes/index.html') }}#toolbar=0&view=fitH" frameborder="0"></iframe>
                             <!--end::Wrapper-->
                         </div>
                         <!--end::Body-->

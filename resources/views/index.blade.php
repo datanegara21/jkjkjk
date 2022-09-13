@@ -150,7 +150,8 @@
         <!--begin::Container-->
         <div class=" container ">
             <!--begin::Dashboard-->
-            <h3 class="text-left">Event Disekitarmu</h3>
+            <h3 class="text-center text-bold">Event Terbaru</h3>
+            <h6 class="text-center text-muted mt-1 mb-4">Temukan Event Sesuai Keinginan Anda</h6>
             <!--begin::Row-->
             <div class="row">
                 @if($events->isEmpty())
@@ -226,8 +227,8 @@
                                     <a href="{{ url('/event/detail') }}" class="btn btn-primary font-weight-bolder font-size-sm py-3 px-7 mr-2">
                                         Lihat Event
                                     </a>
-                                    <a class="btn btn-outline-light bg-dark-50 font-weight-bolder font-size-sm p-3">
-                                        <i class="fas fa-heart text-danger"></i>
+                                    <a href="{{ url('event/like/'.$event->id) }}" class="btn btn-outline-light bg-dark-50 font-weight-bolder font-size-sm p-3">
+                                        <i class="fas fa-heart {{ \App\Http\Controllers\EventController::checkLiked($event->id)? 'text-danger' : '' }}"></i>
                                     </a>
                                 </div>
                                 <!--end::Footer-->
@@ -245,7 +246,8 @@
             </center>
             <hr>
             <!--end::Row-->
-            <h3 class="text-left mt-7">Pembuat Event</h3>
+            <h3 class="text-center text-bold mt-7">Pembuat Event</h3>
+            <h6 class="text-center text-muted mt-1 mb-4">Temukan Pembuat Event Terbaik</h6>
             <!--begin::Row-->
             <div class="row">
                 @if($penggunas->isEmpty())
@@ -255,7 +257,7 @@
                         <!--begin::Body-->
                         <div class="card-body text-center">
                             <!--begin::Wrapper-->
-                            --- Belum Ada Event yang Sedang Berjalan ---
+                            --- Belum Ada Pembuat Event ---
                             <!--end::Wrapper-->
                         </div>
                         <!--end::Body-->
@@ -264,6 +266,7 @@
                 </div>
                 @endif
                 @foreach($penggunas as $pengguna)
+                @if($pengguna->event->count() > 0)
                 <!--begin::Item-->
                 <div class="col-4">
                     <!--begin::Card-->
@@ -274,9 +277,8 @@
                             <div class="text-center mb-10">
                                 <div class="symbol symbol-60 symbol-circle symbol-xl-90">
                                     <div class="symbol-label"
-                                        style="background-image:url('assets/media/users/300_21.jpg')">
+                                        style="background-image:url('{{ asset($pengguna->image) }}')">
                                     </div>
-                                    <i class="symbol-badge symbol-badge-bottom bg-success"></i>
                                 </div>
 
                                 <h4 class="font-weight-bold my-2">
@@ -311,6 +313,7 @@
                     <!--end::Card-->
                 </div>
                 <!--end::Item-->
+                @endif
                 @endforeach
                 
             </div>

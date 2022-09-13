@@ -153,7 +153,7 @@
             <h3 class="text-left">Event Terbaru Disekitarmu</h3>
             <!--begin::Row-->
             <div class="row">
-                @for($i=0; $i<=8; $i++)
+                @foreach($events as $event)
                 <div class="col-xl-4">
                     <!--begin::Nav Panel Widget 4-->
                     <div class="card card-custom gutter-b">
@@ -167,19 +167,19 @@
                                     <div class="d-flex flex-column flex-center">
                                         <!--begin::Image-->
                                         <div class="bgi-no-repeat bgi-size-cover rounded min-h-180px w-100"
-                                            style="background-image: url({{ asset('assets/media/stock-600x400/img-72.jpg') }})">
+                                            style="background-image: url({{ asset($event->event->event_template->event_category->image) }})">
                                         </div>
                                         <!--end::Image-->
 
                                         <!--begin::Title-->
                                         <a href="#" class="card-title font-weight-bolder text-center text-dark-75 text-hover-primary font-size-h4 m-0 pt-7 pb-1">
-                                            Pelatihan Guru Kelas Industri Hummasoft
+                                            {{ $event->event->title }}
                                         </a>
                                         <!--end::Title-->
 
                                         <!--begin::Text-->
                                         <div class="font-weight-bold text-dark-50 font-size-sm pb-7">
-                                            Hummasoft Technology
+                                            {{ $event->profile->name }}
                                         </div>
                                         <!--end::Text-->
                                     </div>
@@ -211,7 +211,7 @@
                                     <a href="{{ url('/event/detail') }}" class="btn btn-primary font-weight-bolder font-size-sm py-3 px-7 mr-2">
                                         Lihat Event
                                     </a>
-                                    <a class="btn btn-outline-light bg-dark-50 font-weight-bolder font-size-sm p-3">
+                                    <a href="{{ url('event/like/'.$event->event->id) }}" class="btn btn-outline-light bg-dark-50 font-weight-bolder font-size-sm p-3">
                                         <i class="fas fa-heart text-danger"></i>
                                     </a>
                                 </div>
@@ -223,7 +223,7 @@
                     </div>
                     <!--end::Nav Panel Widget 4-->
                 </div>
-                @endfor
+                @endforeach
                 
             </div>
             <!--begin::Pagination-->

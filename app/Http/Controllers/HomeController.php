@@ -20,8 +20,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
+    public function index() {
         $events = Event::where('end','>',now())->limit(6)->get();
         $penggunas = Profile::limit(3)->get();
 

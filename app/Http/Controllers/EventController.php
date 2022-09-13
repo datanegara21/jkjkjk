@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\{Auth};
-use App\Models\{User, Profile, Event, EventCategory, EventTemplate};
+use Illuminate\Support\Facades\{Auth, DB};
+use App\Models\{User, Profile, Event, EventCategory, EventTemplate, Liked};
 
 class EventController extends Controller
 {
@@ -20,7 +20,8 @@ class EventController extends Controller
         return view('event-detail')->with(compact('events', 'event', 'time'));
     }
     public function listEvent(){
-        return view('event-list');
+        $events = Event::where('end','>',now())->paginate(9);
+        return view('event-list')->with(compact('events'));
     }
     public function selectEvent(){
         $categories = EventCategory::all();
@@ -129,10 +130,53 @@ class EventController extends Controller
     public function joinedEvent(){
         return view ('user.event-join');
     }
+    public function likeEvent($event_id) {
+        $profile = Profile::where('email', Auth::user()->email)->first();
+
+        //check liked event
+        $liked = Liked::where('event_id', $event_id)
+                      ->where('profile_id', $profile->id)
+                      ->first();
+
+        if($liked){
+            $liked->delete();
+
+            return redirect()->back()->withToastSuccess('Event berhasil dihapus dari daftar disukai');
+        }else{
+            Liked::create([
+                'event_id' => $event_id,
+                'profile_id' => $profile->id
+            ]);
+            
+            return redirect()->back()->withToastSuccess('Event berhasil disukai');
+        }
+    }
     public function likedEvent(){
-        return view ('user.event-like');
+        $profile = Profile::where('email', Auth::user()->email)->first();
+        $events = Liked::where('profile_id', $profile->id)->get();
+
+        return view ('user.event-like')->with(compact('events'));
     }
     public function organizerList(){
-        return view ('organizer');
+        $events = Event::select('events.profile_id')->groupBy('profile_id')->paginate(9);
+
+        return view ('organizer')->with(compact('events'));
+    }
+    public static function checkLiked($event_id) {
+        if(Auth::check()){
+            $profile = Profile::where('email', Auth::user()->email)->first();
+
+            $liked = Liked::where('profile_id', $profile->id)
+                        ->where('event_id', $event_id)
+                        ->first();
+
+            if($liked) {
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
     }
 }

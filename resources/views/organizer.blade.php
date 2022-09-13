@@ -153,9 +153,24 @@
             <h3 class="text-left">Pembuat Event</h3>
             <!--begin::Row-->
             <div class="row">
-                @for($i=0;$i<9;$i++)
+                @if($events->isEmpty())
+                <div class="col-12">
+                    <!--begin::Nav Panel Widget 4-->
+                    <div class="card card-custom gutter-b">
+                        <!--begin::Body-->
+                        <div class="card-body text-center">
+                            <!--begin::Wrapper-->
+                            --- Belum Ada Pembuat Event ---
+                            <!--end::Wrapper-->
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                    <!--end::Nav Panel Widget 4-->
+                </div>
+                @endif
+                @foreach($events as $event)
                 <!--begin::Item-->
-                <div class="col-4">
+                <div class="col-sm-12 col-md-6 col-xl-4">
                     <!--begin::Card-->
                     <div class="card card-custom my-2">
                         <!--begin::Body-->
@@ -170,13 +185,13 @@
                                 </div>
 
                                 <h4 class="font-weight-bold my-2">
-                                    Hummasoft
+                                    {{ $event->profile->name }}
                                 </h4>
                                 <span class="label label-light-warning label-inline font-weight-bold label-lg">
-                                    23 Event Dibuat
+                                    {{ $event->profile->event->count() }} Event Dibuat
                                 </span>
                                 <div class="text-muted mb-2">
-                                    Perusahaan di bidang IT yang berlokasi di Perum Permata Regency, Ngijo, Karangploso, Malang
+                                    {{ $event->profile->descrtiption ? $event->profile->description : '-' }}
                                 </div>
                             </div>
                             <!--end::User-->
@@ -201,7 +216,7 @@
                     <!--end::Card-->
                 </div>
                 <!--end::Item-->
-                @endfor
+                @endforeach
                 
             </div>
             <!--end::Row-->

@@ -33,4 +33,7 @@ class Event extends Model
     public function profile() {
         return $this->belongsTo(Profile::class);
     }
+    public function liked() {
+        return $this->hasMany(Liked::class);
+    }
 }

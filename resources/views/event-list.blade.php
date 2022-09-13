@@ -150,11 +150,26 @@
         <!--begin::Container-->
         <div class=" container ">
             <!--begin::Dashboard-->
-            <h3 class="text-left">Event Terbaru Disekitarmu</h3>
+            <h3 class="text-left">Event Terbaru</h3>
             <!--begin::Row-->
             <div class="row">
-                @for($i=0; $i<=8; $i++)
-                <div class="col-xl-4">
+                @if($events->isEmpty())
+                <div class="col-12">
+                    <!--begin::Nav Panel Widget 4-->
+                    <div class="card card-custom gutter-b">
+                        <!--begin::Body-->
+                        <div class="card-body text-center">
+                            <!--begin::Wrapper-->
+                            --- Belum Ada Event yang Sedang Berjalan ---
+                            <!--end::Wrapper-->
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                    <!--end::Nav Panel Widget 4-->
+                </div>
+                @endif
+                @foreach($events as $event)
+                <div class="col-sm-12 col-md-6 col-xl-4">
                     <!--begin::Nav Panel Widget 4-->
                     <div class="card card-custom gutter-b">
                         <!--begin::Body-->
@@ -167,20 +182,20 @@
                                     <div class="d-flex flex-column flex-center">
                                         <!--begin::Image-->
                                         <div class="bgi-no-repeat bgi-size-cover rounded min-h-180px w-100"
-                                            style="background-image: url({{ asset('assets/media/stock-600x400/img-72.jpg') }})">
+                                            style="background-image: url({{ asset($event->event_template->event_category->image) }})">
                                         </div>
                                         <!--end::Image-->
 
                                         <!--begin::Title-->
-                                        <a href="#" class="card-title font-weight-bolder text-center text-dark-75 text-hover-primary font-size-h4 m-0 pt-7 pb-1">
-                                            Pelatihan Guru Kelas Industri Hummasoft
+                                        <a href="{{ url('event/'.$event->id) }}" class="card-title font-weight-bolder text-center text-dark-75 text-hover-primary font-size-h4 m-0 pt-7 pb-1">
+                                            {{ $event->title }}
                                         </a>
                                         <!--end::Title-->
 
                                         <!--begin::Text-->
-                                        <div class="font-weight-bold text-dark-50 font-size-sm pb-7">
-                                            Hummasoft Technology
-                                        </div>
+                                        <a href="{{ url('profile/'.$event->profile->id) }}" class="font-weight-bold text-dark-50 font-size-sm pb-7">
+                                            {{ $event->profile->name }}
+                                        </a>
                                         <!--end::Text-->
                                     </div>
                                     <!--end::Header-->
@@ -192,11 +207,11 @@
                                             <div class="d-flex align-items-center justify-content-between mb-2">
                                                 
                                                 <span class="font-weight-bold mr-1"><i class="far fa-calendar-alt mr-1"></i>Waktu:</span>
-                                                <span class="text-muted text-right">Min, 24 Jul 22 10:00 WIB</span>
+                                                <span class="text-muted text-right">{{ $event->date }}</span>
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between mb-2">
                                                 <span class="font-weight-bold "><i class="fas fa-map-marker-alt mr-1"></i>Lokasi:</span>
-                                                <span class="text-muted text-right">Perum Permata Regency, Ngijo</span>
+                                                <span class="text-muted text-right">{{ $event->location }}</span>
                                             </div>
                                         </div>
                                         {{-- end::Item --}}
@@ -211,8 +226,8 @@
                                     <a href="{{ url('/event/detail') }}" class="btn btn-primary font-weight-bolder font-size-sm py-3 px-7 mr-2">
                                         Lihat Event
                                     </a>
-                                    <a class="btn btn-outline-light bg-dark-50 font-weight-bolder font-size-sm p-3">
-                                        <i class="fas fa-heart text-danger"></i>
+                                    <a href="{{ url('event/like/'.$event->id) }}" class="btn btn-outline-light bg-dark-50 font-weight-bolder font-size-sm p-3">
+                                        <i class="fas fa-heart {{ \App\Http\Controllers\EventController::checkLiked($event->id) ? 'text-danger' : '' }}"></i>
                                     </a>
                                 </div>
                                 <!--end::Footer-->
@@ -223,7 +238,7 @@
                     </div>
                     <!--end::Nav Panel Widget 4-->
                 </div>
-                @endfor
+                @endforeach
                 
             </div>
             <!--begin::Pagination-->
