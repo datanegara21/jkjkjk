@@ -163,7 +163,7 @@
                             <!--begin::Wrapper-->
                             <h3>Undangan</h3>
                             {{-- <iframe class="d-block w-100" style="height: 500px" src="{{ asset('assets/media/undangan/00.pdf') }}#toolbar=0&view=fitH" frameborder="0"></iframe> --}}
-                            <iframe class="d-block w-100" style="height: 500px" src="{{ asset('event/tes/index.html') }}#toolbar=0&view=fitH" frameborder="0"></iframe>
+                            <iframe class="d-block w-100" style="height: 500px" src="{{ asset('assets/event/tes/index.html') }}#toolbar=0&view=fitH" frameborder="0"></iframe>
                             <!--end::Wrapper-->
                         </div>
                         <!--end::Body-->

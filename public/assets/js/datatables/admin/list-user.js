@@ -104,7 +104,7 @@ var KTDatatableJsonRemoteDemo = function() {
                 template: function(data) {
                     
                     return `
-                        <!-- begin::Modal-->
+                        <!-- begin::DelModal-->
                         <div class="modal fade" id="userDelete`+data.id+`" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 
@@ -125,9 +125,52 @@ var KTDatatableJsonRemoteDemo = function() {
                                 </div>
                             </div>
                         </div>
-                        <!-- end::Modal-->
+                        <!-- end::DelModal-->
+                        
+                        <!-- begin::DelModal-->
+                        <div class="modal fade" id="userStatus`+data.id+`" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                
+                                <form class="form" action="/admin/user/status" method="get">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Ubah Status Pengguna</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <i aria-hidden="true" class="ki ki-close"></i>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body px-10">
+                                            <div>Ubah status dari `+data.name+`</div>
+                                                <div class="form-group row">
+                                                    <input type="hidden" name="user_id" value="`+data.id+`">
+                                                    <div class="col-9 col-form-label">
+                                                        <div class="radio-inline">
+                                                            <label class="radio radio-success">
+                                                                <input type="radio" name="status" value="active"/>
+                                                                <span></span>
+                                                                Aktif
+                                                            </label>
+                                                            <label class="radio radio-danger">
+                                                                <input type="radio" name="status" value="banned"/>
+                                                                <span></span>
+                                                                Diblokir
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-light-primary font-weight-bold" data-dismiss="modal" aria-label="Close">Batal</button>
+                                            <button type="submit" class="btn btn-primary font-weight-bold">Ubah</button>
+                                        </div>
+                                    </div>
+                                </form>
 
-                        <a href="javascript:;" class="btn btn-sm btn-clean btn-icon mr-2" title="Ubah ">
+                            </div>
+                        </div>
+                        <!-- end::DelModal-->
+
+                        <button class="btn btn-sm btn-clean btn-icon mr-2" title="Ubah" data-toggle="modal" data-target="#userStatus`+data.id+`"></buttom>
                             <span class="svg-icon svg-icon-md">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">

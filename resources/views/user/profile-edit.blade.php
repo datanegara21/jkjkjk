@@ -129,7 +129,7 @@
                                                             class="input-group-text"></span></div>
                                                     <input type="text" name="facebook"
                                                         class="form-control form-control-lg form-control-solid"
-                                                        value="{{ $user->facebook != null ? $user->facebook : old('facebook') }}" placeholder="{{ $user->facebook != null ? $user->facebook : 'facebook.com/your.url' }}" />
+                                                        value="{{ $user->facebook != null ? $user->facebook : old('facebook') }}" placeholder="{{ $user->facebook != null ? $user->facebook : 'https://www.facebook.com/your.url' }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -165,7 +165,7 @@
                                                             class="input-group-text"></span></div>
                                                     <input type="text" name="website"
                                                         class="form-control form-control-lg form-control-solid"
-                                                        value="{{ $user->website != null ? $user->website : old('website') }}" placeholder="{{ $user->website != null ? $user->website : 'yourweb.com' }}"/>
+                                                        value="{{ $user->website != null ? $user->website : old('website') }}" placeholder="{{ $user->website != null ? $user->website : 'https://www.yourweb.com' }}"/>
                                                 </div>
                                             </div>
                                         </div>

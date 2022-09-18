@@ -198,15 +198,34 @@
 
                             <!--begin::Contact-->
                             <div class="mb-10 text-center">
-                                <a href="#" class="btn btn-icon btn-circle btn-light-facebook mr-2">
+                                <a href="mailto:{{ $event->profile->email }}" target="_blank" class="btn btn-icon btn-circle btn-light-google">
+                                    <i class="socicon-mail"></i>
+                                </a>
+                                @if($event->profile->whatsapp)
+                                <a href="https://www.wa.me/62{{ $event->profile->whatsapp }}" target="_blank" class="btn btn-icon btn-circle btn-light-success">
+                                    <i class="socicon-whatsapp"></i>
+                                </a>
+                                @endif
+                                @if($event->profile->facebook)
+                                <a href="{{ $event->profile->facebook }}" target="_blank" class="btn btn-icon btn-circle btn-light-facebook mr-2">
                                     <i class="socicon-facebook"></i>
                                 </a>
-                                <a href="#" class="btn btn-icon btn-circle btn-light-twitter mr-2">
+                                @endif
+                                @if($event->profile->instagram)
+                                <a href="https://www.instagram.com/{{ $event->profile->instagram }}" target="_blank" class="btn btn-icon btn-circle btn-light-instagram mr-2">
+                                    <i class="socicon-instagram"></i>
+                                </a>
+                                @endif
+                                @if($event->profile->twitter)
+                                <a href="https://www.twitter.com/{{ $event->profile->twitter }}" target="_blank" class="btn btn-icon btn-circle btn-light-twitter mr-2">
                                     <i class="socicon-twitter"></i>
                                 </a>
-                                <a href="#" class="btn btn-icon btn-circle btn-light-google">
-                                    <i class="socicon-google"></i>
+                                @endif
+                                @if($event->profile->website)
+                                <a href="{{ $event->profile->website }}" target="_blank" class="btn btn-icon btn-circle btn-secondary">
+                                    <i class="flaticon2-world"></i>
                                 </a>
+                                @endif
                             </div>
                             <!--end::Contact-->
 

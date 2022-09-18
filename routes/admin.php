@@ -49,6 +49,7 @@ Route::middleware('admin')
     ->group(function() {
         Route::get('user', 'index');
         Route::get('user/delete/{id_user}', 'delete_user');
+        Route::get('user/status', 'edit_status');
     });
 });
 
