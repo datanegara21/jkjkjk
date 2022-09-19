@@ -295,15 +295,34 @@
 
                             <!--begin::Contact-->
                             <div class="mb-10 text-center">
-                                <a href="#" class="btn btn-icon btn-circle btn-light-facebook mr-2">
+                                <a href="mailto:{{ $pengguna->email }}" target="_blank" class="btn btn-icon btn-circle btn-light-google">
+                                    <i class="socicon-mail"></i>
+                                </a>
+                                @if($pengguna->whatsapp)
+                                <a href="https://www.wa.me/62{{ $pengguna->whatsapp }}" target="_blank" class="btn btn-icon btn-circle btn-light-success">
+                                    <i class="socicon-whatsapp"></i>
+                                </a>
+                                @endif
+                                @if($pengguna->facebook)
+                                <a href="{{ $pengguna->facebook }}" target="_blank" class="btn btn-icon btn-circle btn-light-facebook mr-2">
                                     <i class="socicon-facebook"></i>
                                 </a>
-                                <a href="#" class="btn btn-icon btn-circle btn-light-twitter mr-2">
+                                @endif
+                                @if($pengguna->instagram)
+                                <a href="https://www.instagram.com/{{ $pengguna->instagram }}" target="_blank" class="btn btn-icon btn-circle btn-light-instagram mr-2">
+                                    <i class="socicon-instagram"></i>
+                                </a>
+                                @endif
+                                @if($pengguna->twitter)
+                                <a href="https://www.twitter.com/{{ $pengguna->twitter }}" target="_blank" class="btn btn-icon btn-circle btn-light-twitter mr-2">
                                     <i class="socicon-twitter"></i>
                                 </a>
-                                <a href="#" class="btn btn-icon btn-circle btn-light-google">
-                                    <i class="socicon-google"></i>
+                                @endif
+                                @if($pengguna->website)
+                                <a href="{{ $pengguna->website }}" target="_blank" class="btn btn-icon btn-circle btn-secondary">
+                                    <i class="flaticon2-world"></i>
                                 </a>
+                                @endif
                             </div>
                             <!--end::Contact-->
 

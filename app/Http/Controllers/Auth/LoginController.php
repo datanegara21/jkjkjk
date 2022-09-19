@@ -50,9 +50,14 @@ class LoginController extends Controller
         ]);
 
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+
             if(Auth::user()->role == 0){
                 return redirect('/admin')->withToastSuccess('Login berhasil');
             }else{
+                if(Auth::user()->status == 'banned'){
+                    Auth::logout();
+                    return redirect('/login')->withToastWarning('Akun anda terkena suspend, silahkan kontak admin');
+                }
                 return redirect('/')->withToastSuccess('Login berhasil');
             }
         }else{

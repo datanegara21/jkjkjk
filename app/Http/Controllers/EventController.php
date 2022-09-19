@@ -179,4 +179,32 @@ class EventController extends Controller
             return false;
         }
     }
+    public function toImage($id){
+        $event = Event::where('id', $id)->first();
+
+        header('Content-type: image/png');
+
+        $explodeExt = last(explode('.', $event->event_template->template));
+        // dd($explodeExt);
+        if($explodeExt == 'png'){
+            $template = imagecreatefrompng(public_path($event->event_template->template));
+            $template_width = imagesx($template);
+            $template_height = imagesy($template);
+        }else{
+            $template = imagecreatefromjpeg(public_path($event->event_template->template));
+            $template_width = imagesx($template);
+            $template_height = imagesy($template);
+        }
+
+
+        //warna
+        $black = imagecolorallocate($template, 0,0,0);
+
+        $user = $event->profile->name;
+
+
+        imagepng($template);
+        imagedestroy($template);        
+
+    }
 }

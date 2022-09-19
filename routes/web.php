@@ -39,6 +39,7 @@ Route::name('event')->group(function() {
     Route::get('/event/like/{event_id}', [EventController::class, 'likeEvent'])->middleware('user');
     Route::post('/event/template', [EventController::class, 'varTemplate'])->middleware('user');
     Route::get('/event/{id}', [EventController::class, 'index']);
+    Route::get('/event/invitation/{id}', [EventController::class, 'toImage']);
 });
 Route::get('/organizer', [EventController::class, 'organizerList'])->name('organizer');
 
