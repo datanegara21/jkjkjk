@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\{Auth, DB};
-use App\Models\{User, Profile, Event, EventCategory, EventTemplate, Liked};
+use Illuminate\Support\Facades\{Auth, DB, Session, Redirect};
+use App\Models\{User, Profile, Event, EventCategory, EventTemplate, Liked, Join};
 
 class EventController extends Controller
 {
     public function index($id){
         $event = Event::where('id', $id)->firstOrFail();
         $events = Event::where('profile_id', $event->profile->id)
+                       ->where('start','<',now())
                        ->where('end','>',now())
                        ->limit(3)
                        ->get();
@@ -19,9 +20,43 @@ class EventController extends Controller
 
         return view('event-detail')->with(compact('events', 'event', 'time'));
     }
-    public function listEvent(){
-        $events = Event::where('end','>',now())->paginate(9);
-        return view('event-list')->with(compact('events'));
+    public function listEvent(Request $request){
+        if($request->search && $request->category) {
+            $search = $request->search;
+            $category = $request->category;
+
+            $event_category = EventCategory::where('name', $category)->first();
+
+            $events = Event::join('event_templates', 'event_templates.id', '=', 'events.event_template_id')
+                           ->where('start', '<', now())
+                           ->where('end', '>', now())
+                           ->where('event_templates.event_category_id', $event_category->id)
+                           ->where('title', 'like', '%'.$search.'%')
+                           ->paginate(9);
+        }elseif($request->category) {
+            $category = $request->category;
+
+            $event_category = EventCategory::where('name', $category)->first();
+
+            $events = Event::join('event_templates', 'event_templates.id', '=', 'events.event_template_id')
+                           ->where('events.start', '<', now())
+                           ->where('events.end', '>', now())
+                           ->where('event_templates.event_category_id', $event_category->id)
+                           ->paginate(9);
+        }elseif($request->search){
+            $search = $request->search;
+
+            $events = Event::where('end', '>', now())
+                           ->where('start', '<', now())
+                           ->where('title', 'like', '%'.$search.'%')
+                           ->paginate(9);
+        }else{
+            $events = Event::where('start','<',now())->where('end','>',now())->paginate(9);
+        }
+
+        $categories = EventCategory::all();
+        
+        return view('event-list')->with(compact('events', 'categories'));
     }
     public function selectEvent(){
         $categories = EventCategory::all();
@@ -95,6 +130,7 @@ class EventController extends Controller
             $event->date = $request->date;
             $event->time = $request->time;
             $event->location = $request->location;
+            $event->map = $request->map;
             $event->description = $request->description;
             $event->total = $request->total;
             $event->price = $request->price;
@@ -127,8 +163,47 @@ class EventController extends Controller
     public function undangan(){
         return view ('undangan');
     }
-    public function joinedEvent(){
-        return view ('user.event-join');
+    public function joinedEvent(Request $request){
+        $profile = Profile::where('email', Auth::user()->email)->first();
+
+        if($request->search && $request->category) {
+            $search = $request->search;
+            $category = $request->category;
+
+            $event_category = EventCategory::where('name', $category)->first();
+
+            $events = Join::join('events', 'joins.event_id', '=', 'events.id')
+                           ->join('event_templates', 'event_templates.id', '=', 'events.event_template_id')
+                           ->where('joins.profile_id', $profile->id)
+                           ->where('event_templates.event_category_id', $event_category->id)
+                           ->where('title', 'like', '%'.$search.'%')
+                           ->paginate(9);
+
+        }elseif($request->category) {
+            $category = $request->category;
+
+            $event_category = EventCategory::where('name', $category)->first();
+
+            $events = Join::join('events', 'joins.event_id', '=', 'events.id')
+                           ->join('event_templates', 'event_templates.id', '=', 'events.event_template_id')
+                           ->where('joins.profile_id', $profile->id)
+                           ->where('event_templates.event_category_id', $event_category->id)
+                           ->paginate(9);
+        }elseif($request->search){
+            $search = $request->search;
+
+            $events = Join::join('events', 'joins.event_id', '=', 'events.id')
+                           ->where('joins.profile_id', $profile->id)
+                           ->where('title', 'like', '%'.$search.'%')
+                           ->paginate(9);
+        }else{
+            $events = Join::where('profile_id', $profile->id)
+                           ->paginate(9);
+        }
+        
+        $categories = EventCategory::all();
+
+        return view ('user.event-join')->with(compact('events', 'categories'));
     }
     public function likeEvent($event_id) {
         $profile = Profile::where('email', Auth::user()->email)->first();
@@ -151,19 +226,68 @@ class EventController extends Controller
             return redirect()->back()->withToastSuccess('Event berhasil disukai');
         }
     }
-    public function likedEvent(){
+    public function likedEvent(Request $request){
         $profile = Profile::where('email', Auth::user()->email)->first();
-        $events = Liked::where('profile_id', $profile->id)->get();
 
-        return view ('user.event-like')->with(compact('events'));
+        if($request->search && $request->category) {
+            $search = $request->search;
+            $category = $request->category;
+
+            $event_category = EventCategory::where('name', $category)->first();
+
+            $events = Liked::join('events', 'likeds.event_id', '=', 'events.id')
+                           ->join('event_templates', 'event_templates.id', '=', 'events.event_template_id')
+                           ->where('likeds.profile_id', $profile->id)
+                           ->where('event_templates.event_category_id', $event_category->id)
+                           ->where('title', 'like', '%'.$search.'%')
+                           ->paginate(9);
+
+        }elseif($request->category) {
+            $category = $request->category;
+
+            $event_category = EventCategory::where('name', $category)->first();
+
+            $events = Liked::join('events', 'likeds.event_id', '=', 'events.id')
+                           ->join('event_templates', 'event_templates.id', '=', 'events.event_template_id')
+                           ->where('likeds.profile_id', $profile->id)
+                           ->where('event_templates.event_category_id', $event_category->id)
+                           ->paginate(9);
+        }elseif($request->search){
+            $search = $request->search;
+
+            $events = Liked::join('events', 'likeds.event_id', '=', 'events.id')
+                           ->where('likeds.profile_id', $profile->id)
+                           ->where('title', 'like', '%'.$search.'%')
+                           ->paginate(9);
+        }else{
+            $events = Liked::where('profile_id', $profile->id)
+                           ->paginate(9);
+        }
+        
+        $categories = EventCategory::all();
+
+        return view ('user.event-like')->with(compact('events', 'categories'));
     }
-    public function organizerList(){
-        $events = Event::select('events.profile_id')->groupBy('profile_id')->paginate(9);
+    public function organizerList(Request $request){
+        if($request) {
+            $search = $request->search;
+
+            $events = Event::groupBy('profile_id')
+                             ->join('profiles', 'profiles.id', '=', 'events.profile_id')
+                             ->where('profiles.name', 'like', '%'.$search.'%')
+                             ->select('profile_id')
+                             ->paginate(9);
+        } else {
+            $events = Event::groupBy('profile_id')
+                             ->join('profiles', 'profiles.id', '=', 'events.profile_id')
+                             ->select('profile_id')
+                             ->paginate(9);
+        }
 
         return view ('organizer')->with(compact('events'));
     }
     public static function checkLiked($event_id) {
-        if(Auth::check()){
+        if(Auth::check() && Auth::user()->role == 1){
             $profile = Profile::where('email', Auth::user()->email)->first();
 
             $liked = Liked::where('profile_id', $profile->id)
@@ -206,5 +330,97 @@ class EventController extends Controller
         imagepng($template);
         imagedestroy($template);        
 
+    }
+    public static function checkMaker($event_id) {
+        if(Auth::check() && Auth::user()->role == 1) {
+            $profile = Profile::where('email', Auth::user()->email)->first();
+
+            $maker = Event::where('id', $event_id)
+                          ->where('profile_id', $profile->id)
+                          ->first();
+
+            if($maker) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+    public static function isJoined($event_id) {
+        if(Auth::check()){
+            $profile = Profile::where('email', Auth::user()->email)->first();
+
+            $joined = Join::where('profile_id', $profile->id)
+                ->where('event_id', $event_id)
+                ->first();
+            
+            if($joined) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            $token = Session::get('_token');
+            $joined = Join::where('token', $token)
+                          ->where('event_id', $event_id)
+                          ->first();
+            if($joined) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+    public function joinEvent(Request $request, $event_id) {
+        // dd($request->session()->get('_token'));
+
+        $event = Event::where('id', $event_id)->first();
+
+        if($event->price == 0) {
+            if(Auth::check()) {
+                $profile = Profile::where('email', Auth::user()->email)->first();
+                $joined = Join::where('email', Auth::user()->email)->where('event_id', $event_id)->first();
+
+                if($joined) {
+                  return redirect()->back()->withToastWarning('Akun anda telah mendaftar pada event ini');  
+                }
+                Join::create([
+                    'profile_id' => $profile->id,
+                    'event_id' => $event_id,
+                    'email' => Auth::user()->email,
+                    'name' => Auth::user()->name,
+                    'token' => $request->session()->get('_token'),
+                    'paid' => 1,
+                ]);
+                return redirect('event/'.$event_id.'/'.Auth::user()->email)->withToastSuccess('Anda telah berhasil daftar pada '.$event->title);
+            } else {
+                $joined = Join::where('email', $request->email)->where('event_id', $event_id)->first();
+
+                if($joined) {
+                    return redirect()->back()->withToastWarning('Akun anda telah mendaftar pada event ini');  
+                }
+                Join::create([
+                    'event_id' => $event_id,
+                    'email' => $request->email,
+                    'name' => $request->name,
+                    'token' => $request->session()->get('_token'),
+                    'paid' => 1,
+                ]);
+                return redirect('event/'.$event_id.'/'.$request->email)->withToastSuccess('Anda telah berhasil daftar pada '.$event->title);
+            }
+        } else {
+
+        }
+    }
+    public function viewInvitation($id, $email) {
+        $join = Join::where('event_id', $id)
+                    ->where('email', $email)
+                    ->orwhere('token', $email)
+                    ->first();
+        $event = Event::where('id', $id)->first();
+
+        return view('invite')->with(compact('event'));
     }
 }

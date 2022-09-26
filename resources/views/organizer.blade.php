@@ -25,7 +25,7 @@
             <div class="d-flex align-items-md-center mb-2 flex-column flex-md-row">
                 <div class="bg-white rounded p-4 d-flex flex-grow-1 flex-sm-grow-0">
                     <!--begin::Form-->
-                    <form
+                    <form method="GET" action="{{ url('organizer') }}"
                         class="form d-flex align-items-md-center flex-sm-row flex-column flex-grow-1 flex-sm-grow-0">
                         <!--begin::Input-->
                         <div class="d-flex align-items-center py-3 py-sm-0 px-sm-3">
@@ -46,70 +46,10 @@
                                 </svg>
                                 <!--end::Svg Icon-->
                             </span>
-                            <input type="text"
-                                class="form-control border-0 font-weight-bold pl-2"
-                                placeholder="Judul Event" />
+                            <input type="text" class="form-control border-0 font-weight-bold pl-2" name="search" placeholder="Pembuat Event" />
                         </div>
                         <!--end::Input-->
 
-                        <!--begin::Input-->
-                        <span class="bullet bullet-ver h-25px d-none d-sm-flex mr-2"></span>
-                        <div class="d-flex align-items-center py-3 py-sm-0 px-sm-3">
-                            <span class="svg-icon svg-icon-lg">
-                                <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg--><svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-                                    height="24px" viewBox="0 0 24 24" version="1.1">
-                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                        <rect x="0" y="0" width="24" height="24" />
-                                        <rect fill="#000000" x="4" y="4" width="7" height="7"
-                                            rx="1.5" />
-                                        <path
-                                            d="M5.5,13 L9.5,13 C10.3284271,13 11,13.6715729 11,14.5 L11,18.5 C11,19.3284271 10.3284271,20 9.5,20 L5.5,20 C4.67157288,20 4,19.3284271 4,18.5 L4,14.5 C4,13.6715729 4.67157288,13 5.5,13 Z M14.5,4 L18.5,4 C19.3284271,4 20,4.67157288 20,5.5 L20,9.5 C20,10.3284271 19.3284271,11 18.5,11 L14.5,11 C13.6715729,11 13,10.3284271 13,9.5 L13,5.5 C13,4.67157288 13.6715729,4 14.5,4 Z M14.5,13 L18.5,13 C19.3284271,13 20,13.6715729 20,14.5 L20,18.5 C20,19.3284271 19.3284271,20 18.5,20 L14.5,20 C13.6715729,20 13,19.3284271 13,18.5 L13,14.5 C13,13.6715729 13.6715729,13 14.5,13 Z"
-                                            fill="#000000" opacity="0.3" />
-                                    </g>
-                                </svg>
-                                <!--end::Svg Icon-->
-                            </span> 
-                            <input type="text"
-                                class="form-control border-0 font-weight-bold pl-2"
-                                placeholder="Kategori" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false" data-target="kt_searchbar_7_category-options"
-                                data-offset="0,10" readonly />
-                            <div id="kt_searchbar_7_category-options"
-                                class="dropdown-menu dropdown-menu-sm">
-                                <div class="dropdown-item cursor-pointer">HR Management</div>
-                                <div class="dropdown-item cursor-pointer">Developers</div>
-                                <div class="dropdown-item cursor-pointer">Creative</div>
-                                <div class="dropdown-divider"></div>
-                                <div class="dropdown-item cursor-pointer">Top Management</div>
-                            </div>
-                        </div>
-                        <!--end::Input-->
-
-                        <!--begin::Input-->
-                        <span class="bullet bullet-ver h-25px d-none d-sm-flex mr-2"></span>
-                        <div class="d-flex align-items-center py-3 py-sm-0 px-sm-3">
-                            <span class="svg-icon svg-icon-lg">
-                                <!--begin::Svg Icon | path:assets/media/svg/icons/Media/Rec.svg--><svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-                                    height="24px" viewBox="0 0 24 24" version="1.1">
-                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                        <rect x="0" y="0" width="24" height="24" />
-                                        <path
-                                            d="M12,16 C14.209139,16 16,14.209139 16,12 C16,9.790861 14.209139,8 12,8 C9.790861,8 8,9.790861 8,12 C8,14.209139 9.790861,16 12,16 Z M12,20 C7.581722,20 4,16.418278 4,12 C4,7.581722 7.581722,4 12,4 C16.418278,4 20,7.581722 20,12 C20,16.418278 16.418278,20 12,20 Z"
-                                            fill="#000000" fill-rule="nonzero" />
-                                    </g>
-                                </svg>
-                                <!--end::Svg Icon-->
-                            </span> 
-                            <input id="kt_subheader_7_location" type="text"
-                                class="form-control border-0 font-weight-bold pl-2"
-                                placeholder="Lokasi" data-toggle="modal" aria-haspopup="true"
-                                aria-expanded="false" data-target="#subheader7Modal" readonly />
-                        </div>
-                        <!--end::Input-->
                         <button type="submit"
                             class="btn btn-dark font-weight-bold btn-hover-light-primary mt-3 mt-sm-0 px-7">Cari</button>
                     </form>
@@ -179,19 +119,18 @@
                             <div class="text-center mb-10">
                                 <div class="symbol symbol-60 symbol-circle symbol-xl-90">
                                     <div class="symbol-label"
-                                        style="background-image:url('assets/media/users/300_21.jpg')">
+                                        style="background-image:url('{{ asset($event->profile->image) }}')">
                                     </div>
-                                    <i class="symbol-badge symbol-badge-bottom bg-success"></i>
                                 </div>
 
                                 <h4 class="font-weight-bold my-2">
-                                    {{ $event->profile->name }}
+                                    <a class="text-dark" href="{{ url('profile/'.$event->profile->email) }}">{{ $event->profile->name }}</a>
                                 </h4>
                                 <span class="label label-light-warning label-inline font-weight-bold label-lg">
                                     {{ $event->profile->event->count() }} Event Dibuat
                                 </span>
                                 <div class="text-muted mb-2">
-                                    {{ $event->profile->descrtiption ? $event->profile->description : '-' }}
+                                    {{ $event->profile->descrtiption ? $event->profile->description : '--- tidak ada deskripsi ---' }}
                                 </div>
                             </div>
                             <!--end::User-->
@@ -243,31 +182,10 @@
             <!--begin::Pagination-->
             <div class="d-flex justify-content-between align-items-center flex-wrap">
                 <div class="d-flex flex-wrap py-2 mr-3">
-                    <a href="#" class="btn btn-icon btn-sm btn-light-primary mr-2 my-1"><i class="ki ki-bold-double-arrow-back icon-xs"></i></a>
-                    <a href="#" class="btn btn-icon btn-sm btn-light-primary mr-2 my-1"><i class="ki ki-bold-arrow-back icon-xs"></i></a>
-            
-                    <a href="#" class="btn btn-icon btn-sm border-0 btn-hover-primary mr-2 my-1">...</a>
-                    <a href="#" class="btn btn-icon btn-sm border-0 btn-hover-primary mr-2 my-1">23</a>
-                    <a href="#" class="btn btn-icon btn-sm border-0 btn-hover-primary active mr-2 my-1">24</a>
-                    <a href="#" class="btn btn-icon btn-sm border-0 btn-hover-primary mr-2 my-1">25</a>
-                    <a href="#" class="btn btn-icon btn-sm border-0 btn-hover-primary mr-2 my-1">26</a>
-                    <a href="#" class="btn btn-icon btn-sm border-0 btn-hover-primary mr-2 my-1">27</a>
-                    <a href="#" class="btn btn-icon btn-sm border-0 btn-hover-primary mr-2 my-1">28</a>
-                    <a href="#" class="btn btn-icon btn-sm border-0 btn-hover-primary mr-2 my-1">...</a>
-            
-                    <a href="#" class="btn btn-icon btn-sm btn-light-primary mr-2 my-1"><i class="ki ki-bold-arrow-next icon-xs"></i></a>
-                    <a href="#" class="btn btn-icon btn-sm btn-light-primary mr-2 my-1"><i class="ki ki-bold-double-arrow-next icon-xs"></i></a>
+                    {{ $events->links() }}
                 </div>
                 <div class="d-flex align-items-center py-3">
-
-                    <select class="form-control form-control-sm text-primary font-weight-bold mr-4 border-0 bg-light-primary" style="width: 75px;">
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="30">30</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                    <span class="text-muted">Displaying 10 of 230 records</span>
+                    <span class="text-muted">Menampilkan {{ $events->lastItem() }} dari {{ $events->total() }} data</span>
                 </div>
             </div>
             <!--begin::Pagination-->

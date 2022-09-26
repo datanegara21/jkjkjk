@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\{Event, Profile};
+use App\Models\{Event, EventCategory, Profile};
 
 class HomeController extends Controller
 {
@@ -20,10 +20,11 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index() {
-        $events = Event::where('end','>',now())->limit(6)->get();
+    public function index(Request $request) {
+        $events = Event::where('start', '<', now())->where('end','>',now())->limit(6)->get();
         $penggunas = Profile::limit(3)->get();
+        $categories = EventCategory::all();
 
-        return view('index')->with(compact('events', 'penggunas'));
+        return view('index')->with(compact('events', 'penggunas', 'categories'));
     }
 }

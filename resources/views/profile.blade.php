@@ -24,7 +24,7 @@
                     <div class="card card-custom">
                         <!--begin::Body-->
                         <div class="card-body">
-                            @if(Auth::user())
+                            @if(isset($edit))
                             <div class="text-right">
                                 <a href="{{ url('/profile/edit') }}">
                                     <div class="btn btn-primary">
@@ -38,34 +38,52 @@
                                 
                                 <div class="symbol symbol-60 symbol-circle symbol-xl-90">
                                     <div class="symbol-label"
-                                        style="background-image:url('{{ asset('assets/media/users/300_21.jpg') }}')">
+                                        style="background-image:url('{{ asset($profile->image) }}')">
                                     </div>
-                                    <i class="symbol-badge symbol-badge-bottom bg-success"></i>
                                 </div>
 
                                 <h4 class="font-weight-bold my-2">
-                                    Hummasoft
+                                    {{ $profile->name }}
                                 </h4>
                                 <span class="label label-light-warning label-inline font-weight-bold label-lg">
-                                    23 Event Dibuat
+                                    {{ count($profile->event) }} Event Dibuat
                                 </span>
                                 <div class="text-muted mb-2">
-                                    Perusahaan di bidang IT yang berlokasi di Perum Permata Regency, Ngijo, Karangploso, Malang
+                                    {{ $profile->description ? $profile->description : '- - - deskripsi belum diatur - - -' }}
                                 </div>
                             </div>
                             <!--end::User-->
 
                             <!--begin::Contact-->
                             <div class="mb-10 text-center">
-                                <a href="#" class="btn btn-icon btn-circle btn-light-facebook mr-2">
+                                <a href="mailto:{{ $profile->email }}" target="_blank" class="btn btn-icon btn-circle btn-light-google">
+                                    <i class="socicon-mail"></i>
+                                </a>
+                                @if($profile->whatsapp)
+                                <a href="https://www.wa.me/62{{ $profile->whatsapp }}" target="_blank" class="btn btn-icon btn-circle btn-light-success">
+                                    <i class="socicon-whatsapp"></i>
+                                </a>
+                                @endif
+                                @if($profile->facebook)
+                                <a href="{{ $profile->facebook }}" target="_blank" class="btn btn-icon btn-circle btn-light-facebook mr-2">
                                     <i class="socicon-facebook"></i>
                                 </a>
-                                <a href="#" class="btn btn-icon btn-circle btn-light-twitter mr-2">
+                                @endif
+                                @if($profile->instagram)
+                                <a href="https://www.instagram.com/{{ $profile->instagram }}" target="_blank" class="btn btn-icon btn-circle btn-light-instagram mr-2">
+                                    <i class="socicon-instagram"></i>
+                                </a>
+                                @endif
+                                @if($profile->twitter)
+                                <a href="https://www.twitter.com/{{ $profile->twitter }}" target="_blank" class="btn btn-icon btn-circle btn-light-twitter mr-2">
                                     <i class="socicon-twitter"></i>
                                 </a>
-                                <a href="#" class="btn btn-icon btn-circle btn-light-google">
-                                    <i class="socicon-google"></i>
+                                @endif
+                                @if($profile->website)
+                                <a href="{{ $profile->website }}" target="_blank" class="btn btn-icon btn-circle btn-secondary">
+                                    <i class="flaticon2-world"></i>
                                 </a>
+                                @endif
                             </div>
                             <!--end::Contact-->
 
@@ -80,7 +98,7 @@
 
             <hr>
             <!--end::Row-->
-            <div class="row">
+            <div class="row mb-2">
             <h3 class="text-left col-10">Event dari Hummasoft</h3>
             <div class="col-2">
                 
@@ -89,9 +107,9 @@
                         Tampilkan
                     </button>
                     <div class="dropdown-menu text-center">
-                        <a class="dropdown-item" href="#">Semua</a>
-                        <a class="dropdown-item" href="#">Event baru</a>
-                        <a class="dropdown-item" href="#">Terlewat</a>
+                        <a class="dropdown-item" href="{{ url($url.'?show=all') }}">Semua</a>
+                        <a class="dropdown-item" href="{{ url($url.'?show=new') }}">Event baru</a>
+                        <a class="dropdown-item" href="{{ url($url.'?show=miss') }}">Terlewat</a>
                     </div>
                     
                 </div>
@@ -99,8 +117,23 @@
             </div>
             <!--begin::Row-->
             <div class="row">
-                @for($i=0;$i<6;$i++)
-                <div class="col-xl-4">
+                @if($events->isEmpty())
+                <div class="col-12">
+                    <!--begin::Nav Panel Widget 4-->
+                    <div class="card card-custom gutter-b">
+                        <!--begin::Body-->
+                        <div class="card-body text-center">
+                            <!--begin::Wrapper-->
+                            --- Belum Ada Event ---
+                            <!--end::Wrapper-->
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                    <!--end::Nav Panel Widget 4-->
+                </div>
+                @endif
+                @foreach($events as $event)
+                <div class="col-sm-12 col-md-6 col-xl-4">
                     <!--begin::Nav Panel Widget 4-->
                     <div class="card card-custom gutter-b">
                         <!--begin::Body-->
@@ -113,20 +146,20 @@
                                     <div class="d-flex flex-column flex-center">
                                         <!--begin::Image-->
                                         <div class="bgi-no-repeat bgi-size-cover rounded min-h-180px w-100"
-                                            style="background-image: url({{ asset('assets/media/stock-600x400/img-72.jpg') }})">
+                                            style="background-image: url({{ asset($event->event_template->event_category->image) }})">
                                         </div>
                                         <!--end::Image-->
 
                                         <!--begin::Title-->
-                                        <a href="{{ url('/event/detail') }}" class="card-title font-weight-bolder text-center text-dark-75 text-hover-primary font-size-h4 m-0 pt-7 pb-1">
-                                            Pelatihan Guru Kelas Industri Hummasoft
+                                        <a href="{{ url('event/'.$event->id) }}" class="card-title font-weight-bolder text-center text-dark-75 text-hover-primary font-size-h4 m-0 pt-7 pb-1">
+                                            {{ $event->title }}
                                         </a>
                                         <!--end::Title-->
 
                                         <!--begin::Text-->
-                                        <div class="font-weight-bold text-dark-50 font-size-sm pb-7">
-                                            PT. Hummasoft Technology
-                                        </div>
+                                        <a href="{{ url('profile/'.$event->profile->email) }}" class="font-weight-bold text-dark-50 font-size-sm pb-7">
+                                            {{ $event->profile->name }}
+                                        </a>
                                         <!--end::Text-->
                                     </div>
                                     <!--end::Header-->
@@ -138,11 +171,11 @@
                                             <div class="d-flex align-items-center justify-content-between mb-2">
                                                 
                                                 <span class="font-weight-bold mr-1"><i class="far fa-calendar-alt mr-1"></i>Waktu:</span>
-                                                <span class="text-muted text-right">Min, 24 Jul 22 10:00 WIB</span>
+                                                <span class="text-muted text-right">{{ $event->date }}</span>
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between mb-2">
                                                 <span class="font-weight-bold "><i class="fas fa-map-marker-alt mr-1"></i>Lokasi:</span>
-                                                <span class="text-muted text-right">Perum Permata Regency, Ngijo</span>
+                                                <span class="text-muted text-right">{{ $event->location }}</span>
                                             </div>
                                         </div>
                                         {{-- end::Item --}}
@@ -154,11 +187,11 @@
 
                                 <!--begin::Footer-->
                                 <div class="d-flex flex-center">
-                                    <a class="btn btn-primary font-weight-bolder font-size-sm py-3 px-7 mr-2">
+                                    <a href="{{ url('event/'.$event->id) }}" class="btn btn-primary font-weight-bolder font-size-sm py-3 px-7 mr-2">
                                         Lihat Event
                                     </a>
-                                    <a class="btn btn-outline-light bg-dark-50 font-weight-bolder font-size-sm p-3">
-                                        <i class="fas fa-heart {{ $i%4 == 1 ? 'text-danger' : '' }}"></i>
+                                    <a href="{{ url('event/like/'.$event->id) }}" class="btn btn-outline-light bg-dark-50 font-weight-bolder font-size-sm p-3">
+                                        <i class="fas fa-heart {{ \App\Http\Controllers\EventController::checkLiked($event->id) ? 'text-danger' : '' }}"></i>
                                     </a>
                                 </div>
                                 <!--end::Footer-->
@@ -169,7 +202,7 @@
                     </div>
                     <!--end::Nav Panel Widget 4-->
                 </div>
-                @endfor
+                @endforeach
             </div>
             <!--end::Row-->
 

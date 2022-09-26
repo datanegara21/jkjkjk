@@ -145,7 +145,7 @@
                                             <div class="col-lg-9 col-xl-6">
                                                 <div class="input-group input-group-lg input-group-solid">
                                                     <div class="input-group-prepend"><span class="input-group-text">Rp</span></div>
-                                                    <input type="number" min="0" name="price" class="form-control" value="{{ old('price') }}" placeholder="10000" required>
+                                                    <input type="text" min="0" name="price" class="form-control" value="{{ old('price') }}" placeholder="10.000" id="price" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -210,67 +210,91 @@
     <script src="{{ asset('assets/plugins/custom/leaflet/leaflet.bundle.js?v=7.0.6') }}"></script>
     <script src="{{ asset('assets/js/pages/features/maps/leaflet.js?v=7.0.6') }}"></script>
     <script>
-    var KTLeaflet = function () {
+        var KTLeaflet = function () {
 
-        // Private functions
-        var demo5 = function () {
-            // Define Map Location
-            // navigator.geolocation.getCurrentPosition(function(position) {
-            //     console.log(position.coords.latitude);
-            // })
+            // Private functions
+            var demo5 = function () {
+                // Define Map Location
+                // navigator.geolocation.getCurrentPosition(function(position) {
+                //     console.log(position.coords.latitude);
+                // })
 
-            var leaflet = L.map('leaflet_event_add', {
-                center: [-7.9772, 112.634],
-                zoom: 13
-            });
-
-            // Init Leaflet Map
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(leaflet);
-
-            // Set Geocoding
-            var geocodeService;
-            if (typeof L.esri.Geocoding === 'undefined') {
-                geocodeService = L.esri.geocodeService();
-            } else {
-                geocodeService = L.esri.Geocoding.geocodeService();
-            }
-
-            // Define Marker Layer
-            var markerLayer = L.layerGroup().addTo(leaflet);
-
-            // Set Custom SVG icon marker
-            var leafletIcon = L.divIcon({
-                html: `<span class="svg-icon svg-icon-danger svg-icon-3x"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="24" width="24" height="0"/><path d="M5,10.5 C5,6 8,3 12.5,3 C17,3 20,6.75 20,10.5 C20,12.8325623 17.8236613,16.03566 13.470984,20.1092932 C12.9154018,20.6292577 12.0585054,20.6508331 11.4774555,20.1594925 C7.15915182,16.5078313 5,13.2880005 5,10.5 Z M12.5,12 C13.8807119,12 15,10.8807119 15,9.5 C15,8.11928813 13.8807119,7 12.5,7 C11.1192881,7 10,8.11928813 10,9.5 C10,10.8807119 11.1192881,12 12.5,12 Z" fill="#000000" fill-rule="nonzero"/></g></svg></span>`,
-                bgPos: [10, 10],
-                iconAnchor: [20, 37],
-                popupAnchor: [0, -37],
-                className: 'leaflet-marker'
-            });
-
-            // Map onClick Action
-            leaflet.on('click', function (e) {
-                geocodeService.reverse().latlng(e.latlng).run(function (error, result) {
-                    if (error) {
-                        return;
-                    }
-                    markerLayer.clearLayers(); // remove this line to allow multi-markers on click
-                    L.marker(result.latlng, { icon: leafletIcon }).addTo(markerLayer).bindPopup(result.address.Match_addr, { closeButton: false }).openPopup();
-                    document.getElementById('latlng').value = e.latlng;
+                var leaflet = L.map('leaflet_event_add', {
+                    center: [-7.9772, 112.634],
+                    zoom: 13
                 });
-            });
-        }
 
-        return {
-            // public functions
-            init: function () {
-                // default charts
-                demo5();
+                // Init Leaflet Map
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(leaflet);
+
+                // Set Geocoding
+                var geocodeService;
+                if (typeof L.esri.Geocoding === 'undefined') {
+                    geocodeService = L.esri.geocodeService();
+                } else {
+                    geocodeService = L.esri.Geocoding.geocodeService();
+                }
+
+                // Define Marker Layer
+                var markerLayer = L.layerGroup().addTo(leaflet);
+
+                // Set Custom SVG icon marker
+                var leafletIcon = L.divIcon({
+                    html: `<span class="svg-icon svg-icon-danger svg-icon-3x"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="24" width="24" height="0"/><path d="M5,10.5 C5,6 8,3 12.5,3 C17,3 20,6.75 20,10.5 C20,12.8325623 17.8236613,16.03566 13.470984,20.1092932 C12.9154018,20.6292577 12.0585054,20.6508331 11.4774555,20.1594925 C7.15915182,16.5078313 5,13.2880005 5,10.5 Z M12.5,12 C13.8807119,12 15,10.8807119 15,9.5 C15,8.11928813 13.8807119,7 12.5,7 C11.1192881,7 10,8.11928813 10,9.5 C10,10.8807119 11.1192881,12 12.5,12 Z" fill="#000000" fill-rule="nonzero"/></g></svg></span>`,
+                    bgPos: [10, 10],
+                    iconAnchor: [20, 37],
+                    popupAnchor: [0, -37],
+                    className: 'leaflet-marker'
+                });
+
+                // Map onClick Action
+                leaflet.on('click', function (e) {
+                    geocodeService.reverse().latlng(e.latlng).run(function (error, result) {
+                        if (error) {
+                            return;
+                        }
+                        markerLayer.clearLayers(); // remove this line to allow multi-markers on click
+                        L.marker(result.latlng, { icon: leafletIcon }).addTo(markerLayer).bindPopup(result.address.Match_addr, { closeButton: false }).openPopup();
+                        document.getElementById('latlng').value = e.latlng.lat + ',' + e.latlng.lng;
+                    });
+                });
             }
-        };
-    }();
 
-    jQuery(document).ready(function () {
-        KTLeaflet.init();
-    });
+            return {
+                // public functions
+                init: function () {
+                    // default charts
+                    demo5();
+                }
+            };
+        }();
+
+        jQuery(document).ready(function () {
+            KTLeaflet.init();
+        });
+    </script>
+    <script>
+        var price = document.getElementById('price');
+		price.addEventListener('keyup', function(e){
+			price.value = formatRupiah(this.value);
+		});
+ 
+		/* Fungsi formatRupiah */
+		function formatRupiah(angka){
+			var number_string = angka.replace(/[^,\d]/g, '').toString(),
+			split   		= number_string.split(','),
+			sisa     		= split[0].length % 3,
+			price     		= split[0].substr(0, sisa),
+			ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+ 
+			// tambahkan titik jika yang di input sudah menjadi angka ribuan
+			if(ribuan){
+				separator = sisa ? '.' : '';
+				price += separator + ribuan.join('.');
+			}
+ 
+			price = split[1] != undefined ? price + ',' + split[1] : price;
+			return price;
+		}
     </script>
 @endpush

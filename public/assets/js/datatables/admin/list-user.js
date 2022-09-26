@@ -102,6 +102,14 @@ var KTDatatableJsonRemoteDemo = function() {
                 autoHide: false,
                 overflow: 'visible',
                 template: function(data) {
+                    var active = '';
+                    var banned = '';
+                    if(data.status == 'active'){
+                        active = 'checked'
+                    }
+                    if(data.status == 'banned'){
+                        banned = 'checked'
+                    }
                     
                     return `
                         <!-- begin::DelModal-->
@@ -127,7 +135,7 @@ var KTDatatableJsonRemoteDemo = function() {
                         </div>
                         <!-- end::DelModal-->
                         
-                        <!-- begin::DelModal-->
+                        <!-- begin::StatusModal-->
                         <div class="modal fade" id="userStatus`+data.id+`" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 
@@ -146,12 +154,12 @@ var KTDatatableJsonRemoteDemo = function() {
                                                     <div class="col-9 col-form-label">
                                                         <div class="radio-inline">
                                                             <label class="radio radio-success">
-                                                                <input type="radio" name="status" value="active"/>
+                                                                <input type="radio" name="status" value="active" `+active+`/>
                                                                 <span></span>
                                                                 Aktif
                                                             </label>
                                                             <label class="radio radio-danger">
-                                                                <input type="radio" name="status" value="banned"/>
+                                                                <input type="radio" name="status" value="banned" `+banned+`/>
                                                                 <span></span>
                                                                 Diblokir
                                                             </label>
@@ -168,7 +176,7 @@ var KTDatatableJsonRemoteDemo = function() {
 
                             </div>
                         </div>
-                        <!-- end::DelModal-->
+                        <!-- end::StatusModal-->
 
                         <button class="btn btn-sm btn-clean btn-icon mr-2" title="Ubah" data-toggle="modal" data-target="#userStatus`+data.id+`"></buttom>
                             <span class="svg-icon svg-icon-md">

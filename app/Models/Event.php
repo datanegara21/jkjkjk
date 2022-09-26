@@ -36,4 +36,7 @@ class Event extends Model
     public function liked() {
         return $this->hasMany(Liked::class);
     }
+    public function join() {
+        return $this->hasMany(Join::class);
+    }
 }

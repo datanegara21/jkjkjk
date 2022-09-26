@@ -35,6 +35,9 @@ class Profile extends Model
         return $this->hasMany(Event::class);
     }
     public function liked() {
-        return $this->hasMany(Event::class);
+        return $this->hasMany(Liked::class);
+    }
+    public function join() {
+        return $this->hasMany(Join::class);
     }
 }

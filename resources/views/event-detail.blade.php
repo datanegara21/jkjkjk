@@ -8,6 +8,70 @@
 
 @section('content')
 
+@if(Auth::check())
+{{-- begin::modal free --}}
+<div class="modal fade" id="eventFreeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="{{ url('event/'.$event->id) }}" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Daftar {{ $event->title }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @csrf
+                    Apakah anda yakin ingin daftar / mengikuti event ini?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary font-weight-bold">Yakin!</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{{-- end::modal free --}}
+@else
+{{-- begin::modal free --}}
+<div class="modal fade" id="eventFreeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="{{ url('event/'.$event->id) }}" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Daftar {{ $event->title }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @csrf
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="youremail@mail.com" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Nama</label>
+                        <input type="text" id="name" name="name" class="form-control" placeholder="Nama Lengkap" required/>
+                    </div>
+                    <label class="checkbox">
+                        <input type="checkbox" name="yakin" id="yakin"/>
+                        <span></span>
+                        Saya yakin ingin mendaftar di event ini!
+                    </label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Batal</button>
+                    <button type="submit" id="submitRegister" class="btn btn-primary font-weight-bold" disabled>Daftar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- end::modal free --}}
+@endif
+
 <!--begin::Content-->
 <div class="content  d-flex flex-column flex-column-fluid mt-15" id="kt_content">
     <!--begin::Entry-->
@@ -41,7 +105,7 @@
                                                 </div>
                                                 <!--end::Title-->
                                                 <!--begin::Text-->
-                                                <a href="{{ url('profile/'.$event->profile->id) }}" class="d-block font-weight-bold text-dark-50 font-size-sm pb-7">
+                                                <a href="{{ url('profile/'.$event->profile->email) }}" class="d-block font-weight-bold text-dark-50 font-size-sm pb-7">
                                                     {{ $event->profile->name }}
                                                 </a>
                                                 <!--end::Text-->
@@ -49,9 +113,11 @@
                                             <div class="col-2"></div>
                                             <div class="col-2 px-0 ">
                                                 <div class="d-flex flex-center ml-auto pl-auto">
-                                                    <a class="btn btn-primary font-weight-bolder font-size-sm py-3 px-7 mr-2">
+                                                    @if(!\App\Http\Controllers\EventController::checkMaker($event->id) && $event->end > now() && !\App\Http\Controllers\EventController::isJoined($event->id))
+                                                    <a class="btn btn-primary font-weight-bolder font-size-sm py-3 px-7 mr-2" data-toggle="modal" data-target="#eventFreeModal">
                                                         Daftar
                                                     </a>
+                                                    @endif
                                                     <a href="{{ url('event/like/'.$event->id) }}" class="btn btn-outline-light bg-dark-50 font-weight-bolder font-size-sm">
                                                         <i class="fas fa-heart {{ \App\Http\Controllers\EventController::checkLiked($event->id) ? 'text-danger' : '' }}"></i>
                                                     </a>
@@ -64,13 +130,38 @@
                                     <!--begin::Body-->
                                     <div class="pt-1 row">
                                         {{-- begin::Item --}}
-                                        <div class="col-8">
+                                        <div class="mt-3 col-lg-8 col-sm-12">
                                             <div class="container">
                                                 <div class="font-size-h4 font-weight-bold mb-3">Tentang event dan informasi tambahan</div>
                                                 <div class="font-size-h6">
                                                     {{ $event->description }}
                                                 </div>
                                             </div>
+                                        </div>  
+                                        {{-- end::Item --}}
+                                        {{-- begin::Item --}}
+                                        <div class="mt-5 col-lg-4 col-sm-12 row">
+                                            {{-- <div class="mx-5 my-5"> --}}
+                                                <div class="font-weight-bold col-6 "><i class="fas fa-user mr-1"></i>Pemilik Event:</div>
+                                                <div class="text-muted text-right col-5">{{ $event->name }}</div>
+                                            {{-- </div> --}}
+                                            {{-- <div class="mx-5 my-5"> --}}
+                                                <div class="font-weight-bold col-5 mr-1"><i class="far fa-calendar-alt mr-1"></i>Waktu:</div>
+                                                <div class="col-6 text-muted text-right">
+                                                    {{ $time[0] }} - {{ $time[1] }}
+                                                </div>
+                                            {{-- </div> --}}
+                                            {{-- <div class="mx-5 my-5"> --}}
+                                                <div class="font-weight-bold col-6 "><i class="fas fa-map-marker-alt mr-1"></i>Lokasi:</div>
+                                                <div class="text-muted text-right col-5">{{ $event->location }}</div>
+                                            {{-- </div> --}}
+                                            {{-- <div class="mx-5 my-5"> --}}
+                                                <div class="font-weight-bold col-6 "><i class="fas fa-map-marker-alt mr-1"></i>Biaya:</div>
+                                                <div class="text-muted text-right col-5">{{ $event->price ? 'Rp '.$event->price : 'gratis' }}</div>
+                                            {{-- </div> --}}
+                                            
+                                        </div>
+                                        <div class="col-12">
                                             <div class="container mt-5">
                                                 <div class="font-size-h5 font-weight-bold mb-3">bagikan:
                                                     <!--begin::share-->
@@ -91,30 +182,6 @@
                                                     <!--end::share-->
                                                 </div>
                                             </div>
-                                        </div>  
-                                        {{-- end::Item --}}
-                                        {{-- begin::Item --}}
-                                        <div class=" col-4 row">
-                                            {{-- <div class="mx-5 my-5"> --}}
-                                                <div class="font-weight-bold col-6 "><i class="fas fa-user mr-1"></i>Pemilik Event:</div>
-                                                <div class="text-muted text-right col-6">{{ $event->name }}</div>
-                                            {{-- </div> --}}
-                                            {{-- <div class="mx-5 my-5"> --}}
-                                                <div class="font-weight-bold col-5 mr-1"><i class="far fa-calendar-alt mr-1"></i>Waktu:</div>
-                                                <div class="col-6">
-                                                    <div class="text-muted text-right">{{ $time[0] }} -</div>
-                                                    <div class="text-muted text-right">{{ $time[1] }}</div>
-                                                </div>
-                                            {{-- </div> --}}
-                                            {{-- <div class="mx-5 my-5"> --}}
-                                                <div class="font-weight-bold col-6 "><i class="fas fa-map-marker-alt mr-1"></i>Lokasi:</div>
-                                                <div class="text-muted text-right col-6">{{ $event->location }}</div>
-                                            {{-- </div> --}}
-                                            {{-- <div class="mx-5 my-5"> --}}
-                                                <div class="font-weight-bold col-6 "><i class="fas fa-map-marker-alt mr-1"></i>Biaya:</div>
-                                                <div class="text-muted text-right col-6">{{ $event->price ? 'Rp '.$event->price : 'gratis' }}</div>
-                                            {{-- </div> --}}
-                                            
                                         </div>
                                         {{-- end::Item --}}
                                         
@@ -137,7 +204,7 @@
             <!--end::Row-->
             <!--begin::Row-->
             <div class="row">
-                <div class="col-lg-12 col-xl-4">
+                <div class="col-lg-12 col-xl">
                     <!--begin::Nav Panel Widget 4-->
                     <div class="card card-custom gutter-b">
                         <!--begin::Body-->
@@ -155,6 +222,7 @@
                     </div>
                     <!--end::Nav Panel Widget 4-->
                 </div>
+                @if(\App\Http\Controllers\EventController::isJoined($event->id, csrf_token()))
                 <div class="col-lg-12 col-xl-8">
                     <!--begin::Nav Panel Widget 4-->
                     <div class="card card-custom gutter-b">
@@ -169,7 +237,8 @@
                         <!--end::Body-->
                     </div>
                     <!--end::Nav Panel Widget 4-->
-                </div>     
+                </div>    
+                @endif 
             </div>
             <!--end::Row-->
             
@@ -186,8 +255,7 @@
                                 <!--begin::User-->
                                 <div class="text-center mb-10">
                                     <div class="symbol symbol-60 symbol-circle symbol-xl-90">
-                                        <div class="symbol-label"
-                                            style="background-image:url('{{ asset($event->profile->image) }}')">
+                                        <div class="symbol-label" style="background-image:url('{{ asset($event->profile->image) }}')">
                                         </div>
                                     </div>
 
@@ -207,18 +275,34 @@
 
                                 <!--begin::Contact-->
                                 <div class="mb-10 text-center">
-                                    <a href="#" class="btn btn-icon btn-circle btn-light-facebook mr-2">
-                                        <i class="socicon-facebook"></i>
+                                    <a href="mailto:{{ $event->profile->email }}" target="_blank" class="btn btn-icon btn-circle btn-light-google">
+                                        <i class="socicon-mail"></i>
                                     </a>
-                                    <a href="#" class="btn btn-icon btn-circle btn-light-twitter mr-2">
-                                        <i class="socicon-twitter"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-icon btn-circle btn-light-google">
-                                        <i class="socicon-google"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-icon btn-circle btn-light-success">
+                                    @if($event->profile->whatsapp)
+                                    <a href="https://www.wa.me/62{{ $event->profile->whatsapp }}" target="_blank" class="btn btn-icon btn-circle btn-light-success">
                                         <i class="socicon-whatsapp"></i>
                                     </a>
+                                    @endif
+                                    @if($event->profile->facebook)
+                                    <a href="{{ $event->profile->facebook }}" target="_blank" class="btn btn-icon btn-circle btn-light-facebook mr-2">
+                                        <i class="socicon-facebook"></i>
+                                    </a>
+                                    @endif
+                                    @if($event->profile->instagram)
+                                    <a href="https://www.instagram.com/{{ $event->profile->instagram }}" target="_blank" class="btn btn-icon btn-circle btn-light-instagram mr-2">
+                                        <i class="socicon-instagram"></i>
+                                    </a>
+                                    @endif
+                                    @if($event->profile->twitter)
+                                    <a href="https://www.twitter.com/{{ $event->profile->twitter }}" target="_blank" class="btn btn-icon btn-circle btn-light-twitter mr-2">
+                                        <i class="socicon-twitter"></i>
+                                    </a>
+                                    @endif
+                                    @if($event->profile->website)
+                                    <a href="{{ $event->profile->website }}" target="_blank" class="btn btn-icon btn-circle btn-secondary">
+                                        <i class="flaticon2-world"></i>
+                                    </a>
+                                    @endif
                                 </div>
                                 <!--end::Contact-->
 
@@ -235,7 +319,7 @@
                             <!--begin::Header-->
                             <div class="card-header border-0 pt-5">
                                 <h3 class="card-title align-items-start flex-column">
-                                    <span class="card-label font-weight-bolder text-dark">Event lain dari Hummasoft</span>
+                                    <span class="card-label font-weight-bolder text-dark">Event lain dari {{ $event->profile->name }}</span>
                                     <span class="text-muted mt-3 font-weight-bold font-size-sm">{{ $events->count() }} akan diselenggarakan</span>
                                 </h3>
                             </div>
@@ -332,5 +416,14 @@
         }).addTo(map);
 
         
+    </script>
+    <script>
+        var submit = document.getElementById('submitRegister'),
+            checkbox = document.getElementById('yakin'),
+            disableSubmit = function(e) {
+                submit.disabled = !this.checked
+            };
+
+        checkbox.addEventListener('change', disableSubmit);
     </script>
 @endpush

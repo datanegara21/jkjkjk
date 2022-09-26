@@ -4,12 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\{Profile, User};
+use App\Models\{Profile, User, Event};
 
 class ProfileController extends Controller
 {
-    public function index(){
-        return view('profile');
+    public function index(Request $request){
+        $edit = true;
+        $profile = Profile::where('email', Auth::user()->email)->first();
+        $url = '/profile';
+
+        if($request->show == 'new') {
+            $events = Event::where('profile_id', $profile->id)->where('end', '>', now()) ->get();
+        } elseif($request->show == 'miss') {
+            $events = Event::where('profile_id', $profile->id)->where('end', '<', now()) ->get();
+        } else {
+            $events = Event::where('profile_id', $profile->id)->get();
+        }
+
+        return view('profile')->with(compact('edit', 'profile', 'events', 'url'));
     }
     public function edit(){
         if(!Auth::user()){
@@ -18,11 +30,22 @@ class ProfileController extends Controller
         $user = Profile::where('email',Auth::user()->email)->first();
         return view('user.profile-edit')->with(compact('user'));
     }
-    public function view($email){
+    public function view(Request $request, $email){
         if(Auth::check() && Auth::user()->email == $email){
-                return redirect('profile');
+            return redirect('profile');
         }else{
-            return view('profile');
+            $profile = Profile::where('email', $email)->firstOrFail();
+            $url = '/profile/'.$email;
+
+            if($request->show == 'new') {
+                $events = Event::where('profile_id', $profile->id)->where('end', '>', now()) ->get();
+            } elseif($request->show == 'miss') {
+                $events = Event::where('profile_id', $profile->id)->where('end', '<', now()) ->get();
+            } else {
+                $events = Event::where('profile_id', $profile->id)->get();
+            }
+
+            return view('profile')->with(compact('profile', 'events', 'url'));
         }
     }
     public function updateProfile(Request $request){
