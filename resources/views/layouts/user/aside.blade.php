@@ -25,7 +25,7 @@
             <!--begin::Item-->
             <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body"
                 data-boundary="window" title="Daftar Event">
-                <a href="{{ url('/event') }}" class="nav-link btn btn-icon btn-clean btn-icon-white btn-lg {{ Route::is('event') ? 'active' : ''}}">
+                <a href="{{ url('/event') }}" class="nav-link btn btn-icon btn-clean btn-icon-white btn-lg {{ Route::is('event.') ? 'active' : ''}}">
                     <i class="flaticon2-list-3 icon-lg"></i>
                 </a>
             </li>

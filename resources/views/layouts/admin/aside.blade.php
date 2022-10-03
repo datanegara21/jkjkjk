@@ -16,7 +16,7 @@
             <!--begin::Item-->
             <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body"
                 data-boundary="window" title="Dashboard">
-                <a href="{{ url('admin') }}" class="nav-link btn btn-icon btn-clean btn-icon-white btn-lg {{ Route::is('home') ? 'active' : ''}}">
+                <a href="{{ url('admin') }}" class="nav-link btn btn-icon btn-clean btn-icon-white btn-lg {{ Route::is('homeAdmin') ? 'active' : ''}}">
                     <i class="flaticon2-protection icon-lg"></i>
                 </a>
             </li>
@@ -25,8 +25,8 @@
             <!--begin::Item-->
             <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body"
                 data-boundary="window" title="Template">
-                <a href="{{ url('admin/template') }}" class="nav-link btn btn-icon btn-clean btn-icon-white btn-lg {{ Route::is('template') ? 'active' : ''}}">
-                    <i class="flaticon2-list-3 icon-lg"></i>
+                <a href="{{ url('admin/template') }}" class="nav-link btn btn-icon btn-clean btn-icon-white btn-lg {{ Route::is('template.') ? 'active' : ''}}">
+                    <i class="flaticon-grid-menu icon-lg"></i>
                 </a>
             </li>
             <!--end::Item-->
@@ -34,12 +34,20 @@
             <!--begin::Item-->
             <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body"
                 data-boundary="window" title="Daftar Pengguna">
-                <a href="{{ url('admin/user') }}" class="nav-link btn btn-icon btn-clean btn-icon-white btn-lg {{ Route::is('user') ? 'active' : ''}}">
-                    <i class="flaticon2-user-outline-symbol"></i>
+                <a href="{{ url('admin/user') }}" class="nav-link btn btn-icon btn-clean btn-icon-white btn-lg {{ Route::is('user.') ? 'active' : ''}}">
+                    <i class="flaticon2-user-outline-symbol icon-lg"></i>
                 </a>
             </li>
             <!--end::Item-->
 
+            <!--begin::Item-->
+            <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body"
+                data-boundary="window" title="Daftar Event">
+                <a href="{{ url('admin/event') }}" class="nav-link btn btn-icon btn-clean btn-icon-white btn-lg {{ Route::is('event.') ? 'active' : ''}}">
+                    <i class="flaticon2-list-3 icon-lg"></i>
+                </a>
+            </li>
+            <!--end::Item-->
             
         </ul>
         <!--end::Nav-->

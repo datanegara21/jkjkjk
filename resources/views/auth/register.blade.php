@@ -77,7 +77,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="form-group">
                                 <input
                                     class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8"
-                                    type="text" placeholder="Email" name="email" autocomplete="off" value="{{ old('email') }}" required/>
+                                    type="email" placeholder="Email" name="email" autocomplete="off" value="{{ old('email') }}" required/>
                             </div>
                             <div class="form-group">
                                 <input

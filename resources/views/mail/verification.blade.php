@@ -1,0 +1,1 @@
+<a href="{{ url('email/verify/'.$email) }}">klik</a>

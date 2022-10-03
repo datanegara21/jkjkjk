@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\{Auth, Hash};
 use App\Models\{Profile, User, Event};
 
 class ProfileController extends Controller
@@ -125,5 +125,32 @@ class ProfileController extends Controller
         }
         
         return redirect('profile/edit')->withToastSuccess('Data berhasil diubah');
+    }
+    public function updatePassword(Request $request) {
+        $profile = Profile::where('email', Auth::user()->email)->first();
+
+        
+        $messages = [
+            'new_password.min' => 'Password baru tidak boleh kurang dari 8 karakter',
+            'new_password.max' => 'Password baru tidak boleh lebih dari 255 karakter',
+            'new_password.different' => 'Password lama sama dengan password baru',
+            'confirm_password' => 'Password baru dan konfirmasi password tidak sama'
+        ];
+        
+        
+        $validate = $request->validate([
+            'old_password' => 'bail|required',
+            'new_password' => 'bail|required|min:8|max:255|different:old_password',
+            'confirm_password' => 'bail|required|same:new_password'
+        ], $messages);
+        
+        if(!Hash::check($request->old_password, Auth::user()->password)){
+            return redirect('profile/edit')->withToastError('Password lama tidak sesuai');
+        }
+
+        User::where('email',Auth::user()->email)->update([
+            'password' => bcrypt($request->new_password)
+        ]);
+        return redirect('profile/edit')->withToastSuccess('Password Berhasil Diganti');
     }
 }

@@ -60,7 +60,7 @@
             <div class="separator separator-dashed mt-8 mb-5"></div>
             <!--end::Separator-->
 
-            <!--begin::Nav-->
+            {{-- <!--begin::Nav-->
             <div class="navi navi-spacer-x-0 p-0">
                 <!--begin::Item-->
                 <a href="custom/apps/user/profile-1/personal-information.html" class="navi-item">
@@ -347,7 +347,7 @@
                 </div>
                 <!--end::Item-->
             </div>
-            <!--end::Notifications-->
+            <!--end::Notifications--> --}}
         </div>
         <!--end::Content-->
     </div>

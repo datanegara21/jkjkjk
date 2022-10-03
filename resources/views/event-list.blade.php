@@ -120,7 +120,7 @@
                                     <div class="d-flex flex-column flex-center">
                                         <!--begin::Image-->
                                         <div class="bgi-no-repeat bgi-size-cover rounded min-h-180px w-100"
-                                            style="background-image: url({{ asset($event->event_template->event_category->image) }})">
+                                            style="background-image: url({{ $event->image ? asset($event->image) : asset($event->event_template->event_category->image) }})">
                                         </div>
                                         <!--end::Image-->
 

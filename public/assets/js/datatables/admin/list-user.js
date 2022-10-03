@@ -74,10 +74,10 @@ var KTDatatableJsonRemoteDemo = function() {
                     }
                 }
             }, {
-                field: 'status',
+                field: 'Status',
                 title: 'Status',
                 // callback function support for column rendering
-                template: function(data) {
+                template: function(row) {
                     var status = {
                         'active': {
                             'class': ' label-light-success',
@@ -92,7 +92,7 @@ var KTDatatableJsonRemoteDemo = function() {
                             'title': 'dilaporkan'
                         },
                     };
-                    return '<span class="label font-weight-bold label-lg label-inline'+status[data.status].class+'">'+status[data.status].title+'</span>';
+                    return '<span class="label font-weight-bold label-lg label-inline'+status[row.status].class+'">'+status[row.status].title+'</span>';
                 },
             }, {
                 field: 'Actions',
@@ -209,14 +209,10 @@ var KTDatatableJsonRemoteDemo = function() {
         
 
         $('#kt_datatable_search_status').on('change', function() {
-            datatable.search($(this).val().toLowerCase(), 'Status');
+            datatable.search($(this).val().toLowerCase(), 'status');
         });
 
-        $('#kt_datatable_search_type').on('change', function() {
-            datatable.search($(this).val().toLowerCase(), 'Type');
-        });
-
-        $('#kt_datatable_search_status, #kt_datatable_search_type').selectpicker();
+        $('#kt_datatable_search_status').selectpicker();
     };
 
     return {

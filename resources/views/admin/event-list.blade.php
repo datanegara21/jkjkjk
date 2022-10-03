@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Data Pengguna')
+@section('title', 'Data Event')
 
 @section('content')
     <div class="mt-10 content  d-flex flex-column flex-column-fluid" id="kt_content">
@@ -13,7 +13,7 @@
                     <div class="card-header flex-wrap border-0 pt-6 pb-0">
                         <div class="card-title">
                             <h3 class="card-label">
-                                Pengguna <span class="text-muted">| {{ $users }} pengguna</span>
+                                Event <span class="text-muted">| {{ $events }} event</span>
                             </h3>
                         </div>
                         {{-- <div class="card-toolbar">
@@ -119,7 +119,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-4 my-2 my-md-0">
+                                        {{-- <div class="col-md-4 my-2 my-md-0">
                                             <div class="d-flex align-items-center">
                                                 <label class="mr-3 mb-0 d-none d-md-block">Status:</label>
                                                 <select class="form-control" id="kt_datatable_search_status">
@@ -129,7 +129,7 @@
                                                     <option value="warning">Diblokir</option>
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         {{-- <div class="col-md-4 my-2 my-md-0">
                                             <div class="d-flex align-items-center">
                                                 <label class="mr-3 mb-0 d-none d-md-block">Type:</label>
@@ -170,22 +170,5 @@
 @push('style')
 
     @push('script')
-        <script>$('.delete-confirm').on('click', function (event) {
-            event.preventDefault();
-            const url = $(this).attr('href');
-            swal.fire({
-                title: 'Apakah anda yakin?',
-                text: 'Kategori event ini akan dihapus secara permanen!',
-                icon: 'warning',
-                showConfirmButton: true,
-                confirmButtonText: "Yakin!",
-                showCancelButton: true,
-                cancelButtonText: "Batal!",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = url;
-                }
-            });
-        });</script>
-        <script src="{{ asset('assets/js/datatables/admin/list-user.js?v=7.0.6') }}"></script>
+        <script src="{{ asset('assets/js/datatables/admin/list-event.js?v=7.0.6') }}"></script>
     @endpush

@@ -113,7 +113,7 @@
         <div class=" container ">
             <!--begin::Dashboard-->
             <h3 class="text-center text-bold">Event Terbaru</h3>
-            <h6 class="text-center text-muted mt-1 mb-4">Temukan Event Sesuai Keinginan Anda</h6>
+            <h6 class="text-center text-muted mt-1 mb-4">Temukan Event Sesuai Keinginanmu</h6>
             <!--begin::Row-->
             <div class="row">
                 @if($events->isEmpty())
@@ -145,7 +145,7 @@
                                     <div class="d-flex flex-column flex-center">
                                         <!--begin::Image-->
                                         <div class="bgi-no-repeat bgi-size-cover rounded min-h-180px w-100"
-                                            style="background-image: url({{ asset($event->event_template->event_category->image) }})">
+                                            style="background-image: url({{ $event->image ? asset($event->image) : asset($event->event_template->event_category->image) }})">
                                         </div>
                                         <!--end::Image-->
 
@@ -203,9 +203,6 @@
                 </div>
                 @endforeach
             </div>
-            <center>
-                <a href="{{ url('/event') }}" class="btn btn-dark">Lihat selengkapnya <i class="fas fa-arrow-right"></i></a>
-            </center>
             <hr>
             <!--end::Row-->
             <h3 class="text-center text-bold mt-7">Pembuat Event</h3>

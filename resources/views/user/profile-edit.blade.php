@@ -179,6 +179,70 @@
                         <!--end::Content-->
                     </div>
                     <!--end::Card-->
+                    <!--begin::Card-->
+                    <div class="card mt-5 card-custom">
+                        <!--begin::Content-->
+                        <div class="flex-row-fluid ml-lg-8">
+                            <!--begin::Form-->
+                            <form class="form" action="{{ url('/password/edit') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <!--begin::Card-->
+                                <div class="card card-custom card-stretch">
+                                    <!--begin::Header-->
+                                    <div class="card-header py-3">
+                                        <div class="card-title align-items-start flex-column">
+                                            <h3 class="card-label font-weight-bolder text-dark">Password
+                                            </h3>
+                                            <span class="text-muted font-weight-bold font-size-sm mt-1">Ubah password akun mu</span>
+                                        </div>
+                                        <div class="card-toolbar">
+                                            <button type="submit" class="btn btn-success mr-2">Simpan</button>
+                                            <button type="reset" class="btn btn-secondary">Batal</button>
+                                        </div>
+                                    </div>
+                                    <!--end::Header-->
+                                    <!--begin::Body-->
+                                    <div class="card-body">
+                                        <div class="form-group row">
+                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Password Lama</label>
+                                            <div class="col-lg-9 col-xl-6">
+                                                <div class="input-group input-group-lg input-group-solid">
+                                                    <input type="password" name="old_password"
+                                                        class="form-control form-control-lg form-control-solid"
+                                                        placeholder="old_password" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Password Baru</label>
+                                            <div class="col-lg-9 col-xl-6">
+                                                <div class="input-group input-group-lg input-group-solid">
+                                                    <input type="password" name="new_password"
+                                                        class="form-control form-control-lg form-control-solid"
+                                                        placeholder="new_password" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Konfirmasi Password</label>
+                                            <div class="col-lg-9 col-xl-6">
+                                                <div class="input-group input-group-lg input-group-solid">
+                                                    <input type="password" name="confirm_password"
+                                                        class="form-control form-control-lg form-control-solid"
+                                                        placeholder="new_password" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end::Body-->
+                                </div>
+                                <!--end::Card-->
+                            </form>
+                            <!--end::Form-->
+                        </div>
+                        <!--end::Content-->
+                    </div>
+                    <!--end::Card-->
                 </div>
                 <!--end::Item-->  
             </div>

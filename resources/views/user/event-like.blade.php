@@ -105,7 +105,7 @@
                                     <div class="d-flex flex-column flex-center">
                                         <!--begin::Image-->
                                         <div class="bgi-no-repeat bgi-size-cover rounded min-h-180px w-100"
-                                            style="background-image: url({{ asset($event->event->event_template->event_category->image) }})">
+                                            style="background-image: url({{ $event->event->image ? asset($event->event->image) : asset($event->event->event_template->event_category->image) }})">
                                         </div>
                                         <!--end::Image-->
 
@@ -178,7 +178,7 @@
                     {!! $events->links() !!}
                 </div>
                 <div class="d-flex align-items-center py-3">
-                    <span class="text-muted">Menampilkan {{ $events->lastItem() }} dari {{ $events->total() }} data</span>
+                    <span class="text-muted">Menampilkan {{ $events->lastItem() ? $events->lastItem() : '0' }} dari {{ $events->total() }} data</span>
                 </div>
             </div>
             <!--begin::Pagination-->

@@ -72,7 +72,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="form-group">
                                 <input
                                     class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8 mb-5"
-                                    type="text" placeholder="Email" name="email" value="{{ old('email') }}" autocomplete="on" required autofocus/>
+                                    type="email" placeholder="Email" name="email" value="{{ old('email') }}" autocomplete="on" required autofocus/>
                             </div>
                             <div class="form-group">
                                 <input

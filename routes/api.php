@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\{UserController};
+use App\Http\Controllers\Admin\{UserController, EventController};
 
 /*
 |--------------------------------------------------------------------------
@@ -22,4 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //admin
 Route::prefix('admin')->group( function(){
     Route::post('/user/data', [UserController::class, 'data_user']);
+    Route::post('/event/data', [EventController::class, 'data_event']);
 });

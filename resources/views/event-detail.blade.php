@@ -8,6 +8,8 @@
 
 @section('content')
 
+@inject('carbon', 'Carbon\Carbon')
+
 @if(Auth::check())
 {{-- begin::modal free --}}
 <div class="modal fade" id="eventFreeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -94,7 +96,7 @@
                                     <div class="d-flex flex-column flex-center">
                                         <!--begin::Image-->
                                         <div class="bgi-no-repeat bgi-size-cover rounded min-h-350px w-100"
-                                            style="background-image: url({{ asset($event->event_template->event_category->image) }})">
+                                            style="background-image: url({{ $event->image ? asset($event->image) : asset($event->event_template->event_category->image) }})">
                                         </div>
                                         <!--end::Image-->
                                         <div class="row mt-10 container mx-0 px-0">
@@ -242,143 +244,244 @@
             </div>
             <!--end::Row-->
             
+            @if(!\App\Http\Controllers\EventController::checkMaker($event->id))
             <!--begin::Row-->
             <div class="row">
-                <h3 class="text-left mt-7 mb-5">Tentang Pembuat Event</h3>
-                <div class="col-12 row bg-white rounded">
-                    <!--begin::Item-->
-                    <div class="col-4 border-right border-secondary">
-                        <!--begin::Card-->
-                        <div class="card card-custom">
-                            <!--begin::Body-->
-                            <div class="card-body pt-15">
-                                <!--begin::User-->
-                                <div class="text-center mb-10">
-                                    <div class="symbol symbol-60 symbol-circle symbol-xl-90">
-                                        <div class="symbol-label" style="background-image:url('{{ asset($event->profile->image) }}')">
-                                        </div>
-                                    </div>
-
-                                    <h4 class="font-weight-bold my-2">
-                                        <a href="{{ url('profile/'.$event->profile->id) }}" class="text-dark">
-                                        {{ $event->profile->name }}
-                                        </a>
-                                    </h4>
-                                    <span class="label label-light-warning label-inline font-weight-bold label-lg">
-                                        {{ $event->profile->event->count() }} Event Dibuat
-                                    </span>
-                                    <div class="text-muted mb-2">
-                                        {{ $event->profile->description ? $event->profile->description : '-' }}
-                                    </div>
-                                </div>
-                                <!--end::User-->
-
-                                <!--begin::Contact-->
-                                <div class="mb-10 text-center">
-                                    <a href="mailto:{{ $event->profile->email }}" target="_blank" class="btn btn-icon btn-circle btn-light-google">
-                                        <i class="socicon-mail"></i>
-                                    </a>
-                                    @if($event->profile->whatsapp)
-                                    <a href="https://www.wa.me/62{{ $event->profile->whatsapp }}" target="_blank" class="btn btn-icon btn-circle btn-light-success">
-                                        <i class="socicon-whatsapp"></i>
-                                    </a>
-                                    @endif
-                                    @if($event->profile->facebook)
-                                    <a href="{{ $event->profile->facebook }}" target="_blank" class="btn btn-icon btn-circle btn-light-facebook mr-2">
-                                        <i class="socicon-facebook"></i>
-                                    </a>
-                                    @endif
-                                    @if($event->profile->instagram)
-                                    <a href="https://www.instagram.com/{{ $event->profile->instagram }}" target="_blank" class="btn btn-icon btn-circle btn-light-instagram mr-2">
-                                        <i class="socicon-instagram"></i>
-                                    </a>
-                                    @endif
-                                    @if($event->profile->twitter)
-                                    <a href="https://www.twitter.com/{{ $event->profile->twitter }}" target="_blank" class="btn btn-icon btn-circle btn-light-twitter mr-2">
-                                        <i class="socicon-twitter"></i>
-                                    </a>
-                                    @endif
-                                    @if($event->profile->website)
-                                    <a href="{{ $event->profile->website }}" target="_blank" class="btn btn-icon btn-circle btn-secondary">
-                                        <i class="flaticon2-world"></i>
-                                    </a>
-                                    @endif
-                                </div>
-                                <!--end::Contact-->
-
-                            </div>
-                            <!--end::Body-->
-                        </div>
-                        <!--end::Card-->
-                    </div>
-                    <!--end::Item-->
-                    <!--begin::Item-->
-                    <div class="col-8">
-                        <!--begin::List Widget 17-->
-                        <div class="card card-custom gutter-b">
-                            <!--begin::Header-->
-                            <div class="card-header border-0 pt-5">
-                                <h3 class="card-title align-items-start flex-column">
-                                    <span class="card-label font-weight-bolder text-dark">Event lain dari {{ $event->profile->name }}</span>
-                                    <span class="text-muted mt-3 font-weight-bold font-size-sm">{{ $events->count() }} akan diselenggarakan</span>
-                                </h3>
-                            </div>
-                            <!--end::Header-->
-
-                            <!--begin::Body-->
-                            <div class="card-body pt-4">
-                                <!--begin::Container-->
-                                <div>
-                                    @foreach($events->take(3) as $e)
-                                    <!--begin::Item-->
-                                    <div class="d-flex align-items-center mb-8">
-                                        <!--begin::Symbol-->
-                                        <div class="symbol mr-5 pt-1">
-                                            <div class="symbol-label min-w-120px min-h-75px"
-                                                style="background-image: url('{{ asset($e->event_template->event_category->image) }}')">
+                <h3 class="text-left mt-7 mb-5 ml-5">Pengguna yang mengikuti event ini</h3>
+                <div class="col-12">
+                    <div class="card">
+                        <div class="row">
+                            <!--begin::Item-->
+                            <div class="col-4 border-right border-secondary">
+                                <!--begin::Card-->
+                                <div class="card card-custom">
+                                    <!--begin::Body-->
+                                    <div class="card-body pt-15">
+                                        <!--begin::User-->
+                                        <div class="text-center mb-10">
+                                            <div class="symbol symbol-60 symbol-circle symbol-xl-90">
+                                                <div class="symbol-label" style="background-image:url('{{ asset($event->profile->image) }}')">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <!--end::Symbol-->
 
-                                        <!--begin::Info-->
-                                        <div class="d-flex flex-column">
-                                            <!--begin::Title-->
-                                            <a href="{{ url('event/'.$e->id) }}" class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg">
-                                            {{ $e->title }}
-                                            </a>
-                                            <!--end::Title-->
-
-                                            <!--begin::Text-->
-                                            <span class="text-muted font-weight-bold font-size-sm">
-                                                {{ $e->date }}
-                                            </span>
-                                            <!--end::Text-->
-
-                                            <!--begin::Action-->
-                                            <div>
-                                                <a href="{{ url('event/'.$e->id) }}" class="btn btn-primary font-weight-bolder font-size-sm py-2">
-                                                    Lihat Event
+                                            <h4 class="font-weight-bold my-2">
+                                                <a href="{{ url('profile/'.$event->profile->id) }}" class="text-dark">
+                                                {{ $event->profile->name }}
                                                 </a>
+                                            </h4>
+                                            <span class="label label-light-warning label-inline font-weight-bold label-lg">
+                                                {{ $event->profile->event->count() }} Event Dibuat
+                                            </span>
+                                            <div class="text-muted mb-2">
+                                                {{ $event->profile->description ? $event->profile->description : '-' }}
                                             </div>
-                                            <!--end::Action-->
                                         </div>
-                                        <!--end::Info-->
-                                    </div>
-                                    <!--end::Item-->
-                                    @endforeach
+                                        <!--end::User-->
 
+                                        <!--begin::Contact-->
+                                        <div class="mb-10 text-center">
+                                            <a href="mailto:{{ $event->profile->email }}" target="_blank" class="btn btn-icon btn-circle btn-light-google">
+                                                <i class="socicon-mail"></i>
+                                            </a>
+                                            @if($event->profile->whatsapp)
+                                            <a href="https://www.wa.me/62{{ $event->profile->whatsapp }}" target="_blank" class="btn btn-icon btn-circle btn-light-success">
+                                                <i class="socicon-whatsapp"></i>
+                                            </a>
+                                            @endif
+                                            @if($event->profile->facebook)
+                                            <a href="{{ $event->profile->facebook }}" target="_blank" class="btn btn-icon btn-circle btn-light-facebook mr-2">
+                                                <i class="socicon-facebook"></i>
+                                            </a>
+                                            @endif
+                                            @if($event->profile->instagram)
+                                            <a href="https://www.instagram.com/{{ $event->profile->instagram }}" target="_blank" class="btn btn-icon btn-circle btn-light-instagram mr-2">
+                                                <i class="socicon-instagram"></i>
+                                            </a>
+                                            @endif
+                                            @if($event->profile->twitter)
+                                            <a href="https://www.twitter.com/{{ $event->profile->twitter }}" target="_blank" class="btn btn-icon btn-circle btn-light-twitter mr-2">
+                                                <i class="socicon-twitter"></i>
+                                            </a>
+                                            @endif
+                                            @if($event->profile->website)
+                                            <a href="{{ $event->profile->website }}" target="_blank" class="btn btn-icon btn-circle btn-secondary">
+                                                <i class="flaticon2-world"></i>
+                                            </a>
+                                            @endif
+                                        </div>
+                                        <!--end::Contact-->
+
+                                    </div>
+                                    <!--end::Body-->
                                 </div>
-                                <!--end::Container-->
+                                <!--end::Card-->
                             </div>
-                            <!--end::Body-->
+                            <!--end::Item-->
+                            <!--begin::Item-->
+                            <div class="col-7">
+                                <!--begin::List Widget 17-->
+                                <div class="card card-custom gutter-b">
+                                    <!--begin::Header-->
+                                    <div class="card-header border-0 pt-5">
+                                        <h3 class="card-title align-items-start flex-column">
+                                            <span class="card-label font-weight-bolder text-dark">Event lain dari {{ $event->profile->name }}</span>
+                                            <span class="text-muted mt-3 font-weight-bold font-size-sm">{{ $events->count() }} akan diselenggarakan</span>
+                                        </h3>
+                                    </div>
+                                    <!--end::Header-->
+
+                                    <!--begin::Body-->
+                                    <div class="card-body pt-4">
+                                        <!--begin::Container-->
+                                        <div>
+                                            @foreach($events->take(3) as $e)
+                                            <!--begin::Item-->
+                                            <div class="d-flex align-items-center mb-8">
+                                                <!--begin::Symbol-->
+                                                <div class="symbol mr-5 pt-1">
+                                                    <div class="symbol-label min-w-120px min-h-75px"
+                                                        style="background-image: url('{{ $e->image ? asset($e->image) : asset($e->event_template->event_category->image) }}')">
+                                                    </div>
+                                                </div>
+                                                <!--end::Symbol-->
+
+                                                <!--begin::Info-->
+                                                <div class="d-flex flex-column">
+                                                    <!--begin::Title-->
+                                                    <a href="{{ url('event/'.$e->id) }}" class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg">
+                                                    {{ $e->title }}
+                                                    </a>
+                                                    <!--end::Title-->
+
+                                                    <!--begin::Text-->
+                                                    <span class="text-muted font-weight-bold font-size-sm">
+                                                        {{ $e->date }}
+                                                    </span>
+                                                    <!--end::Text-->
+
+                                                    <!--begin::Action-->
+                                                    <div>
+                                                        <a href="{{ url('event/'.$e->id) }}" class="btn btn-primary font-weight-bolder font-size-sm py-2">
+                                                            Lihat Event
+                                                        </a>
+                                                    </div>
+                                                    <!--end::Action-->
+                                                </div>
+                                                <!--end::Info-->
+                                            </div>
+                                            <!--end::Item-->
+                                            @endforeach
+
+                                        </div>
+                                        <!--end::Container-->
+                                    </div>
+                                    <!--end::Body-->
+                                </div>
+                                <!--end::List Widget 17-->
+                            </div>
+                            <!--end::Item-->
                         </div>
-                        <!--end::List Widget 17-->
                     </div>
-                    <!--end::Item-->
                 </div>
-                
             </div>
             <!--end::Row-->
+            @else
+            <!--begin::Row-->
+            <div class="row">
+                <div class="col-12">
+                    <!--begin::Advance Table Widget 4-->
+                    <div class="card card-custom card-stretch gutter-b">
+                        <!--begin::Header-->
+                        <div class="card-header border-0 py-5">
+                            <h3 class="card-title align-items-start flex-column">
+                                <span class="card-label font-weight-bolder text-dark">Data Pengikut Event</span>
+                                <span class="text-muted mt-3 font-weight-bold font-size-sm">Pengguna yang mengikuti event ini</span>
+                            </h3>
+                        </div>
+                        <!--end::Header-->
+
+                        <!--begin::Body-->
+                        <div class="card-body pt-0 pb-3">
+                            <div class="tab-content">
+                                <!--begin::Table-->
+                                <div class="table-responsive">
+                                    <table
+                                        class="table table-head-custom table-head-bg table-borderless table-vertical-center">
+                                        <thead>
+                                            <tr class="text-left text-uppercase">
+                                                <th style="min-width: 100px" class="text-center"><span>Nama</span></th>
+                                                <th class="text-center" style="min-width: 100px">Email</th>
+                                                <th class="text-center" style="min-width: 100px">Waktu Daftar</th>
+                                                @if($event->price != 0)
+                                                <th class="text-center" style="min-width: 100px">Dibayar</th>
+                                                @endif
+                                                <th class="text-center" style="min-width: 100px">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($joins as $join)
+                                            <tr>
+                                                <td>
+                                                    <span class="text-center font-weight-bolder d-block font-size-lg">
+                                                        {{ $join->name }}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span class="text-center font-weight-bolder d-block font-size-lg">
+                                                        {{ $join->email }}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span class="text-center font-weight-bolder d-block font-size-lg">
+                                                        {{ $carbon::parse($join->created_at)->isoFormat('DD MMMM Y') }}
+                                                    </span>
+                                                </td>
+                                                @if($event->price != 0)
+                                                <td>
+                                                    <center>
+                                                        @if($join->paid == 0)
+                                                        <span class="label label-pill label-light-danger text-center label-inline label-center label-lg">
+                                                            Belum Dibayar
+                                                        </span>
+                                                        @else
+                                                        <span class="label label-pill label-light-success text-center label-inline label-center label-lg">
+                                                            Telah Dibayar
+                                                        </span>
+                                                        @endif
+                                                    </center>
+                                                </td>
+                                                @endif
+                                                <td>
+                                                    <center>
+                                                        <a href="{{ url('event/'.$event->id.'/'.$join->id.'/accept') }}" class="btn btn-light-success text-center font-weight-bolder" title="Setujui">
+                                                            &check;
+                                                        </a>
+                                                        <a href="{{ url('event/'.$event->id.'/'.$join->id.'/reject') }}" class="btn btn-light-danger text-center font-weight-bolder" title="Tolak">
+                                                            &cross;
+                                                        </a>
+                                                    </center>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+
+                                    @if ($joins->isEmpty())
+                                        <div class="text-center font-weight-bolder text-muted">
+                                            --- belum ada pengguna ---
+                                        </div>
+                                    @endif
+                                </div>
+                                <!--end::Table-->
+                            </div>
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                    <!--end::Advance Table Widget 4-->
+                </div>
+            </div>
+            <!--end::Row-->
+            @endif
 
             <!--end::Dashboard-->
         </div>

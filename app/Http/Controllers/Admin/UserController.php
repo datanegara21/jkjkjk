@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\{User, Profile, Event, Liked};
 
@@ -12,7 +13,7 @@ class UserController extends Controller
         $users = Profile::count();
         return view('admin.user-list')->with(compact('users'));
     }public function data_user() {
-        $users = Profile::join('users', 'profiles.email','=','users.email')
+        $users = Db::table('profiles')->join('users', 'profiles.email','=','users.email')
             ->orderBy('users.id','desc')
             ->get();
 

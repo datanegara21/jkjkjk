@@ -25,7 +25,7 @@
                         <!--begin::Content-->
                         <div class="flex-row-fluid ml-lg-8">
                             <!--begin::Form-->
-                            <form class="form" action="{{ url('event/add') }}" method="post">
+                            <form class="form" action="{{ url('event/add') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="tipe" value="{{ session()->get('tipe') }}">
                                 <input type="hidden" name="template" value="{{ session()->get('template') }}">
@@ -74,7 +74,15 @@
                                                             <i class="far fa-clipboard"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="text" name="title" class="form-control form-control-lg form-control-solid" name="title" value="{{ old('title') }}" placeholder="Event yang akan diselenggarakan" required/>
+                                                    <input type="text" class="form-control form-control-lg form-control-solid" name="title" value="{{ old('title') }}" placeholder="Event yang akan diselenggarakan" required/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Foto (optional)</label>
+                                            <div class="col-lg-9 col-xl-6">
+                                                <div class="input-group input-group-lg input-group-solid">
+                                                    <input type="file" class="form-control form-control-lg form-control-solid" name="image" required/>
                                                 </div>
                                             </div>
                                         </div>
@@ -136,7 +144,7 @@
                                             <div class="col-lg-9 col-xl-6">
                                                 <div class="input-group input-group-lg input-group-solid">
                                                     <input type="number" name="total" min="1" max="30"
-                                                        class="form-control form-control-lg form-control-solid" value="{{ old('total') }}" placeholder="30" required/>
+                                                        class="form-control form-control-lg form-control-solid" value="{{ old('total') ? old('total') : 1 }}" placeholder="30" required/>
                                                 </div>
                                             </div>
                                         </div>
@@ -145,7 +153,7 @@
                                             <div class="col-lg-9 col-xl-6">
                                                 <div class="input-group input-group-lg input-group-solid">
                                                     <div class="input-group-prepend"><span class="input-group-text">Rp</span></div>
-                                                    <input type="text" min="0" name="price" class="form-control" value="{{ old('price') }}" placeholder="10.000" id="price" required>
+                                                    <input type="text" min="0" name="price" class="form-control" value="{{ old('price') ? old('price') : 0 }}" placeholder="10.000" id="price" required>
                                                 </div>
                                             </div>
                                         </div>

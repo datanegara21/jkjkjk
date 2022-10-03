@@ -18,7 +18,9 @@ class EventController extends Controller
 
         $time = explode('-', $event->date);
 
-        return view('event-detail')->with(compact('events', 'event', 'time'));
+        $joins = Join::where('event_id', $id)->get();
+
+        return view('event-detail')->with(compact('events', 'event', 'time', 'joins'));
     }
     public function listEvent(Request $request){
         if($request->search && $request->category) {
@@ -27,7 +29,8 @@ class EventController extends Controller
 
             $event_category = EventCategory::where('name', $category)->first();
 
-            $events = Event::join('event_templates', 'event_templates.id', '=', 'events.event_template_id')
+            $events = Db::table('events')
+                           ->join('event_templates', 'event_templates.id', '=', 'events.event_template_id')
                            ->where('start', '<', now())
                            ->where('end', '>', now())
                            ->where('event_templates.event_category_id', $event_category->id)
@@ -38,7 +41,8 @@ class EventController extends Controller
 
             $event_category = EventCategory::where('name', $category)->first();
 
-            $events = Event::join('event_templates', 'event_templates.id', '=', 'events.event_template_id')
+            $events = DB::table('events')
+                           ->join('event_templates', 'event_templates.id', '=', 'events.event_template_id')
                            ->where('events.start', '<', now())
                            ->where('events.end', '>', now())
                            ->where('event_templates.event_category_id', $event_category->id)
@@ -51,7 +55,7 @@ class EventController extends Controller
                            ->where('title', 'like', '%'.$search.'%')
                            ->paginate(9);
         }else{
-            $events = Event::where('start','<',now())->where('end','>',now())->paginate(9);
+            $events = Event::paginate(9);
         }
 
         $categories = EventCategory::all();
@@ -97,6 +101,7 @@ class EventController extends Controller
             'name.max' => 'nama tidak bisa lebih dari 255 karakter',
             'title.min' => 'nama event tidak bisa kurang dari 3 karakter',
             'title.max' => 'nama event tidak bisa lebih dari 255 karakter',
+            'image.max' => 'gambar tidak boleh lebih dari 3 MB',
             'description.min' => 'description tidak bisa kurang dari 8 karakter',
             'description.max' => 'description tidak bisa lebih dari 1000 karakter',
             'location.min' => 'lokasi tidak bisa kurang dari 3 karakter',
@@ -110,22 +115,35 @@ class EventController extends Controller
         $request->validate([
             'name' => 'required|min:3|max:255',
             'title' => 'required|min:5|max:255',
+            'image' => 'nullable|max:3072',
             'description' => 'required|min:8|max:1000',
             'date' => 'required',
             'location' => 'required|min:3|max:255',
             'map' => 'required',
             'total' => 'required|min:1|max:4',
-            'price' => 'nullable|min:0',
-            'start' => 'nullable|after:'.now(),
+            'price' => 'required|min:0',
+            'start' => 'required|after:'.now(),
             'end' => 'required|after:start',
         ], $messages);
 
+        
+        
         $profile = Profile::where('email', Auth::user()->email)->first();
 
         $event = new Event;
             $event->profile_id = $profile->id;
             $event->event_template_id = $request->template;
             $event->title = $request->title;
+
+            if($request->image) {
+                $image = $request->file('image');
+                $imageName = time().'.'.$image->extension();
+                $imageLoc = 'assets/media/template/image';
+                $imageNames = $imageLoc.'/'.$imageName;
+                $image->move(public_path($imageLoc),$imageName);
+                $event->image = $imageNames;
+            }
+
             $event->name = $request->name;
             $event->date = $request->date;
             $event->time = $request->time;
@@ -172,7 +190,8 @@ class EventController extends Controller
 
             $event_category = EventCategory::where('name', $category)->first();
 
-            $events = Join::join('events', 'joins.event_id', '=', 'events.id')
+            $events = DB::table('joins')
+                           ->join('events', 'joins.event_id', '=', 'events.id')
                            ->join('event_templates', 'event_templates.id', '=', 'events.event_template_id')
                            ->where('joins.profile_id', $profile->id)
                            ->where('event_templates.event_category_id', $event_category->id)
@@ -184,7 +203,8 @@ class EventController extends Controller
 
             $event_category = EventCategory::where('name', $category)->first();
 
-            $events = Join::join('events', 'joins.event_id', '=', 'events.id')
+            $events = DB::table('join')
+                           ->join('events', 'joins.event_id', '=', 'events.id')
                            ->join('event_templates', 'event_templates.id', '=', 'events.event_template_id')
                            ->where('joins.profile_id', $profile->id)
                            ->where('event_templates.event_category_id', $event_category->id)
@@ -192,7 +212,8 @@ class EventController extends Controller
         }elseif($request->search){
             $search = $request->search;
 
-            $events = Join::join('events', 'joins.event_id', '=', 'events.id')
+            $events = DB::table('join')
+                           ->join('events', 'joins.event_id', '=', 'events.id')
                            ->where('joins.profile_id', $profile->id)
                            ->where('title', 'like', '%'.$search.'%')
                            ->paginate(9);
@@ -235,7 +256,8 @@ class EventController extends Controller
 
             $event_category = EventCategory::where('name', $category)->first();
 
-            $events = Liked::join('events', 'likeds.event_id', '=', 'events.id')
+            $events = DB::table('likeds')
+                           ->join('events', 'likeds.event_id', '=', 'events.id')
                            ->join('event_templates', 'event_templates.id', '=', 'events.event_template_id')
                            ->where('likeds.profile_id', $profile->id)
                            ->where('event_templates.event_category_id', $event_category->id)
@@ -247,7 +269,8 @@ class EventController extends Controller
 
             $event_category = EventCategory::where('name', $category)->first();
 
-            $events = Liked::join('events', 'likeds.event_id', '=', 'events.id')
+            $events = DB::table('likeds')
+                           ->join('events', 'likeds.event_id', '=', 'events.id')
                            ->join('event_templates', 'event_templates.id', '=', 'events.event_template_id')
                            ->where('likeds.profile_id', $profile->id)
                            ->where('event_templates.event_category_id', $event_category->id)
@@ -255,7 +278,8 @@ class EventController extends Controller
         }elseif($request->search){
             $search = $request->search;
 
-            $events = Liked::join('events', 'likeds.event_id', '=', 'events.id')
+            $events = DB::table('likeds')
+                           ->join('events', 'likeds.event_id', '=', 'events.id')
                            ->where('likeds.profile_id', $profile->id)
                            ->where('title', 'like', '%'.$search.'%')
                            ->paginate(9);
@@ -422,5 +446,38 @@ class EventController extends Controller
         $event = Event::where('id', $id)->first();
 
         return view('invite')->with(compact('event'));
+    }
+    public function joinResponse($event_id, $join_id, $response) {
+        $profile = Profile::where('email',Auth::user()->email)->first();
+
+        $event = Event::where('profile_id', $profile->id)->where('id', $event_id)->first();
+
+        $joins = Join::where('event_id', $event_id)->where('id', $join_id)->first();
+        $join = Join::where('event_id', $event_id)->where('id', $join_id);
+       
+        if(!$event) {
+            return redirect()->back()->withToastWarning('Anda tidak dapat mengakses halaman ini');
+        }
+
+        if($joins) {
+            if($response == 'accept') {
+                $join->update([
+                    'confirmed' => 1
+                ]);
+
+                return redirect('event/'.$event_id)->withToastSuccess('Pendaftar berhasil diterima');
+            } elseif($response == 'reject') {
+                $join->update([
+                    'confirmed' => 2
+                ]);
+
+                return redirect('event/'.$event_id)->withToastSuccess('Pendaftar berhasil ditolak');
+            } else {
+                return redirect('event/'.$event_id)->withToastWarning('Respon tidak sesuai');
+            }
+        } else {
+            return redirect()->back()->withToastWarning('Data tidak ditemukan');
+        }
+        
     }
 }
