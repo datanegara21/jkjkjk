@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\{Auth};
 use App\Models\{Event, EventCategory, Profile};
 
 class HomeController extends Controller
