@@ -87,7 +87,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         {{ __('Ingat Saya') }}
                                     </label>
                                 </div>
-                                <a href="javascript:;" id="kt_login_forgot" class="text-white font-weight-bold">Lupa Password?</a>
+                                <a href="{{ url('/password/reset') }}" id="kt_login_forgot" class="text-white font-weight-bold">Lupa Password?</a>
                             </div>
                             <div class="form-group text-center mt-10">
                                 <button type="submit"
