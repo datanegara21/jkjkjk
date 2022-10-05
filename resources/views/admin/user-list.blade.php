@@ -125,8 +125,8 @@
                                                 <select class="form-control" id="kt_datatable_search_status">
                                                     <option value="">Semua</option>
                                                     <option value="active">Aktif</option>
-                                                    <option value="banned">Dilaporkan</option>
-                                                    <option value="warning">Diblokir</option>
+                                                    <option value="warning">Dilaporkan</option>
+                                                    <option value="banned">Diblokir</option>
                                                 </select>
                                             </div>
                                         </div>

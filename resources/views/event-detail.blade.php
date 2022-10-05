@@ -115,7 +115,11 @@
                                             <div class="col-2"></div>
                                             <div class="col-2 px-0 ">
                                                 <div class="d-flex flex-center ml-auto pl-auto">
-                                                    @if(!\App\Http\Controllers\EventController::checkMaker($event->id) && $event->end > now() && !\App\Http\Controllers\EventController::isJoined($event->id))
+                                                    @if(\App\Http\Controllers\EventController::checkMaker($event->id))
+                                                    <a href="{{ url('event/edit/'.$event->id) }}" class="btn btn-primary font-weight-bolder font-size-sm py-3 px-7 mr-2">
+                                                        Edit Event
+                                                    </a>
+                                                    @elseif( $event->end > now() && !\App\Http\Controllers\EventController::isJoined($event->id))
                                                     <a class="btn btn-primary font-weight-bolder font-size-sm py-3 px-7 mr-2" data-toggle="modal" data-target="#eventFreeModal">
                                                         Daftar
                                                     </a>
@@ -425,7 +429,6 @@
                                                 @if($event->price != 0)
                                                 <th class="text-center" style="min-width: 100px">Dibayar</th>
                                                 @endif
-                                                <th class="text-center" style="min-width: 100px">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -461,21 +464,20 @@
                                                     </center>
                                                 </td>
                                                 @endif
-                                                <td>
-                                                    <center>
-                                                        <a href="{{ url('event/'.$event->id.'/'.$join->id.'/accept') }}" class="btn btn-light-success text-center font-weight-bolder" title="Setujui">
-                                                            &check;
-                                                        </a>
-                                                        <a href="{{ url('event/'.$event->id.'/'.$join->id.'/reject') }}" class="btn btn-light-danger text-center font-weight-bolder" title="Tolak">
-                                                            &cross;
-                                                        </a>
-                                                    </center>
-                                                </td>
                                             </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
-
+                                    <!--begin::Pagination-->
+                                    <div class="d-flex justify-content-between align-items-center flex-wrap">
+                                        <div class="d-flex flex-wrap py-2 mr-3">
+                                            {!! $joins->links() !!}
+                                        </div>
+                                        <div class="d-flex align-items-center py-3">
+                                            <span class="text-muted">Menampilkan 1 dari 1 data</span>
+                                        </div>
+                                    </div>
+                                    <!--begin::Pagination-->
                                     @if ($joins->isEmpty())
                                         <div class="text-center font-weight-bolder text-muted">
                                             --- belum ada pengguna ---

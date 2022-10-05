@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Auth, Hash};
 use App\Models\{Profile, User, Event};
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class ProfileController extends Controller
 {
@@ -45,6 +46,7 @@ class ProfileController extends Controller
                 $events = Event::where('profile_id', $profile->id)->get();
             }
 
+            QrCode::generate('yayayay');
             return view('profile')->with(compact('profile', 'events', 'url'));
         }
     }

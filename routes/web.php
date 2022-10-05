@@ -43,11 +43,13 @@ Route::name('event.')->group(function() {
     Route::post('/event/add', [EventController::class, 'storeEvent'])->middleware('user', 'verified');
     Route::get('/event/liked', [EventController::class, 'likedEvent'])->middleware('user', 'verified');
     Route::get('/event/like/{event_id}', [EventController::class, 'likeEvent'])->middleware('user', 'verified');
+    Route::get('/event/edit/{event_id}', [EventController::class, 'editEvent'])->middleware('user', 'verified');
+    Route::post('/event/edit/{event_id}', [EventController::class, 'updateEvent'])->middleware('user', 'verified');
+    Route::get('/event/delete/{event_id}', [EventController::class, 'deleteEvent'])->middleware('user', 'verified');
     Route::post('/event/template', [EventController::class, 'varTemplate'])->middleware('user', 'verified');
     Route::get('/event/{id}', [EventController::class, 'index']);
     Route::post('/event/{id}', [EventController::class, 'joinEvent']);
     Route::get('/event/{id}/{email}', [EventController::class, 'viewInvitation']);
-    Route::get('/event/{event_id}/{join_id}/{response}', [EventController::class, 'joinResponse'])->middleware('user', 'verified');
     Route::get('/event/invitation/{id}', [EventController::class, 'toImage']);
 });
 Route::get('/organizer', [EventController::class, 'organizerList'])->name('organizer');

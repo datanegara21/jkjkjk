@@ -18,7 +18,7 @@ class EventController extends Controller
 
         $time = explode('-', $event->date);
 
-        $joins = Join::where('event_id', $id)->get();
+        $joins = Join::where('event_id', $id)->paginate(10);
 
         return view('event-detail')->with(compact('events', 'event', 'time', 'joins'));
     }
@@ -169,14 +169,90 @@ class EventController extends Controller
         
         return $keyResult;
     }
-    public function editEvent(){
+    public function editEvent($event_id){
+        $event = Event::where('id', $event_id)->first();
+        $profile = Profile::where('email', Auth::user()->email)->first();
 
+        if(!$event) { return redirect('event')->withToastWarning('Event tidak ditemukan'); }
+        if($event->profile_id != $profile->id){ return redirect('event')->withToastWarning('Anda tidak dapat mengakses halaman ini'); }
+
+        return view('user.event-edit')->with(compact('event'));
     }
-    public function updateEvent(){
+    public function updateEvent(Request $request, $event_id){
+        $event = Event::where('id', $event_id)->first();
+        $profile = Profile::where('email', Auth::user()->email)->first();
 
+        if(!$event) { return redirect('event')->withToastWarning('Event tidak ditemukan'); }
+        if($event->profile_id != $profile->id){ return redirect('event')->withToastWarning('Anda tidak dapat mengakses halaman ini'); }
+
+        $messages = [
+            'name.min' => 'nama tidak bisa kurang dari 3 karakter',
+            'name.max' => 'nama tidak bisa lebih dari 255 karakter',
+            'title.min' => 'nama event tidak bisa kurang dari 3 karakter',
+            'title.max' => 'nama event tidak bisa lebih dari 255 karakter',
+            'image.max' => 'gambar tidak boleh lebih dari 3 MB',
+            'description.min' => 'description tidak bisa kurang dari 8 karakter',
+            'description.max' => 'description tidak bisa lebih dari 1000 karakter',
+            'location.min' => 'lokasi tidak bisa kurang dari 3 karakter',
+            'location.max' => 'lokasi tidak bisa lebih dari 255 karakter',
+            'total.min' => 'maks. pendaftar tidak bisa kurang dari 1',
+            'total.max' => 'maks. pendaftar tidak bisa lebih dari 9999',
+            'start.after' => 'waktu mulai harus lebih dari sekarang',
+            'end.after' => 'waktu selesai harus lebih dari waktu mulai',
+        ];
+        $request->validate([
+            'name' => 'required|min:3|max:255',
+            'title' => 'required|min:5|max:255',
+            'image' => 'nullable|max:3072',
+            'description' => 'required|min:8|max:1000',
+            'date' => 'required',
+            'map' => 'nullable',
+            'location' => 'required|min:3|max:255',
+            'total' => 'required|min:1|max:4',
+            'price' => 'required|min:0',
+            'start' => 'required|after_or_equal:'.$event->start,
+            'end' => 'required|after:start',
+        ], $messages);
+
+        $event = Event::where('id', $event_id)->first();
+            $event->profile_id = $profile->id;
+            $event->event_template_id = $request->template;
+            $event->title = $request->title;
+
+            if($request->image) {
+                $image = $request->file('image');
+                $imageName = time().'.'.$image->extension();
+                $imageLoc = 'assets/media/template/image';
+                $imageNames = $imageLoc.'/'.$imageName;
+                $image->move(public_path($imageLoc),$imageName);
+                $event->image = $imageNames;
+            }
+
+            $event->name = $request->name;
+            $event->date = $request->date;
+            $event->time = $request->time;
+            $event->location = $request->location;
+            $event->map = $request->map;
+            
+            $event->description = $request->description;
+            $event->total = $request->total;
+            $event->price = $request->price;
+            $event->start = $request->start;
+            $event->end = $request->end;
+        $event->save();
+
+
+        return redirect('event/'.$event_id);
     }
-    public function deleteEvent(){
+    public function deleteEvent($event_id){
+        $event = Event::where('id', $event_id)->first();
+        $profile = Profile::where('email', Auth::user()->email)->first();
 
+        if(!$event){return redirect('event')->withToastWarning('Event tidak ditemukan');}
+        if($event->profile_id != $profile->id){ return redirect('event')->withToastWarning('Anda tidak dapat mengakses halaman ini'); }
+
+        $event->delete();
+        return redirect('event')->withToastSuccess('Event berhasil dihapus');
     }
     public function undangan(){
         return view ('undangan');
@@ -446,38 +522,5 @@ class EventController extends Controller
         $event = Event::where('id', $id)->first();
 
         return view('invite')->with(compact('event'));
-    }
-    public function joinResponse($event_id, $join_id, $response) {
-        $profile = Profile::where('email',Auth::user()->email)->first();
-
-        $event = Event::where('profile_id', $profile->id)->where('id', $event_id)->first();
-
-        $joins = Join::where('event_id', $event_id)->where('id', $join_id)->first();
-        $join = Join::where('event_id', $event_id)->where('id', $join_id);
-       
-        if(!$event) {
-            return redirect()->back()->withToastWarning('Anda tidak dapat mengakses halaman ini');
-        }
-
-        if($joins) {
-            if($response == 'accept') {
-                $join->update([
-                    'confirmed' => 1
-                ]);
-
-                return redirect('event/'.$event_id)->withToastSuccess('Pendaftar berhasil diterima');
-            } elseif($response == 'reject') {
-                $join->update([
-                    'confirmed' => 2
-                ]);
-
-                return redirect('event/'.$event_id)->withToastSuccess('Pendaftar berhasil ditolak');
-            } else {
-                return redirect('event/'.$event_id)->withToastWarning('Respon tidak sesuai');
-            }
-        } else {
-            return redirect()->back()->withToastWarning('Data tidak ditemukan');
-        }
-        
     }
 }

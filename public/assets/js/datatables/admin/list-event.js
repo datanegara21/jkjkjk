@@ -48,6 +48,10 @@ var KTDatatableJsonRemoteDemo = function() {
                 field: 'title',
                 title: 'Judul',
                 width: 130,
+                template: function(data) {
+                    var out = `<a href="/event/`+data.id+`" class="text-dark">`+data.title+`</a>`;
+                    return out
+                }
                 
             }, {
                 field: 'email',

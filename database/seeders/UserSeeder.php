@@ -19,11 +19,13 @@ class UserSeeder extends Seeder
                 'name' => 'Admin',
                 'email' => 'admin@get.id',
                 'role' => '0',
+                'email_verified_at' => now(),
                 'password' => bcrypt('password'),
             ],
             [
                 'name' => 'User',
                 'email' => 'user@get.id',
+                'email_verified_at' => now(),
                 'password' => bcrypt('password'),
             ]
         ];
@@ -46,6 +48,9 @@ class ProfileSeeder extends Seeder
             [
                 'name' => 'User',
                 'email' => 'user@get.id',
+            ], [
+                'name' => 'Admin',
+                'email' => 'admin@get.id',
             ]
         ];
         foreach ($user as $u){

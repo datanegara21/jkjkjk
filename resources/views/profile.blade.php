@@ -10,6 +10,8 @@
 
 <!--begin::Content-->
 <div class="content  d-flex flex-column flex-column-fluid mt-15" id="kt_content">
+
+    {!! QrCode::size(190)->generate(123123); !!}
     <!--begin::Entry-->
     <div class="d-flex flex-column-fluid">
         <!--begin::Container-->
@@ -29,6 +31,14 @@
                                 <a href="{{ url('/profile/edit') }}">
                                     <div class="btn btn-primary">
                                         <i class="fas fa-edit"></i>Edit
+                                    </div>
+                                </a>
+                            </div>
+                            @else
+                            <div class="text-right">
+                                <a href="{{ url('/profile/report/'.$profile->id) }}">
+                                    <div class="btn btn-danger">
+                                        <i class="flaticon-exclamation-1"></i>Laporkan
                                     </div>
                                 </a>
                             </div>
