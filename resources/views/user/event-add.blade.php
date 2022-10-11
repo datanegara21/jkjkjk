@@ -82,7 +82,7 @@
                                             <label class="col-xl-3 col-lg-3 col-form-label text-right">Foto (optional)</label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <div class="input-group input-group-lg input-group-solid">
-                                                    <input type="file" class="form-control form-control-lg form-control-solid" name="image" required/>
+                                                    <input type="file" class="form-control form-control-lg form-control-solid" name="image"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -143,7 +143,7 @@
                                             <label class="col-xl-3 col-lg-3 col-form-label text-right">Maks. Pendaftar</label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <div class="input-group input-group-lg input-group-solid">
-                                                    <input type="number" name="total" min="1" max="30"
+                                                    <input type="number" name="total" min="1"
                                                         class="form-control form-control-lg form-control-solid" value="{{ old('total') ? old('total') : 1 }}" placeholder="30" required/>
                                                 </div>
                                             </div>
