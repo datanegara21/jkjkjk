@@ -40,4 +40,10 @@ class Profile extends Model
     public function join() {
         return $this->hasMany(Join::class);
     }
+    public function from() {
+        return $this->hasMany(Notification::class);
+    }
+    public function to() {
+        return $this->hasMany(Notification::class);
+    }
 }

@@ -185,7 +185,7 @@
                     {{ $events->links() }}
                 </div>
                 <div class="d-flex align-items-center py-3">
-                    <span class="text-muted">Menampilkan {{ $events->lastItem() }} dari {{ $events->total() }} data</span>
+                    <span class="text-muted">Menampilkan {{ $events->lastItem() ? $events->lastItem() : '0' }} dari {{ $events->total() }} data</span>
                 </div>
             </div>
             <!--begin::Pagination-->

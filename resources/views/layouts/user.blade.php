@@ -219,6 +219,24 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="{{ asset('assets/plugins/custom/leaflet/leaflet.bundle.js?v=7.0.6') }}"></script>
     <!--end::Global Theme Bundle-->
 
+    
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        function notification(id,link){
+            $.ajax({
+                url: '/notification/'+id,
+                method: 'POST',
+                success:function(){
+                    window.location = '/'+link
+                }
+            })
+        }
+    </script>
+
     <!--begin:Global script include-->
     @include('sweetalert::alert')
     <!--end::Global script include-->

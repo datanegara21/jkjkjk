@@ -26,6 +26,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'status',
     ];
 
+    protected $nullable = ['email_verified_at'];
+
     /**
      * The attributes that should be hidden for serialization.
      *

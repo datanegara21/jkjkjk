@@ -10,8 +10,6 @@
 
 <!--begin::Content-->
 <div class="content  d-flex flex-column flex-column-fluid mt-15" id="kt_content">
-
-    {!! QrCode::size(190)->generate(123123); !!}
     <!--begin::Entry-->
     <div class="d-flex flex-column-fluid">
         <!--begin::Container-->
@@ -156,7 +154,7 @@
                                     <div class="d-flex flex-column flex-center">
                                         <!--begin::Image-->
                                         <div class="bgi-no-repeat bgi-size-cover rounded min-h-180px w-100"
-                                            style="background-image: url({{ asset($event->event_template->event_category->image) }})">
+                                            style="background-image: url({{ asset($event->image ? $event->image : $event->event_template->event_category->image) }})">
                                         </div>
                                         <!--end::Image-->
 

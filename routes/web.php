@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\{Route, Auth};
-use App\Http\Controllers\{HomeController, EventController, ProfileController, AuthController};
+use App\Http\Controllers\{HomeController, EventController, ProfileController, AuthController, NotificationController};
 
 /*
 |--------------------------------------------------------------------------
@@ -66,3 +66,6 @@ Route::get('/event/undangan', [EventController::class, 'undangan']);
 // Route::get('/user', function() {
 //     return view('user.test');
 // });
+
+//notification
+Route::post('/notification/{id}', [NotificationController::class, 'readNotification']);

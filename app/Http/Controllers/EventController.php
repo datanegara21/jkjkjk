@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Auth, DB, Session, Redirect};
-use App\Models\{User, Profile, Event, EventCategory, EventTemplate, Liked, Join};
+use App\Models\{User, Profile, Event, EventCategory, EventTemplate, Liked, Join, Notification};
 
 class EventController extends Controller
 {
@@ -55,7 +55,7 @@ class EventController extends Controller
                            ->where('title', 'like', '%'.$search.'%')
                            ->paginate(9);
         }else{
-            $events = Event::paginate(9);
+            $events = Event::where('start', '<', now())->where('end','>',now())->paginate(9);
         }
 
         $categories = EventCategory::all();
@@ -216,7 +216,6 @@ class EventController extends Controller
 
         $event = Event::where('id', $event_id)->first();
             $event->profile_id = $profile->id;
-            $event->event_template_id = $request->template;
             $event->title = $request->title;
 
             if($request->image) {
@@ -494,6 +493,13 @@ class EventController extends Controller
                     'token' => $request->session()->get('_token'),
                     'paid' => 1,
                 ]);
+                Notification::create([
+                    'profile_from' => $profile->id,
+                    'profile_to' => $event->profile->id,
+                    'message' => 'seseorang mendaftar ke event yang anda buat',
+                    'link' => 'event/'.$event->id.'/'.Auth::user()->email,
+                    'icon' => 'flaticon2-calendar text-primary',
+                ]);
                 return redirect('event/'.$event_id.'/'.Auth::user()->email)->withToastSuccess('Anda telah berhasil daftar pada '.$event->title);
             } else {
                 $joined = Join::where('email', $request->email)->where('event_id', $event_id)->first();
@@ -501,13 +507,20 @@ class EventController extends Controller
                 if($joined) {
                     return redirect()->back()->withToastWarning('Akun anda telah mendaftar pada event ini');  
                 }
-                Join::create([
+                $join = Join::create([
                     'event_id' => $event_id,
                     'email' => $request->email,
                     'name' => $request->name,
                     'token' => $request->session()->get('_token'),
                     'paid' => 1,
                 ]);
+                Notification::create([
+                    'profile_to' => $event->profile->id,
+                    'message' => 'seseorang mendaftar ke event yang anda buat',
+                    'link' => 'event/'.$event->id.'/'.$join->email,
+                    'icon' => 'flaticon2-calendar text-primary',
+                ]);
+
                 return redirect('event/'.$event_id.'/'.$request->email)->withToastSuccess('Anda telah berhasil daftar pada '.$event->title);
             }
         } else {
@@ -521,6 +534,6 @@ class EventController extends Controller
                     ->first();
         $event = Event::where('id', $id)->first();
 
-        return view('invite')->with(compact('event'));
+        return view('invite')->with(compact('event', 'join'));
     }
 }

@@ -20,7 +20,10 @@
         <div class="name">{{ $event->name }}</div>
         <div class="details">
             <div class="location">{{ $event->location }}</div>
-            <div class="date">{{ $event->time }}</div>
+            <div class="date">{{ $event->date }}</div>
+        </div>
+        <div class="qrcode">
+            {!! QrCode::size(145)->generate(url('event/'.$event->id.'/'.$join->email)) !!}
         </div>
         <div class="name_end">{{ $event->name }}</div>
     </div>
