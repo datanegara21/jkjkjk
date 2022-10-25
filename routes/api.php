@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{UserController, EventController};
+use App\Http\Controllers\ApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,6 @@ Route::prefix('admin')->group( function(){
     Route::post('/user/data', [UserController::class, 'data_user']);
     Route::post('/event/data', [EventController::class, 'data_event']);
 });
+
+//payment
+Route::post('payment-handler', [ApiController::class, 'payment_handler']);

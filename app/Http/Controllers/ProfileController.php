@@ -35,6 +35,10 @@ class ProfileController extends Controller
             return redirect('profile');
         }else{
             $profile = Profile::where('email', $email)->firstOrFail();
+            $user = User::where('email', $email)->firstOrFail();
+            if($user->status == 'banned'){
+                return redirect('/')->withToastWarning('akun tidak ditemukan');
+            }
             $url = '/profile/'.$email;
 
             if($request->show == 'new') {
@@ -102,8 +106,11 @@ class ProfileController extends Controller
             $user->update(['name' => $request->name]);
         }
         if($request->email){
+            if($user->email != $request->email){
+                $user->update(['email_verified_at' => null]);
+            }
             $profile->update(['email' => $request->email]);
-            $user->update(['email' => $request->email, 'email_verified_at' => null]);
+            $user->update(['email' => $request->email]);
         }
         if($request->description){
             $profile->update(['description' => $request->description]);
@@ -152,5 +159,26 @@ class ProfileController extends Controller
             'password' => bcrypt($request->new_password)
         ]);
         return redirect('profile/edit')->withToastSuccess('Password Berhasil Diganti');
+    }
+    public function reportUser($email){
+        $user = User::where('email', $email)->first();
+
+        if(!$user){
+            return redirect('/')->withToastWarning('Data tidak ditemukan');
+        }
+
+        if($user->email == Auth::user()->email){
+            return redirect('/profile')->withToastWarning('Tidak bisa melakukan report diri sendiri!');
+        }
+
+        if($user->status == 'banned'){
+            return redirect('/')->withToastSuccess('Pengguna telah dilaporkan');
+        }
+
+        $user->update([
+            'status' => 'warning'
+        ]);
+
+        return redirect('/profile/'.$email)->withToastSuccess('Pengguna berhasil dilaporkan');
     }
 }

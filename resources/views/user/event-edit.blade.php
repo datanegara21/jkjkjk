@@ -112,7 +112,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Deskripsi Event</label>
+                                            <label class="col-xl-3 col-lg-3 col-form-label text-right">Deskripsi / Catatan Tambahan</label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <div class="input-group input-group-lg input-group-solid">
                                                     <div class="input-group-prepend">

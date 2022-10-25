@@ -16,11 +16,47 @@ class EventController extends Controller
                        ->limit(3)
                        ->get();
 
+        if(Auth::check()){
+            $profile = Profile::where('email', Auth::user()->email)->first();
+
+            // Set your Merchant Server Key
+            \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
+            // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+            \Midtrans\Config::$isProduction = false;
+            // Set sanitization on (default)
+            \Midtrans\Config::$isSanitized = true;
+            // Set 3DS transaction for credit card to true
+            \Midtrans\Config::$is3ds = true;
+            $params = array(
+                'transaction_details' => array(
+                    'order_id' => rand(),
+                    'gross_amount' => str_replace('.', '', $event->price),
+                ),"item_details" => array(
+                    [
+                      "id" => 'event'.$event->id,
+                      "price" => str_replace('.','',$event->price),
+                      "quantity" => 1,
+                      "name" => 'Daftar "'.$event->title.'"'
+                    ]
+                ),
+                'customer_details' => array(
+                    'first_name' => Auth::user()->name ,
+                    'last_name' => '',
+                    'email' => Auth::user()->email,
+                    'phone' => $profile->phone ? '0'.$profile->whatsapp : '',
+                ),
+            );
+            
+            $snapToken = \Midtrans\Snap::getSnapToken($params);
+        }else{
+            $snapToken = '';
+        }
+
         $time = explode('-', $event->date);
 
         $joins = Join::where('event_id', $id)->paginate(10);
 
-        return view('event-detail')->with(compact('events', 'event', 'time', 'joins'));
+        return view('event-detail')->with(compact('events', 'event', 'time', 'joins', 'snapToken', 'id'));
     }
     public function listEvent(Request $request){
         if($request->search && $request->category) {
@@ -461,76 +497,50 @@ class EventController extends Controller
                 return false;
             }
         } else {
-            $token = Session::get('_token');
-            $joined = Join::where('token', $token)
-                          ->where('event_id', $event_id)
-                          ->first();
-            if($joined) {
-                return true;
-            } else {
-                return false;
-            }
+            return false;
         }
     }
     public function joinEvent(Request $request, $event_id) {
-        // dd($request->session()->get('_token'));
 
         $event = Event::where('id', $event_id)->first();
+        $join = Join::where('event_id', $event_id)->count();
+
+        if(!Auth::check()) {
+            return redirect('login')->withToastWarning('Silahkan login terlebih dahulu sebelum mendaftar event');
+        }
+
+        if($event->total <= $join){
+            return redirect('event/'.$event_id)->withToastWarning('Batas pendaftar event telah lebih dari batas maksimum');
+        }
 
         if($event->price == 0) {
-            if(Auth::check()) {
-                $profile = Profile::where('email', Auth::user()->email)->first();
-                $joined = Join::where('email', Auth::user()->email)->where('event_id', $event_id)->first();
+            $profile = Profile::where('email', Auth::user()->email)->first();
+            $joined = Join::where('profile_id', Auth::user()->id)->where('event_id', $event_id)->first();
 
-                if($joined) {
-                  return redirect()->back()->withToastWarning('Akun anda telah mendaftar pada event ini');  
-                }
-                Join::create([
-                    'profile_id' => $profile->id,
-                    'event_id' => $event_id,
-                    'email' => Auth::user()->email,
-                    'name' => Auth::user()->name,
-                    'token' => $request->session()->get('_token'),
-                    'paid' => 1,
-                ]);
-                Notification::create([
-                    'profile_from' => $profile->id,
-                    'profile_to' => $event->profile->id,
-                    'message' => 'seseorang mendaftar ke event yang anda buat',
-                    'link' => 'event/'.$event->id.'/'.Auth::user()->email,
-                    'icon' => 'flaticon2-calendar text-primary',
-                ]);
-                return redirect('event/'.$event_id.'/'.Auth::user()->email)->withToastSuccess('Anda telah berhasil daftar pada '.$event->title);
-            } else {
-                $joined = Join::where('email', $request->email)->where('event_id', $event_id)->first();
-
-                if($joined) {
-                    return redirect()->back()->withToastWarning('Akun anda telah mendaftar pada event ini');  
-                }
-                $join = Join::create([
-                    'event_id' => $event_id,
-                    'email' => $request->email,
-                    'name' => $request->name,
-                    'token' => $request->session()->get('_token'),
-                    'paid' => 1,
-                ]);
-                Notification::create([
-                    'profile_to' => $event->profile->id,
-                    'message' => 'seseorang mendaftar ke event yang anda buat',
-                    'link' => 'event/'.$event->id.'/'.$join->email,
-                    'icon' => 'flaticon2-calendar text-primary',
-                ]);
-
-                return redirect('event/'.$event_id.'/'.$request->email)->withToastSuccess('Anda telah berhasil daftar pada '.$event->title);
+            if($joined) {
+                return redirect()->back()->withToastWarning('Akun anda telah mendaftar pada event ini');  
             }
+            Join::create([
+                'profile_id' => $profile->id,
+                'event_id' => $event_id,
+                'email' => Auth::user()->email,
+                'paid' => 1,
+            ]);
+            Notification::create([
+                'profile_from' => $profile->id,
+                'profile_to' => $event->profile->id,
+                'message' => 'seseorang mendaftar ke event yang anda buat',
+                'link' => 'event/'.$event->id.'/'.Auth::user()->email,
+                'icon' => 'flaticon2-calendar text-primary',
+            ]);
+            return redirect('event/'.$event_id)->withToastSuccess('Anda telah berhasil daftar pada '.$event->title);
+            
         } else {
-
+            return redirect('event/'.$event_id)->withToastWarning('Fitur event berbayar sedang dalam pengembangan');
         }
     }
     public function viewInvitation($id, $email) {
         $join = Join::where('event_id', $id)
-                    ->where('email', $email)
-                    ->orwhere('token', $email)
                     ->first();
         $event = Event::where('id', $id)->first();
 

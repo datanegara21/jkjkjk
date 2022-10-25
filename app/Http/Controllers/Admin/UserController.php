@@ -14,6 +14,7 @@ class UserController extends Controller
         return view('admin.user-list')->with(compact('users'));
     }public function data_user() {
         $users = Db::table('profiles')->join('users', 'profiles.email','=','users.email')
+            ->where('profiles.email', '!=', 'admin@get.id')
             ->orderBy('users.id','desc')
             ->get();
 

@@ -49,7 +49,7 @@ var KTDatatableJsonRemoteDemo = function() {
                 title: 'Judul',
                 width: 130,
                 template: function(data) {
-                    var out = `<a href="/event/`+data.id+`" class="text-dark">`+data.title+`</a>`;
+                    var out = `<a href="/event/`+data.id+`" class="text-dark font-weight-bold">`+data.title+`</a>`;
                     return out
                 }
                 
@@ -58,6 +58,9 @@ var KTDatatableJsonRemoteDemo = function() {
                 title: 'Pembuat',
                 width: 130,
                 autoHide: false,
+                template: function(data) {
+                    return '<a href="/profile/'+data.email+'" class="text-dark">'+data.name+'</a>'
+                }
             }, {
                 field: 'description',
                 title: 'Deskripsi',
@@ -65,7 +68,7 @@ var KTDatatableJsonRemoteDemo = function() {
                     if(data.description == null){
                         return '<div class="text-muted">--kosong--</div>'
                     }else{
-                        return data.description
+                        return '<div class="text-truncate">'+data.description+'</div>'
                     }
                 }
             }, {
@@ -107,6 +110,8 @@ var KTDatatableJsonRemoteDemo = function() {
                 template: function(data) {
                     var active = '';
                     var banned = '';
+                    var csrf = document.querySelector('meta[name="csrf-token"]').content;
+                    console.log(csrf)
                     if(data.status == 'active'){
                         active = 'checked'
                     }
@@ -118,7 +123,8 @@ var KTDatatableJsonRemoteDemo = function() {
                         <!-- begin::DelModal-->
                         <div class="modal fade" id="eventDelete`+data.id+`" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
-                                
+                                <form action="/admin/event/delete/`+data.id+`" method="POST">
+                                <input type="hidden" name="_token" value="`+csrf+`">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel">Hapus User</h5>
@@ -128,12 +134,18 @@ var KTDatatableJsonRemoteDemo = function() {
                                     </div>
                                     <div class="modal-body px-10">
                                         <div>Apakah anda yakin ingin menghapus event `+data.title+`</div>
+                                        <br/>
+                                        <div class="form-group">
+                                            <label for="reason">Event dihapus karena :</label>
+                                            <input type="text" name="reason" id="reason" class="form-control" placeholder="Alasan event dihapus" required/>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button class="btn btn-light-primary font-weight-bold" data-dismiss="modal" aria-label="Close">Batal</button>
-                                        <a href="/admin/event/delete/`+data.id+`" class="btn btn-primary font-weight-bold">Hapus</a>
+                                        <button type="submit" class="btn btn-primary font-weight-bold">Hapus</button>
                                     </div>
                                 </div>
+                                </form>
                             </div>
                         </div>
                         <!-- end::DelModal-->

@@ -91,8 +91,20 @@
             <h3 class="text-left">Event Disukai</h3>
             <!--begin::Row-->
             <div class="row">
-                @foreach($events as $event)
-                <div class="col-xl-4">
+                @foreach($events as $e)
+                @php 
+                    $event = App\Models\Event::where('id', $e->id)->first();
+                    $dateTime = explode(' - ', $event->date);
+                    $dateTime1 = explode(' ', $dateTime[0]);
+                    $dateTime2 = explode(' ', $dateTime[1]);
+
+                    $date1 = $dateTime1[0];
+                    $time1 = $dateTime1[1];
+                    $date2 = $dateTime2[0];
+                    $time2 = $dateTime2[1];
+                    // dd($date1, $time1, $date2, $time2);
+                @endphp
+                <div class="col-sm-12 col-md-6 col-xl-4">
                     <!--begin::Nav Panel Widget 4-->
                     <div class="card card-custom gutter-b">
                         <!--begin::Body-->
@@ -105,37 +117,83 @@
                                     <div class="d-flex flex-column flex-center">
                                         <!--begin::Image-->
                                         <div class="bgi-no-repeat bgi-size-cover rounded min-h-180px w-100"
-                                            style="background-image: url({{ $event->event->image ? asset($event->event->image) : asset($event->event->event_template->event_category->image) }})">
+                                            style="background-image: url({{ $event->image ? asset($event->image) : asset($event->event_template->event_category->image) }})">
                                         </div>
                                         <!--end::Image-->
 
                                         <!--begin::Title-->
-                                        <a href="{{ url('event/'.$event->event->id) }}" class="card-title font-weight-bolder text-center text-dark-75 text-hover-primary font-size-h4 m-0 pt-7 pb-1">
-                                            {{ $event->event->title }}
+                                        <a href="{{ url('event/'.$event->id) }}" class="card-title font-weight-bolder text-center text-dark-75 text-hover-primary font-size-h4 m-0 pt-7 pb-1">
+                                            {{ $event->title }}
                                         </a>
                                         <!--end::Title-->
 
                                         <!--begin::Text-->
-                                        <div class="font-weight-bold text-dark-50 font-size-sm pb-7">
-                                            <a href="{{ url('profile/'.$event->profile->email) }}">{{ $event->profile->name }}</a>
-                                        </div>
+                                        <a href="{{ url('profile/'.$event->profile->email) }}" class="font-weight-bold text-dark-50 font-size-sm pb-7">
+                                            {{ $event->profile->name }}
+                                        </a>
                                         <!--end::Text-->
                                     </div>
                                     <!--end::Header-->
 
                                     <!--begin::Body-->
-                                    <div class="pt-1">
+                                    <div class="">
                                         {{-- begin::Item --}}
-                                        <div class="py-9">
-                                            <div class="d-flex align-items-center justify-content-between mb-2">
-                                                
-                                                <span class="font-weight-bold mr-1"><i class="far fa-calendar-alt mr-1"></i>Waktu:</span>
-                                                <span class="text-muted text-right">{{ $event->event->date }}</span>
+                                        <div class="d-flex align-items-center flex-wrap">
+                                            <div class="card card-custom col-12 flex-fill bg-light-primary mb-3">
+                                                <div class="p-3">
+                                                    <div class="row">
+                                                        <div class="col-2">
+                                                            <span class="text-center">
+                                                                <i class="fas fa-user icon-2x text-primary text-center"></i>
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <span class="text-dark font-weight-bold">{{ $event->name }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="d-flex align-items-center justify-content-between mb-2">
-                                                <span class="font-weight-bold "><i class="fas fa-map-marker-alt mr-1"></i>Lokasi:</span>
-                                                <span class="text-muted text-right">{{ $event->event->location }}</span>
+                                            @if($date1 != $date2)
+                                            <div class="card card-custom col-12 flex-fill bg-light-primary mb-3">
+                                                <div class="p-3">
+                                                    <div class="row">
+                                                        <div class="col-2">
+                                                            <span class="text-center">
+                                                                <i class="fas fa-calendar-alt icon-2x text-primary text-center"></i>
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <span class="text-dark font-weight-bold">{{ $date1.' - '.$date2 }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
+                                            @else
+                                            <div class="card card-custom col-12 flex-fill bg-light-primary mb-3">
+                                                <div class="p-3">
+                                                    <div class="row">
+                                                        <div class="col-2">
+                                                            <span class="text-center"><i class="fas fa-clock icon-2x text-primary text-center"></i></span>
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <span class="text-dark font-weight-bold">{{ $date1 }} | {{ $time1 }} - {{ $time2 }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @endif
+                                            <div class="card card-custom col-12 flex-fill bg-light-primary mb-3">
+                                                <div class="p-3">
+                                                    <div class="row">
+                                                        <div class="col-2">
+                                                            <span class="text-center"><i class="fas fa-map-marked-alt icon-2x text-primary text-center"></i></span>
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <span class="text-dark font-weight-bold">{{ $event->location }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>                                     
                                         </div>
                                         {{-- end::Item --}}
                                         
@@ -145,13 +203,18 @@
                                 <!--eng::Container-->
 
                                 <!--begin::Footer-->
-                                <div class="d-flex flex-center">
-                                    <a href="{{ url('/event/detail') }}" class="btn btn-primary font-weight-bolder font-size-sm py-3 px-7 mr-2">
-                                        Lihat Event
-                                    </a>
-                                    <a href="{{ url('event/like/'.$event->event->id) }}" class="btn btn-outline-light bg-dark-50 font-weight-bolder font-size-sm p-3">
-                                        <i class="fas fa-heart text-danger"></i>
-                                    </a>
+                                <div class="d-flex flex-center px-10">
+                                    <div class="col-2"></div>
+                                    <div class="col-8">
+                                        <a href="{{ url('event/'.$event->id) }}" class="btn btn-primary font-weight-bolder font-size-sm py-3 px-7">
+                                            Lihat Event
+                                        </a>
+                                    </div>
+                                    <div class="col-2">
+                                        <a href="{{ url('event/like/'.$event->id) }}" class="btn btn-outline-light bg-dark-50 font-weight-bolder font-size-sm p-3">
+                                            <i class="fas fa-heart {{ \App\Http\Controllers\EventController::checkLiked($event->id) ? 'text-danger' : '' }}"></i>
+                                        </a>
+                                    </div>
                                 </div>
                                 <!--end::Footer-->
                             </div>

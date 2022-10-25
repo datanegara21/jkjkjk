@@ -57,12 +57,18 @@ var KTDatatableJsonRemoteDemo = function() {
                 field: 'name',
                 title: 'Nama',
                 width: 130,
+                template: function(data) {
+                    return '<a href="/profile/'+data.email+'" class="text-dark font-weight-bold">'+data.name+'</a>'
+                }
                 
             }, {
                 field: 'email',
                 title: 'Email',
                 width: 130,
                 autoHide: false,
+                template: function(data) {
+                    return '<a href="/profile/'+data.email+'" class="text-dark">'+data.name+'</a>'
+                }
             }, {
                 field: 'description',
                 title: 'Deskripsi',
@@ -70,7 +76,7 @@ var KTDatatableJsonRemoteDemo = function() {
                     if(data.description == null){
                         return '<div class="text-muted">--kosong--</div>'
                     }else{
-                        return data.description
+                        return '<div class="text-truncate">'+data.description+'</div>'
                     }
                 }
             }, {

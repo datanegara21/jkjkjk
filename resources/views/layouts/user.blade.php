@@ -53,7 +53,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <!--begin::Header Mobile-->
     <div id="kt_header_mobile" class="header-mobile  header-mobile-fixed ">
         <!--begin::Logo-->
-        <a href="index.html">
+        <a href="{{ url('/') }}">
             <img alt="Logo" src="{{ asset('assets/media/logos/logo-letter-3.png') }}" class="logo-default max-h-30px" />
         </a>
         <!--end::Logo-->
@@ -65,12 +65,6 @@ License: You must have a valid license purchased only from themeforest(the above
                 <span></span>
             </button>
             <!--end::Aside Mobile Toggle-->
-
-            <!--begin::Header Menu Mobile Toggle-->
-            <button class="btn p-0 burger-icon ml-4" id="kt_header_mobile_toggle">
-                <span></span>
-            </button>
-            <!--end::Header Menu Mobile Toggle-->
 
             <!--begin::Topbar Mobile Toggle-->
             <button class="btn btn-hover-text-primary p-0 ml-2" id="kt_header_mobile_topbar_toggle">

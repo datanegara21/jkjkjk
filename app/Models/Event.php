@@ -39,4 +39,7 @@ class Event extends Model
     public function join() {
         return $this->hasMany(Join::class);
     }
+    public function payment(){
+        return $this->hasMany(Payment::class);
+    }
 }

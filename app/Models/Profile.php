@@ -46,4 +46,7 @@ class Profile extends Model
     public function to() {
         return $this->hasMany(Notification::class);
     }
+    public function payment() {
+        return $this->hasMany(Payment::class);
+    }
 }

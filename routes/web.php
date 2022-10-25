@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\{Route, Auth};
-use App\Http\Controllers\{HomeController, EventController, ProfileController, AuthController, NotificationController};
+use App\Http\Controllers\{HomeController, EventController, ProfileController, AuthController, NotificationController, PaymentController};
 
 /*
 |--------------------------------------------------------------------------
@@ -60,6 +60,7 @@ Route::get('/profile/edit', [ProfileController::class, 'edit'])->middleware('use
 Route::post('/profile/edit', [ProfileController::class, 'updateProfile'])->middleware('user', 'verified');
 Route::post('/password/edit', [ProfileController::class, 'updatePassword'])->middleware('user', 'verified');
 Route::get('/profile/{email}', [ProfileController::class, 'view']);
+Route::get('/profile/report/{email}', [ProfileController::class, 'reportUser'])->middleware('user', 'verified');
 
 //undangan
 Route::get('/event/undangan', [EventController::class, 'undangan']);
@@ -69,3 +70,7 @@ Route::get('/event/undangan', [EventController::class, 'undangan']);
 
 //notification
 Route::post('/notification/{id}', [NotificationController::class, 'readNotification']);
+
+//payment
+Route::post('payment/', [PaymentController::class, 'paymentSubmit']);
+Route::get('transaction', [PaymentController::class, 'index_transaction'])->middleware('user', 'verified');

@@ -15,13 +15,10 @@ class CreateJoinsTable extends Migration
     {
         Schema::create('joins', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('profile_id')->nullable();
+            $table->foreignId('profile_id');
             $table->foreignId('event_id');
-            $table->string('email');
-            $table->string('name');
-            $table->string('token');
+            $table->string('order_id')->default(0);
             $table->boolean('paid')->default(0);
-            $table->boolean('confirmed')->default(0);
             $table->timestamps();
         });
     }

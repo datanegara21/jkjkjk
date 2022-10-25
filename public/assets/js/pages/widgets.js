@@ -1097,6 +1097,9 @@ var KTWidgets = function() {
             series: [{
                 name: 'Pengguna Mendaftar',
                 data: chartUser
+            },{
+                name: 'Event Dibuat',
+                data: chartEvent
             }],
             chart: {
                 type: 'area',
@@ -1104,12 +1107,6 @@ var KTWidgets = function() {
                 toolbar: {
                     show: false
                 }
-            },
-            plotOptions: {
-
-            },
-            legend: {
-                show: false
             },
             dataLabels: {
                 enabled: false
@@ -1122,7 +1119,7 @@ var KTWidgets = function() {
                 curve: 'smooth',
                 show: true,
                 width: 3,
-                colors: [KTApp.getSettings()['colors']['theme']['base']['info']]
+                colors: [KTApp.getSettings()['colors']['theme']['base']['info'], KTApp.getSettings()['colors']['theme']['base']['success'] ]
             },
             xaxis: {
                 categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'],
@@ -1153,7 +1150,7 @@ var KTWidgets = function() {
                     offsetY: 0,
                     style: {
                         fontSize: '12px',
-                        fontFamily: KTApp.getSettings()['font-family']
+                        fontFamily: KTApp.getSettings()['font-family'],
                     }
                 }
             },
@@ -1198,7 +1195,7 @@ var KTWidgets = function() {
                     }
                 }
             },
-            colors: [KTApp.getSettings()['colors']['theme']['light']['info']],
+            colors: ['#8950FC','#1BC5BD'],
             grid: {
                 borderColor: KTApp.getSettings()['colors']['gray']['gray-200'],
                 strokeDashArray: 4,
@@ -1216,7 +1213,35 @@ var KTWidgets = function() {
             }
         };
 
-        var chart = new ApexCharts(element, options);
+        var options2 = {
+			series: [{
+				name: 'Pengguna Mendaftar',
+				data: chartUser
+			}],
+			chart: {
+				height: 350,
+				type: 'area',
+                toolbar: false
+			},
+			dataLabels: {
+				enabled: false
+			},
+			stroke: {
+				curve: 'smooth'
+                //straight
+			},
+			xaxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'],
+			},
+			tooltip: {
+				x: {
+					format: 'dd/MM/yy HH:mm'
+				},
+			},
+			colors: ['#8950FC']
+		};
+
+        var chart = new ApexCharts(element, options2);
         chart.render();
     }
 
@@ -1227,130 +1252,44 @@ var KTWidgets = function() {
             return;
         }
 
-        var options = {
-            series: [{
-                name: 'Event Ditambahkan',
-                data: chartEvent
+        var options2 = {
+			series: [{
+				name: 'Event Dibuat',
+				data: chartEvent
+			},{
+                name: 'Event Berakhir',
+                data: chartDone
             }],
-            chart: {
-                type: 'area',
-                height: 250,
-                toolbar: {
-                    show: false
-                }
-            },
+			chart: {
+				height: 350,
+				type: 'bar',
+                toolbar: false
+			},
             plotOptions: {
-
-            },
-            legend: {
-                show: false
-            },
-            dataLabels: {
-                enabled: false
-            },
-            fill: {
-                type: 'solid',
-                opacity: 1
-            },
-            stroke: {
-                curve: 'smooth',
-                show: true,
-                width: 3,
-                colors: [KTApp.getSettings()['colors']['theme']['base']['success']]
-            },
-            xaxis: {
+				bar: {
+					horizontal: false,
+					columnWidth: '60%',
+					endingShape: 'rounded'
+				},
+			},
+			dataLabels: {
+				enabled: false
+			},
+			stroke: {
+				curve: 'smooth'
+			},
+			xaxis: {
                 categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'],
-                axisBorder: {
-                    show: false,
-                },
-                axisTicks: {
-                    show: false
-                },
-                labels: {
-                    style: {
-                        colors: KTApp.getSettings()['colors']['gray']['gray-500'],
-                        fontSize: '12px',
-                        fontFamily: KTApp.getSettings()['font-family']
-                    }
-                },
-                crosshairs: {
-                    position: 'front',
-                    stroke: {
-                        color: KTApp.getSettings()['colors']['theme']['base']['success'],
-                        width: 1,
-                        dashArray: 3
-                    }
-                },
-                tooltip: {
-                    enabled: true,
-                    formatter: undefined,
-                    offsetY: 0,
-                    style: {
-                        fontSize: '12px',
-                        fontFamily: KTApp.getSettings()['font-family']
-                    }
-                }
-            },
-            yaxis: {
-                labels: {
-                    style: {
-                        colors: KTApp.getSettings()['colors']['gray']['gray-500'],
-                        fontSize: '12px',
-                        fontFamily: KTApp.getSettings()['font-family']
-                    }
-                }
-            },
-            states: {
-                normal: {
-                    filter: {
-                        type: 'none',
-                        value: 0
-                    }
-                },
-                hover: {
-                    filter: {
-                        type: 'none',
-                        value: 0
-                    }
-                },
-                active: {
-                    allowMultipleDataPointsSelection: false,
-                    filter: {
-                        type: 'none',
-                        value: 0
-                    }
-                }
-            },
-            tooltip: {
-                style: {
-                    fontSize: '12px',
-                    fontFamily: KTApp.getSettings()['font-family']
-                },
-                y: {
-                    formatter: function(val) {
-                        return "+" + val + " Event"
-                    }
-                }
-            },
-            colors: [KTApp.getSettings()['colors']['theme']['light']['info']],
-            grid: {
-                borderColor: KTApp.getSettings()['colors']['gray']['gray-200'],
-                strokeDashArray: 4,
-                yaxis: {
-                    lines: {
-                        show: true
-                    }
-                }
-            },
-            markers: {
-                //size: 5,
-                //colors: [KTApp.getSettings()['colors']['theme']['light']['danger']],
-                strokeColor: KTApp.getSettings()['colors']['theme']['base']['info'],
-                strokeWidth: 3
-            }
-        };
+			},
+			tooltip: {
+				x: {
+					format: 'dd/MM/yy HH:mm'
+				},
+			},
+			colors: ['#1BC5BD','#FFA800']
+		};
 
-        var chart = new ApexCharts(element, options);
+        var chart = new ApexCharts(element, options2);
         chart.render();
     }
 

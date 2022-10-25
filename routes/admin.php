@@ -57,7 +57,7 @@ Route::middleware('admin')
     ->name('event.')
     ->group(function() {
         Route::get('event', 'index');
-        Route::get('event/delete/{event_id}', 'delete_event');
+        Route::post('event/delete/{event_id}', 'delete_event');
     });
 });
 

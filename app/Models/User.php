@@ -24,6 +24,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'role',
         'timezone',
         'status',
+        'email_verified_at'
     ];
 
     protected $nullable = ['email_verified_at'];
