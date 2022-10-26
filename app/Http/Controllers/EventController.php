@@ -17,37 +17,40 @@ class EventController extends Controller
                        ->get();
 
         if(Auth::check()){
-            $profile = Profile::where('email', Auth::user()->email)->first();
+            $snapToken = "";
+            if($event->price != 0){
+                $profile = Profile::where('email', Auth::user()->email)->first();
 
-            // Set your Merchant Server Key
-            \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
-            // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-            \Midtrans\Config::$isProduction = false;
-            // Set sanitization on (default)
-            \Midtrans\Config::$isSanitized = true;
-            // Set 3DS transaction for credit card to true
-            \Midtrans\Config::$is3ds = true;
-            $params = array(
-                'transaction_details' => array(
-                    'order_id' => rand(),
-                    'gross_amount' => str_replace('.', '', $event->price),
-                ),"item_details" => array(
-                    [
-                      "id" => 'event'.$event->id,
-                      "price" => str_replace('.','',$event->price),
-                      "quantity" => 1,
-                      "name" => 'Daftar "'.$event->title.'"'
-                    ]
-                ),
-                'customer_details' => array(
-                    'first_name' => Auth::user()->name ,
-                    'last_name' => '',
-                    'email' => Auth::user()->email,
-                    'phone' => $profile->phone ? '0'.$profile->whatsapp : '',
-                ),
-            );
-            
-            $snapToken = \Midtrans\Snap::getSnapToken($params);
+                // Set your Merchant Server Key
+                \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
+                // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+                \Midtrans\Config::$isProduction = false;
+                // Set sanitization on (default)
+                \Midtrans\Config::$isSanitized = true;
+                // Set 3DS transaction for credit card to true
+                \Midtrans\Config::$is3ds = true;
+                $params = array(
+                    'transaction_details' => array(
+                        'order_id' => rand(),
+                        'gross_amount' => str_replace('.', '', $event->price),
+                    ),"item_details" => array(
+                        [
+                        "id" => 'event'.$event->id,
+                        "price" => str_replace('.','',$event->price),
+                        "quantity" => 1,
+                        "name" => 'Daftar "'.$event->title.'"'
+                        ]
+                    ),
+                    'customer_details' => array(
+                        'first_name' => Auth::user()->name ,
+                        'last_name' => '',
+                        'email' => Auth::user()->email,
+                        'phone' => $profile->phone ? '0'.$profile->whatsapp : '',
+                    ),
+                );
+                
+                $snapToken = \Midtrans\Snap::getSnapToken($params);
+            }
         }else{
             $snapToken = '';
         }
@@ -489,6 +492,24 @@ class EventController extends Controller
 
             $joined = Join::where('profile_id', $profile->id)
                 ->where('event_id', $event_id)
+                ->first();
+            
+            if($joined) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+    public static function isPaid($event_id) {
+        if(Auth::check()){
+            $profile = Profile::where('email', Auth::user()->email)->first();
+
+            $joined = Join::where('profile_id', $profile->id)
+                ->where('event_id', $event_id)
+                ->where('paid', 1)
                 ->first();
             
             if($joined) {

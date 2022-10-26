@@ -17,6 +17,7 @@ class CreatePaymentsTable extends Migration
             $table->id();
             $table->foreignId('profile_id');
             $table->foreignId('event_id')->nullable();
+            $table->string('title');
             $table->string('status');
             $table->string('transaction_id');
             $table->string('order_id');

@@ -10,6 +10,7 @@ class ApiController extends Controller
     public function payment_handler(Request $request){
         $json = json_decode($request->getContent());
         $hash = hash('sha512', $json->order_id.$json->status_code.$json->gross_amount.env('MIDTRANS_SERVER_KEY'));
+        // return $hash;
 
         if($json->signature_key != $hash){
             return 'data not valid';

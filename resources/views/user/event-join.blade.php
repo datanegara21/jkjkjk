@@ -93,7 +93,7 @@
             <div class="row">
                 @foreach($events as $e)
                 @php 
-                    $event = App\Models\Event::where('id', $e->id)->first();
+                    $event = App\Models\Event::where('id', $e->event_id)->first();
                     $dateTime = explode(' - ', $event->date);
                     $dateTime1 = explode(' ', $dateTime[0]);
                     $dateTime2 = explode(' ', $dateTime[1]);

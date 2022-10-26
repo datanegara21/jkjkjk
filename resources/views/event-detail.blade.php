@@ -152,38 +152,38 @@
                 <div class="col-lg-4 col-sm-12">
                     <div class="card card-custom card-stretch">
                         <div class="py-5 mx-5 d-flex align-items-between flex-wrap">
-                            <div class="d-flex align-items-center flex-lg-fill mr-5 my-2 rounded bg-light-success p-2">
+                            <div class="d-flex align-items-center flex-fill mr-5 my-2 rounded bg-light-success p-2">
                                 <span class="mr-4">
                                     <i class="flaticon2-user icon-2x text-success font-weight-bold"></i>
                                 </span>
-                                <div class="d-flex flex-column flex-lg-fill">
+                                <div class="d-flex flex-column flex-fill">
                                     <span class="text-dark-75 font-weight-bold font-size-sm">Pemilik Event</span>
                                     <span class="text-dark font-weight-bolder">{{ $event->name }}</span>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center flex-lg-fill mr-5 my-2 rounded bg-light-primary p-2">
+                            <div class="d-flex align-items-center flex-fill mr-5 my-2 rounded bg-light-primary p-2">
                                 <span class="mr-4">
                                     <i class="flaticon2-calendar-1 icon-2x text-primary font-weight-bold"></i>
                                 </span>
-                                <div class="d-flex flex-column flex-lg-fill">
+                                <div class="d-flex flex-column flex-fill">
                                     <span class="text-dark-75 font-weight-bold font-size-sm">Waktu</span>
                                     <span class="text-dark font-weight-bolder">{{ $event->date }}</span>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center flex-lg-fill mr-5 my-2 rounded bg-light-danger p-2">
+                            <div class="d-flex align-items-center flex-fill mr-5 my-2 rounded bg-light-danger p-2">
                                 <span class="mr-4">
                                     <i class="flaticon2-map icon-2x text-danger font-weight-bold"></i>
                                 </span>
-                                <div class="d-flex flex-column flex-lg-fill">
+                                <div class="d-flex flex-column flex-fill">
                                     <span class="text-dark-75 font-weight-bold font-size-sm">Lokasi</span>
                                     <span class="text-dark font-weight-bolder">{{ $event->location }}</span>
                                 </div>
                             </div>                                            
-                            <div class="d-flex align-items-center flex-lg-fill mr-5 my-2 rounded bg-light-warning p-2">
+                            <div class="d-flex align-items-center flex-fill mr-5 my-2 rounded bg-light-warning p-2">
                                 <span class="mr-4">
                                     <i class="flaticon-price-tag icon-2x text-warning font-weight-bold"></i>
                                 </span>
-                                <div class="d-flex flex-column flex-lg-fill">
+                                <div class="d-flex flex-column flex-fill">
                                     <span class="text-dark-75 font-weight-bold font-size-sm">Biaya</span>
                                     <span class="text-dark font-weight-bolder">{{ $event->price ? $event->price : 'gratis' }}</span>
                                 </div>
@@ -201,29 +201,36 @@
                 <div class="col-lg-12 col-xl">
                     <!--begin::Nav Panel Widget 4-->
                     <div class="card card-custom gutter-b">
+                        <div class="card-header">
+                            <div class="card-title">
+                                Peta
+                            </div>
+                        </div>
                         <!--begin::Body-->
                         <div class="card-body">
                             <!--begin::Wrapper-->
-                            <div class="">
-                                <div class="">
-                                    <h3 class="">Peta</h3>
-                                </div>
                                 <div id="map" style="height:500px"></div>
-                            </div>
                             <!--end::Wrapper-->
                         </div>
                         <!--end::Body-->
                     </div>
                     <!--end::Nav Panel Widget 4-->
                 </div>
-                @if(\App\Http\Controllers\EventController::isJoined($event->id))
+                @if(\App\Http\Controllers\EventController::isJoined($event->id) && \App\Http\Controllers\EventController::isPaid($event->id))
                 <div class="col-lg-12 col-xl-8">
                     <!--begin::Nav Panel Widget 4-->
                     <div class="card card-custom gutter-b">
+                        <div class="card-header">
+                            <div class="card-title">
+                                Undangan
+                            </div>
+                            <div class="card-toolbar">
+                                <a href="{{ url('event/'.$id.'/'.Auth::user()->email) }}" class="btn btn-primary">Lihat Penuh</a>
+                            </div>
+                        </div>
                         <!--begin::Body-->
                         <div class="card-body">
                             <!--begin::Wrapper-->
-                            <h3>Undangan</h3>
                             {{-- <iframe class="d-block w-100" style="height: 500px" src="{{ asset('assets/media/undangan/00.pdf') }}#toolbar=0&view=fitH" frameborder="0"></iframe> --}}
                             <iframe class="d-block w-100" style="height: 500px" src="{{ url('event/'.$event->id.'/'.Auth::user()->id) }}#toolbar=0&view=fitH" frameborder="0"></iframe>
                             <!--end::Wrapper-->
@@ -530,17 +537,17 @@
             window.snap.pay('{{$snapToken}}', {
                 onSuccess: function(result){
                     /* You may add your own implementation here */
-                    console.log(result);
+                    // console.log(result);
                     send_res_to_form(result)
                 },
                 onPending: function(result){
                     /* You may add your own implementation here */
-                    console.log(result);
+                    // console.log(result);
                     send_res_to_form(result)
                 },
                 onError: function(result){
                     /* You may add your own implementation here */
-                    console.log(result);
+                    // console.log(result);
                     send_res_to_form(result)
                 },
                 onClose: function(){

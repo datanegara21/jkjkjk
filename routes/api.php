@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{UserController, EventController};
-use App\Http\Controllers\ApiController;
+use App\Http\Controllers\{ApiController, PaymentController};
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +28,4 @@ Route::prefix('admin')->group( function(){
 
 //payment
 Route::post('payment-handler', [ApiController::class, 'payment_handler']);
+Route::post('transaction/data', [PaymentController::class, 'data_transaction']);

@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{Payment, Profile, Join};
+use App\Models\{Payment, Profile, Join, Event};
 use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
-    public function paymentSubmit(Request $request){
+    public function paymentSubmit(Request $request) {
         $profile = Profile::where('email', Auth::user()->email)->first();
+        $event = Event::where('id', $request->event_id)->first();
         // return $request->all();
         $json = json_decode($request->json);
 
@@ -31,6 +32,7 @@ class PaymentController extends Controller
         $payment = new Payment();
         $payment->profile_id = $profile->id;
         $payment->event_id = $request->event_id;
+        $payment->title = 'Daftar event "'.$event->title.'"';
         $payment->status = $json->transaction_status;
         $payment->transaction_id = $json->transaction_id;
         $payment->order_id = $json->order_id;
@@ -42,7 +44,14 @@ class PaymentController extends Controller
     }
     public function index_transaction() {
         $profile = Profile::where('email', Auth::user()->email)->first();
-        $payments = Payment::where('profile_id', $profile->id)->orderBy('created_at', 'desc')->paginate(10);
+        $payments = Payment::where('profile_id', $profile->id)->orderBy('created_at', 'desc')->get();
         return view('user.transaction')->with(compact('payments'));
+    }
+    public function data_transaction() {
+        // $profile = Profile::where('email', Auth::user()->email)->first();
+        $payments = Payment::where('profile_id', 4)->orderBy('created_at', 'desc')->get();
+        return response()->json([
+            'data' => $payments
+        ]);
     }
 }

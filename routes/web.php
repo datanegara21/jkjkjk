@@ -74,3 +74,4 @@ Route::post('/notification/{id}', [NotificationController::class, 'readNotificat
 //payment
 Route::post('payment/', [PaymentController::class, 'paymentSubmit']);
 Route::get('transaction', [PaymentController::class, 'index_transaction'])->middleware('user', 'verified');
+Route::post('transaction/data', [PaymentController::class, 'data_transaction']);
