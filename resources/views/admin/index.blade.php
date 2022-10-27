@@ -93,7 +93,7 @@
 
 
                 <div class="row">
-                    <div class="col-sm-12 col-lg-6">
+                    <div class="col-sm-12 col-lg-5">
                         <!--begin::Charts Widget 3-->
                         <div class="card card-custom card-stretch gutter-b">
                             <!--begin::Header-->
@@ -124,16 +124,16 @@
                         </div>
                         <!--end::Charts Widget 3-->
                     </div>
-                    <div class="col-sm-12 col-lg-6">
+                    <div class="col-sm-12 col-lg-7">
                         <!--begin::Charts Widget 3-->
                         <div class="card card-custom card-stretch gutter-b">
                             <!--begin::Header-->
                             <div class="card-header h-auto border-0">
                                 <div class="d-flex align-items-center justify-content-between card-spacer flex-grow-1">
-                                    <span class="symbol  symbol-50 symbol-light-success mr-2">
+                                    <span class="symbol  symbol-50 symbol-light-warning mr-2">
                                         <span class="symbol-label">
-                                            <span class="svg-icon svg-icon-xl svg-icon-success">
-                                                <i class="fas fa-calendar-alt icon-xxl text-success"></i>
+                                            <span class="svg-icon svg-icon-xl svg-icon-warning">
+                                                <i class="fas fa-calendar-alt icon-xxl text-warning"></i>
                                             </span>
                                         </span>
                                     </span>
@@ -156,7 +156,41 @@
                         </div>
                         <!--end::Charts Widget 3-->
                     </div>
-                    <div class="col-sm-12 col-lg-6">
+                    <div class="col-sm-12 col-lg-12">
+                        <!--begin::Charts Widget 3-->
+                        <div class="card card-custom card-stretch gutter-b">
+                            <!--begin::Header-->
+                            <div class="card-header h-auto border-0">
+                                <div class="d-flex align-items-center justify-content-between card-spacer flex-grow-1">
+                                    <span class="symbol  symbol-50 symbol-light-success mr-2">
+                                        <span class="symbol-label">
+                                            <span class="svg-icon svg-icon-xl svg-icon-success">
+                                                <i class="fas fa-money-check-alt icon-xxl text-success"></i>
+                                            </span>
+                                        </span>
+                                    </span>
+                                    <div class="d-flex flex-column text-right">
+                                        <span
+                                            class="text-dark-75 font-weight-bolder font-size-h3" id="totalRupiah">@rupiah($totalPay)</span>
+                                        <span class="text-muted font-weight-bold mt-2">Data Transaksi</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end::Header-->
+
+                            <!--begin::Body-->
+                            <div class="card-body" style="position: relative;">
+                                <div id="kt_charts_widget_transaction_chart" style="min-height: 365px;">
+                                </div>
+
+                            </div>
+                            <!--end::Body-->
+                        </div>
+                        <!--end::Charts Widget 3-->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-lg-7">
                         <!--begin::List Widget 2-->
                         <div class="card card-custom card-stretch gutter-b">
                             <!--begin::Header-->
@@ -199,7 +233,7 @@
                         </div>
                         <!--end::List Widget 2-->
                     </div>
-                    <div class="col-sm-12 col-lg-6">
+                    <div class="col-sm-12 col-lg-5">
                         <!--begin::List Widget 2-->
                         <div class="card card-custom card-stretch gutter-b">
                             <!--begin::Header-->
@@ -223,12 +257,6 @@
                                         <div class="d-flex flex-column font-weight-bold">
                                             <a href="{{ url('event/'.$acara->id) }}" class="text-dark text-center text-hover-primary mb-1 font-size-lg text-truncate">{{ $acara->title }}</a>
                                             <span class="text-muted text-center text-truncate">{{ $acara->name }}</span>
-                                        </div>
-                                        <!--end::Text-->
-
-                                        <!--begin::Text-->
-                                        <div class="d-flex flex-column font-weight-bold">
-                                            <a href="{{ url('profile/'.$acara->profile->email) }}" class="text-dark text-center text-hover-primary mb-1 text-truncate">{{ $acara->profile->email }}</a>
                                         </div>
                                         <!--end::Text-->
 
@@ -575,71 +603,16 @@
     @push('script')
         <script>
             var chartUser = @php echo json_encode ($chartUser) @endphp;
-
-            var monthUser = @php echo json_encode ($monthUser) @endphp;
-
-            Highcharts.chart('kt_charts_widget_3_chart', {
-
-                title: {
-                    text: 'Pendaftaran User'
-                },
-
-                xAxis: {
-                    categories: monthUser
-                },
-
-                yAxis: {
-                    title: {
-                        text: 'Jumlah Pendaftaran User'
-                    }
-                },
-
-                plotOptions: {
-                    series: {
-                        allowPointSelect: true
-                    }
-                },
-
-                series: [{
-                    name: 'Pendaftaran User',
-                    // data: newUser
-                }]
-            });
-        </script>
-        <script>
+            var chartPay = @php echo json_encode ($chartPay) @endphp;
+            var chartPending = @php echo json_encode ($chartPending) @endphp;
+            var chartFail = @php echo json_encode ($chartFail) @endphp;
             var chartEvent = @php echo json_encode ($chartEvent) @endphp;
-
+            var chartDone = @php echo json_encode ($chartDone) @endphp;
+            var monthUser = @php echo json_encode ($monthUser) @endphp;
             var monthEvent = @php echo json_encode ($monthEvent) @endphp;
 
-            var chartDone = @php echo json_encode ($chartDone) @endphp;
-
-            Highcharts.chart('kt_charts_widget_event_chart', {
-
-                title: {
-                    text: 'Pendaftaran User'
-                },
-
-                xAxis: {
-                    categories: monthEvent
-                },
-
-                yAxis: {
-                    title: {
-                        text: 'Jumlah Pendaftaran User'
-                    }
-                },
-
-                plotOptions: {
-                    series: {
-                        allowPointSelect: true
-                    }
-                },
-
-                series: [{
-                    name: 'Pendaftaran User',
-                    // data: newUser
-                }]
-            });
+            var totalRupiah = document.getElementById('totalRupiah').innerHTML
+            totalRupiah = 0
         </script>
         <script src="{{ asset('assets/js/pages/widgets.js?v=7.0.6') }}"></script>
     @endpush

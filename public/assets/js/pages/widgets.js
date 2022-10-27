@@ -1245,6 +1245,204 @@ var KTWidgets = function() {
         chart.render();
     }
 
+    var _initChartsWidgetTransaction = function() {
+        var element = document.getElementById("kt_charts_widget_transaction_chart");
+
+        if (!element) {
+            return;
+        }
+
+        var options = {
+            series: [{
+                name: 'Pengguna Mendaftar',
+                data: chartUser
+            },{
+                name: 'Event Dibuat',
+                data: chartEvent
+            }],
+            chart: {
+                type: 'area',
+                height: 250,
+                toolbar: {
+                    show: false
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            fill: {
+                type: 'solid',
+                opacity: 1
+            },
+            stroke: {
+                curve: 'smooth',
+                show: true,
+                width: 3,
+                colors: [KTApp.getSettings()['colors']['theme']['base']['info'], KTApp.getSettings()['colors']['theme']['base']['success'] ]
+            },
+            xaxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'],
+                axisBorder: {
+                    show: false,
+                },
+                axisTicks: {
+                    show: false
+                },
+                labels: {
+                    style: {
+                        colors: KTApp.getSettings()['colors']['gray']['gray-500'],
+                        fontSize: '12px',
+                        fontFamily: KTApp.getSettings()['font-family']
+                    }
+                },
+                crosshairs: {
+                    position: 'front',
+                    stroke: {
+                        color: KTApp.getSettings()['colors']['theme']['base']['info'],
+                        width: 1,
+                        dashArray: 3
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                    formatter: undefined,
+                    offsetY: 0,
+                    style: {
+                        fontSize: '12px',
+                        fontFamily: KTApp.getSettings()['font-family'],
+                    }
+                }
+            },
+            yaxis: {
+                labels: {
+                    style: {
+                        colors: KTApp.getSettings()['colors']['gray']['gray-500'],
+                        fontSize: '12px',
+                        fontFamily: KTApp.getSettings()['font-family']
+                    }
+                }
+            },
+            states: {
+                normal: {
+                    filter: {
+                        type: 'none',
+                        value: 0
+                    }
+                },
+                hover: {
+                    filter: {
+                        type: 'none',
+                        value: 0
+                    }
+                },
+                active: {
+                    allowMultipleDataPointsSelection: false,
+                    filter: {
+                        type: 'none',
+                        value: 0
+                    }
+                }
+            },
+            tooltip: {
+                style: {
+                    fontSize: '12px',
+                    fontFamily: KTApp.getSettings()['font-family']
+                },
+                y: {
+                    formatter: function(val) {
+                        return "+" + val + " Pengguna"
+                    }
+                }
+            },
+            colors: ['#8950FC','#1BC5BD'],
+            grid: {
+                borderColor: KTApp.getSettings()['colors']['gray']['gray-200'],
+                strokeDashArray: 4,
+                yaxis: {
+                    lines: {
+                        show: true
+                    }
+                }
+            },
+            markers: {
+                //size: 5,
+                //colors: [KTApp.getSettings()['colors']['theme']['light']['danger']],
+                strokeColor: KTApp.getSettings()['colors']['theme']['base']['info'],
+                strokeWidth: 3
+            }
+        };
+
+        var options2 = {
+			series: [{
+				name: 'Jumlah Pembayaran Sukses',
+				data: chartPay
+			},{
+				name: 'Jumlah Pembayaran Menunggu',
+				data: chartPending
+			},{
+				name: 'Jumlah Pembayaran Gagal',
+				data: chartFail
+			}],
+			chart: {
+				height: 350,
+				type: 'area',
+                toolbar: false
+			},
+			dataLabels: {
+				enabled: false
+			},
+			stroke: {
+				curve: 'straight'
+                //straight
+			},
+			xaxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'],
+			},
+            yaxis: {
+                labels: {
+                    formatter: function(val) {
+                        var number_string = val.toString(),
+                        split   		= number_string.split(','),
+                        sisa     		= split[0].length % 3,
+                        price     		= split[0].substr(0, sisa),
+                        ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+
+                        // tambahkan titik jika yang di input sudah menjadi angka ribuan
+                        if(ribuan){
+                            price += '.' + ribuan.join('.');
+                        }
+            
+                        price = split[1] != undefined ? price + ',' + split[1] : price;
+                        return "Rp"+price;
+                    }
+                }
+            },
+            tooltip: {
+                y: {
+                    formatter: function(val) {
+                        var number_string = val.toString(),
+                        split   		= number_string.split(','),
+                        sisa     		= split[0].length % 3,
+                        price     		= split[0].substr(0, sisa),
+                        ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+
+                        // tambahkan titik jika yang di input sudah menjadi angka ribuan
+                        if(ribuan){
+                            price += '.' + ribuan.join('.');
+                        }
+            
+                        price = split[1] != undefined ? price + ',' + split[1] : price;
+                        return "+ Rp"+price;
+                    }
+                },
+            },
+			colors: ['#1BC5BD', '#888888', '#F64E60']
+		};
+
+        var chart = new ApexCharts(element, options2);
+        chart.render();
+    }
+
     var _initChartsWidgetEvent = function() {
         var element = document.getElementById("kt_charts_widget_event_chart");
 
@@ -1286,7 +1484,7 @@ var KTWidgets = function() {
 					format: 'dd/MM/yy HH:mm'
 				},
 			},
-			colors: ['#1BC5BD','#FFA800']
+			colors: ['#FFA800','#F64E60']
 		};
 
         var chart = new ApexCharts(element, options2);
@@ -4555,6 +4753,7 @@ var KTWidgets = function() {
             _initChartsWidget2();
             _initChartsWidget3();
             _initChartsWidgetEvent();
+            _initChartsWidgetTransaction();
             _initChartsWidget4();
             _initChartsWidget5();
             _initChartsWidget6();
